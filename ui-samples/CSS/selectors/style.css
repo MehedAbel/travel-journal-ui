@@ -1,0 +1,104 @@
+/* -------------------------Selector lists---------------------------- */
+/* h2 {
+    color: darkcyan;
+}
+.orderdListTitle {
+    color: darkcyan;
+} */
+
+h2, .orderdListTitle {
+    color: darkcyan;
+}
+
+/* -------------------------Type selector---------------------------- */
+/* p {
+    color: grey;
+} */
+strong {
+    color: darkcyan;
+}
+
+
+/* -------------------------Universal selector---------------------------- */
+/* * {
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+/* -------------------------Class selector---------------------------- */
+.visited-location {
+    text-decoration: underline;
+}
+
+/* -------------------------ID selector---------------------------- */
+#first-country {
+    font-size: large;
+}
+
+
+/* -------------------------Specificity---------------------------- */
+/* An ID selector has a higher specificity than a class selector
+A class selector has a higher specificity than an element selector */
+
+/* example for Germany item */
+
+/* #first-country {
+    font-size: large;
+}
+
+.first-country {
+    font-size:  x-large;
+}
+
+li {
+    font-size:  medium;
+} */
+
+
+/* -------------------------Inheritance---------------------------- */
+/* styles applied to a parent element are passed down to its child elements */
+/* example for Italy item */
+
+/* Style applied to the parent element */
+/* .parent {
+    font-size: 14px;
+} */
+
+/* Conflicting style applied to the child element */
+/* .child {
+    font-size: 20px;
+} */
+
+/* -------------------------!important---------------------------- */
+/* The styles marked with the !important keyword will always take precedence over any other styles. */
+/* example for Germany item */
+/* 
+#first-country {
+    font-size: large;
+}
+
+li {
+    font-size:  medium !important;
+} */
+
+
+/* -------------------------Pseudo-classes---------------------------- */
+.add-action {
+    width: 10em;
+    height: 5ex;
+    background-color: darkcyan;
+    border: 2px solid cornflowerblue;
+    border-radius: 10px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.add-action:hover {
+    background-color: cadetblue;
+}
+
+/* -------------------------Pseudo-elemets---------------------------- */
+.most-wanted p::first-line {
+    font-weight: bold;
+}  

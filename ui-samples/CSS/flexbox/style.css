@@ -1,0 +1,49 @@
+.page-container {
+    padding: 10px 20px;
+
+    .notes-container {
+        display: flex;
+        flex-direction: row; /* default value */
+        flex-wrap: wrap;
+        justify-content: space-between;
+    
+        .location-item {
+            background-color: antiquewhite;
+            border-radius: 5px;
+            padding: 12px;
+            margin-top: 10px;
+            width: 250px;
+            text-align: center;
+
+            .title {
+                font-size: large;
+                font-weight: bold;
+            }
+
+            .location-details {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                line-height: 2;
+                text-align: start;
+
+                .date {
+                    color: orange;
+                    font-weight: bold;
+                }
+
+                .budget {
+                    color: green;
+                    font-weight: bold;
+                }
+
+                .description {
+                    color: cornflowerblue;
+                    line-height: 1;
+                    margin: 0px;
+                }
+            }
+
+        }
+    }
+}

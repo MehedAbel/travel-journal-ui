@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>My CSS experiment - Selectors</title>
+
+    <!-- External stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- The Unordered List element -->
+    <h2>Planned vacations</h2>
+    <button class="add-action">Add vacay</button>
+
+    <h3 class="orderdListTitle">Ordered list</h3>
+    <ol>
+      <li id="first-country" class="first-country">
+        <img src="../../common/assets/icons/germany-flag.png" /> Germany
+      </li>
+      <li>
+        <img src="../../common/assets/icons/greece-flag.png" /> <span>Greece</span>
+        <ul>
+          <li>
+            <span class="visited-location">Thasos</span>
+            <p>
+              <strong>Thasos</strong> is mountainous and densely wooded.The
+              lower slopes of the mountain,<br />
+              covered by pine forests and olive groves, seem to tumble into to
+              sea,<br />
+              all around the 100km long perimeter road of the island with the
+              beautiful coastline,<br />
+              the numerous beaches, the captivating inlets and estuaries.
+            </p>
+          </li>
+          <li class="most-wanted">
+            Lefkada
+            <p>
+              The Ionian island Lefkada is the nearest one to the western
+              side<br />
+              of the Greece mainland and it can even be reached by car, via a
+              bridge!<br />
+              It is one of the most popular Ionian destinations, full of amazing
+              beaches<br />
+              with turquoise waters, monasteries, museums, and seafront or
+              mountainous<br />
+              villages with a unique charm.<br />
+            </p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <img src="../../common/assets/icons/italy-flag.png" /> Italy
+        <ol class="parent">
+          <li class="child">Milan</li>
+          <li>Rome</li>
+          <li>Venice</li>
+          <li>Florence</li>
+        </ol>
+      </li>
+    </ol>
+  </body>
+</html>

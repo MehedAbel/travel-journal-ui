@@ -1,0 +1,32 @@
+.period {
+    margin-top: 8px;
+    display: flex;
+}
+
+.period .from-period {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.period .to-period {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.period .from-period p {
+    text-decoration: underline;
+}
+
+.period .to-period p {
+    text-decoration: underline;
+}
+
+.period .from-period span {
+    color: orange;
+}
+
+.period .to-period span {
+    color: cornflowerblue;
+}

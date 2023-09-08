@@ -1,0 +1,3 @@
+.details p:first-of-type span {
+    color: green;
+}

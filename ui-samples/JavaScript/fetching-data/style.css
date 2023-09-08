@@ -1,0 +1,47 @@
+div {
+    margin-bottom: 10px;
+}
+
+.page-container {
+    padding: 10px 20px;
+
+    .user-container {
+        display: flex;
+        flex-direction: row; /* default value */
+        flex-wrap: wrap;
+        justify-content: left;
+    
+        .user-item {
+            background-color: antiquewhite;
+            border-radius: 5px;
+            padding: 12px;
+            margin: 10px;
+            width: 250px;
+            text-align: justify;
+
+            .title {
+                font-size: large;
+                font-weight: bold;
+            }
+
+            .delete-btn {
+                margin-top: 5px;
+            }
+
+            .user-details {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                line-height: 2;
+                text-align: start;
+            }
+
+        }
+    }
+}
+
+.add-user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

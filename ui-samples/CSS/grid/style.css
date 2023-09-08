@@ -1,0 +1,58 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    grid-template-areas:
+      "nav main main"
+      "nav section1 section1"
+      "nav section2 section2"
+      "nav section3 section3";
+  }
+  
+  .item-nav {
+    grid-area: nav;
+    background-color: #ff6347;
+    padding: 10px;
+    color: white;
+  }
+  
+  .item-main {
+    grid-area: main;
+    background-color: #6a5acd;
+    padding: 10px;
+    color: white;
+  }
+  
+  .item-section1 {
+    grid-area: section1;
+    background-color: #3cb371;
+    padding: 10px;
+    color: white;
+  }
+  
+  .item-section2 {
+    grid-area: section2;
+    background-color: #f08080;
+    padding: 10px;
+    color: white;
+  }
+  
+  .item-section3 {
+    grid-area: section3;
+    background-color: #20b2aa;
+    padding: 10px;
+    color: white;
+  }
+
+  @media (max-width: 750px) {
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "nav"
+        "main"
+        "section1"
+        "section2"
+        "section3";
+    }
+  }
