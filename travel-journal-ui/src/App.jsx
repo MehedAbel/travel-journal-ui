@@ -11,6 +11,8 @@ import Register from "./components/Auth/Register/Register";
 import "./App.css";
 import Navbar from "./components/Nav/Navbar";
 
+import Content from "./components/Content/Content"
+
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
 
@@ -20,12 +22,14 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route
-          path="/"
-          element={
-            isAuthenticated ? <Home /> : <Navigate to="/login" />
-          }
-        />
+        <Route element={<Content />}>
+            <Route
+                path="/"
+                element={
+                    isAuthenticated ? <Home /> : <Navigate to="/login" />
+                }
+            />
+        </Route>
       </Routes>
     </>
   );
