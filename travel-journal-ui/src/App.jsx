@@ -10,8 +10,7 @@ import Register from "./components/Auth/Register/Register";
 
 import "./App.css";
 import Navbar from "./components/Nav/Navbar";
-
-import Content from "./components/Content/Content"
+import Content from "./components/Content/Content";
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
