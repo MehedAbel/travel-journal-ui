@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-#logout_button {
+.logout {
     background: transparent;
     border: none;
     padding: 0px 0px;
@@ -14,6 +14,6 @@
     cursor: pointer;
 }
 
-#logout_button:hover {
+.logout:hover {
     filter: brightness(90%);
 }
