@@ -21,7 +21,6 @@ const Navbar = () => {
           navigate("/login");
         }}
         className="logout"
-        id="logout_button"
       >
         <img src={logoutIcon} alt="logout" />
       </button>
