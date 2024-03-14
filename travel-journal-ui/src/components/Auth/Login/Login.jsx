@@ -41,24 +41,52 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={submit} className="login-form">
-      <div className="input-field">
-        <label>Email</label>
-        <input type="email" onChange={(e) => setEmail(e.target.value)} />
-      </div>
+      <div className="flex-wrapper">
+          <div className="flex-row">
+              <div className="flex-item">
+                  <div className="login-description">
+                      <ul>
+                          <h3>Welcome to</h3>
+                          <h1>TravelJournal</h1>
+                          <ul className="description-list">
+                              <li>  Plan your trips easily.</li>
+                              <li>  Have your notes in one place.</li>
+                              <li>  Log your trip expenses.</li>
+                          </ul>
+                      </ul>
 
-      <div className="input-field">
-        <label>Password</label>
-        <input type="password" onChange={(e) => setPassword(e.target.value)} />
-      </div>
+                  </div>
+              </div>
+              <div className="flex-item">
+                  <form onSubmit={submit} className="login-form">
+                      <div className="login-info">
+                          <h3>Log Into Your Account</h3>
+                      </div>
+                      <div className="input-field">
+                          <label>Email</label>
+                          <input type="email" placeholder="john.doe@domain.com"
+                                 onChange={(e) => setEmail(e.target.value)}/>
+                      </div>
 
-      <button type="submit" className="submit-btn">
-        Log In
-      </button>
-      <span onClick={() => navigate("/register")} className="register-link">
-        You can create an account here{" "}
+                      <div className="input-field">
+                          <label>Password</label>
+                          <input type="password" placeholder="Type in your password"
+                                 onChange={(e) => setPassword(e.target.value)}/>
+                      </div>
+
+                      <button type="submit" className="submit-btn">
+                          Log In
+                      </button>
+                      <span onClick={() => navigate("/register")} className="register-link">
+          <button>You can create an account here{" "}</button>
       </span>
-    </form>
+                  </form>
+              </div>
+
+          </div>
+
+      </div>
+
   );
 };
 
