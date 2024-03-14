@@ -98,7 +98,7 @@ ul li:before {
     flex-direction:column;
     justify-content:center;
     min-height:100vh;
-    background-image: url("img/background.webp");
+    background-image: url("img/backg.png");
 }
 
 .flex-row {
@@ -134,4 +134,9 @@ ul li:before {
     display: flex;
     flex-direction: column;
     width: 500px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
 }
