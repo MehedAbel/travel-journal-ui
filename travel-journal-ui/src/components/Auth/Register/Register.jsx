@@ -26,13 +26,6 @@ const Register = () => {
 
     const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        console.log(data);
-        if (data.length > 0) {
-            navigate("/login");
-        }
-    }, [data]);
-
     const validate = () => {
         const validationErrors = {};
 
@@ -103,7 +96,7 @@ const Register = () => {
             setPassword("");
             setConfirmPassword("");
 
-            // navigate('/login');
+            navigate('/login');
         }
 
     };
