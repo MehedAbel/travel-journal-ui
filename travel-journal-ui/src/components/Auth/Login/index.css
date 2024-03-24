@@ -1,13 +1,18 @@
+/*used for checkmark*/
+@import url('https://fonts.googleapis.com/css2?family=Material+Icons');
+
+/*need the google APIs Inter to match figma design*/
+@import url('https://fonts.googleapis.com/css2?family=Inter');
+
 .login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    width: 450px;
-    margin: auto;
-    padding: 20px;
-    border-radius: 25px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);;
+    width: 36.5rem;
+    flex-shrink: 0;
+    border-radius: 24px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #000;
     background-color: white;
   }
@@ -17,7 +22,7 @@
     display: flex;
     flex-direction: column;
   }
-  
+
   .input-field label {
     color: #333;
     font-weight: 500;
@@ -75,32 +80,59 @@
 
 ul {
     list-style: none;
+    padding-inline: 1rem;
+    padding: 0;
+    list-style-type: none;
+    gap: 0.5625rem;
+}
+
+ul li {
+   color: #FFF;
+   font-size: 1.5rem;
+   font-style: normal;
+   font-weight: 400;
+   line-height: 2rem; /* 133.333% */
 }
 
 ul li:before {
-    content: '✓';
+    content: 'check';
+    color: #FFF;
+    font-family: "Material Icons";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 2rem; /* 133.333% */
+    padding-right: 1rem;
+
+    /* HACK */
+    position: relative;
+    top: 0.2rem;
 }
 
 .login-description {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: auto;
+}
+
+
+.logo {
+margin-top: 1.517rem;
+margin-bottom: 3rem;
 }
 
 .flex-wrapper {
-    display:flex;
-    flex-direction:column;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    /* So the background doesn't cut off on really small sizes */
-    overflow: auto;
-    background-image: url("img/backg.png");
-    background-size: cover;
-    background-position: center;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  /* So the background doesn't cut off on really small sizes */
+  overflow: auto;
+  background: linear-gradient( 0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100% ), url("../../../assets/login-bg.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .flex-row {
@@ -112,8 +144,9 @@ ul li:before {
         "margin: auto;" keeps everything centered, but also fully scrollable!
     */
     margin: auto;
-    gap: 20px;
+    gap: 5rem; /* at bungheala */
 }
+
 .flex-item {
     padding: 20px;
 }
@@ -123,8 +156,13 @@ ul li:before {
 }
 
 .login-description h3{
-    font-size: 45px;
-    font-weight: 10;
+color: #FFF;
+font-size: 1.5rem;
+font-style: normal;
+font-weight: 350; /* at bungheala */
+line-height: 2rem; /* 133.333% */
+opacity:0.7;
+margin:0;
 }
 
 .login-description h1 {
@@ -140,4 +178,7 @@ ul li:before {
 * {
     margin: 0;
     padding: 0;
+    /*need these two below for imported Inter to apply*/
+    font-family: Inter;
+    font-weight: normal;
 }

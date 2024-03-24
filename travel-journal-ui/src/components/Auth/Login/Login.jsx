@@ -45,15 +45,13 @@ const Login = () => {
           <div className="flex-row">
               <div className="flex-item">
                   <div className="login-description">
-                      <ul>
                           <h3>Welcome to</h3>
-                          <h1>TravelJournal</h1>
+                          <img className="logo" src = "src/assets/TravelJournal.svg"/>
                           <ul className="description-list">
-                              <li>  Plan your trips easily.</li>
-                              <li>  Have your notes in one place.</li>
-                              <li>  Log your trip expenses.</li>
+                              <li>Plan your trips easily.</li>
+                              <li>Have your notes in one place.</li>
+                              <li>Log your trip expenses.</li>
                           </ul>
-                      </ul>
 
                   </div>
               </div>
