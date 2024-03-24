@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import sha256 from "js-sha256";
@@ -6,17 +6,30 @@ import sha256 from "js-sha256";
 import { API_URL } from "../../../config";
 import "./index.css";
 
+// the keys have the same name as the input states
+const REGEX = {
+    firstName: /^[a-zA-Z ]+$/,
+    lastName: /^[a-zA-Z ]+$/,
+    email: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+    password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+}
+
+const errorMessages = {
+    firstName: "First Name must contain only letters or spaces",
+    lastName: "Last Name must contain only letters or spaces",
+    email: "Invalid email format",
+    password: "Password must contain at least 8 characters including at least one upper and lowercase letter and a number.",
+    confirmPassword: "Passwords do not match",
+    emptyField: "This field is required",
+}
+
+
 const Register = () => {
     const navigate = useNavigate();
 
-    const [data, setData] = useState([
-        {
-            firstName: "johnny",
-            lastName: "cash",
-            email: "johnny.cash@test.com",
-            password: 12345678,
-        },
-    ]);
+    const firstNameRef = useRef();
+
+    const [wasFormSubmitted, setWasFormSubmitted] = useState(false);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -24,52 +37,50 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [errors, setErrors] = useState({});
+    useEffect(() => {
+        firstNameRef.current.focus();
+    }, []);
 
-    const validate = () => {
-        const validationErrors = {};
-
-        if (!firstName) validationErrors.firstName = "First Name is required";
-        if (!lastName) validationErrors.lastName = "Last Name is required";
-
-        if (!email) {
-            validationErrors.email = "Email is required"
-        } else if (!email.includes('@')) {
-            validationErrors.email = "Email address is invalid";
+    const getErrorMessage = (fieldName) => {
+        const fieldValues = {
+            firstName,
+            lastName,
+            email,
+            password,
+            confirmPassword,
         }
 
-        if (!password) {
-            validationErrors.password = "Password is required"
-        } else if (password.length < 8) {
-            validationErrors.password = "Password must be at least 8 characters long";
-        }
+        const fieldValue = fieldValues[fieldName];
 
-        if (!confirmPassword) {
-            validationErrors.confirmPassword = "This field is required";
-        } else if (confirmPassword !== password) {
-            validationErrors.confirmPassword = "Your password and confirmation password do not match";
-        }
+        let errorMessage = null;
+        const emptyFieldError = errorMessages["emptyField"];
+        const invalidFieldError = errorMessages[fieldName];
 
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
+        if (!fieldValue && wasFormSubmitted) {
+            errorMessage = emptyFieldError;
+        } else if (
+            (fieldValue && fieldName === "confirmPassword" && password !== confirmPassword) ||
+            (REGEX[fieldName] && !REGEX[fieldName].test(fieldValue) && fieldValue))
+        { errorMessage = invalidFieldError; }
+
+        return errorMessage ? <p>{errorMessage}</p> : null;
+    }
+
+    const isFormValid = () => {
+        return (
+            REGEX.firstName.test(firstName) &&
+            REGEX.lastName.test(lastName) &&
+            REGEX.email.test(email) &&
+            REGEX.password.test(password) &&
+            password === confirmPassword
+        );
     }
 
     const submit = (e) => {
         e.preventDefault();
+        setWasFormSubmitted(true);
 
-        if (validate()) {
-            setData((prevState) => {
-                return [
-                    ...prevState,
-                    {
-                        firstName,
-                        lastName,
-                        email,
-                        password,
-                    },
-                ];
-            });
-
+        if (isFormValid()) {
             // const hashedPassword = sha256(password);
 
             // fetch(`${API_URL}/user`, {
@@ -90,6 +101,8 @@ const Register = () => {
             //         console.error("Error:", error);
             //     });
 
+            console.log("User registered successfully!");
+
             setFirstName("");
             setLastName("");
             setEmail("");
@@ -97,23 +110,27 @@ const Register = () => {
             setConfirmPassword("");
 
             navigate('/login');
+        } else {
+            console.log("Form is invalid");
         }
 
     };
 
 
     return (
-        <form onSubmit={submit} className="register-form">
+        <form onSubmit={submit} className="register-form" noValidate>
             <div className="input-field">
                 <label htmlFor="first-name">First Name</label>
                 <input
+                    ref={firstNameRef}
                     type="text"
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="John"
                     value={firstName}
                     id="first-name"
+                    required
                 />
-                {errors.firstName && <p>{errors.firstName}</p>}
+                {getErrorMessage("firstName")}
             </div>
 
             <div className="input-field">
@@ -124,8 +141,9 @@ const Register = () => {
                     placeholder="Doe"
                     value={lastName}
                     id="last-name"
+                    required
                 />
-                {errors.lastName && <p>{errors.lastName}</p>}
+                {getErrorMessage("lastName")}
             </div>
 
             <div className="input-field">
@@ -136,8 +154,9 @@ const Register = () => {
                     placeholder="john.doe@domain.com"
                     value={email}
                     id="email"
+                    required
                 />
-                {errors.email && <p>{errors.email}</p>}
+                {getErrorMessage("email")}
             </div>
 
             <div className="input-field">
@@ -148,8 +167,9 @@ const Register = () => {
                     placeholder="Type in your password"
                     value={password}
                     id="password"
+                    required
                 />
-                {errors.password && <p>{errors.password}</p>}
+                {getErrorMessage("password")}
             </div>
 
             <div className="input-field">
@@ -160,8 +180,9 @@ const Register = () => {
                     placeholder="Retype in your password"
                     value={confirmPassword}
                     id="confirm-password"
+                    required
                 />
-                {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+                {getErrorMessage("confirmPassword")}
             </div>
 
             <button type="submit" className="submit-btn">
