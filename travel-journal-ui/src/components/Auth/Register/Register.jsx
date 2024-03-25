@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import {useState, useEffect, useRef} from "react";
+import {useNavigate} from "react-router-dom";
 
 import sha256 from "js-sha256";
 
-import { API_URL } from "../../../config";
+import {API_URL} from "../../../config";
 import "./index.css";
 import logo from "../../../assets/Logo-White.svg";
 
@@ -62,10 +62,12 @@ const Register = () => {
             errorMessage = emptyFieldError;
         } else if (
             (fieldValue && fieldName === "confirmPassword" && password !== confirmPassword) ||
-            (REGEX[fieldName] && !REGEX[fieldName].test(fieldValue) && fieldValue))
-        { errorMessage = invalidFieldError; }
+            (REGEX[fieldName] && !REGEX[fieldName].test(fieldValue) && fieldValue)) {
+            errorMessage = invalidFieldError;
+        }
 
-        return errorMessage ? <p className="badge error-message">{errorMessage}</p> : null;
+        return errorMessage ?
+            <div className="w-100"><p className="badge text-wrap error-message">{errorMessage}</p></div> : null;
     }
 
     const isFormValid = () => {
@@ -83,35 +85,26 @@ const Register = () => {
         setWasFormSubmitted(true);
 
         if (isFormValid()) {
-            // const hashedPassword = sha256(password);
+            const hashedPassword = sha256(password);
 
-            // fetch(`${API_URL}/user`, {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({ firstName, lastName, email, password: hashedPassword }),
-            // })
-            //     .then((res) => res.json())
-            //     .then((data) => {
-            //         console.log(data);
-            //         if (data) {
-            //             navigate("/login");
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         console.error("Error:", error);
-            //     });
-
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setPassword("");
-            setConfirmPassword("");
-
-            navigate('/login');
+            fetch(`${API_URL}/user/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({firstname: firstName, lastname: lastName, email, password: hashedPassword}),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data) {
+                        navigate("/login");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
         }
-
     };
 
 
