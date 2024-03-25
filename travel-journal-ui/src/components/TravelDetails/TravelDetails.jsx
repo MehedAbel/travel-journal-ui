@@ -4,6 +4,8 @@ import placeholder from "../../assets/placeholderImage.svg";
 
 const TravelDetails = () => {
 
+    //TO DO - to be changed when we will grab the data from BE
+    //mock data for demonstration purposes
     const mockTravelDetails = {
         id: "1",
         image: placeholder,
