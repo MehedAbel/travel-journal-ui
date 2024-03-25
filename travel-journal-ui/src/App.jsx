@@ -18,7 +18,7 @@ function App() {
     return (
         <div style={{
             backgroundImage: `url(${!isAuthenticated ? login_bg: ""})`,
-            backgroundSize: "1540px 700px",
+            backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             height:"100%"
         }}>
