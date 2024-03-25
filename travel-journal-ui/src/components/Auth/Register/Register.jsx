@@ -38,6 +38,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    // when the page loads focus on the first name input
     useEffect(() => {
         firstNameRef.current.focus();
     }, []);
@@ -131,7 +132,7 @@ const Register = () => {
                         <div className="d-flex justify-content-center m-3">
                             <span className="card-title fs-3 font-weight-bold">Register Your Account</span>
                         </div>
-                        <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center">
+                        <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center" noValidate>
                             <div className="input-field">
                                 <label htmlFor="first-name">First Name</label>
                                 <input
@@ -201,9 +202,7 @@ const Register = () => {
                             <button type="submit" className="btn btn-dark rounded-3 w-100">
                                 Register
                             </button>
-                            <span>Do you have an account? <a href="/login" className="login-link">
-                Log In
-            </a></span>
+                            <span>Do you have an account? <a href="/login" className="login-link">Log In</a></span>
                         </form>
                     </div>
                 </div>
