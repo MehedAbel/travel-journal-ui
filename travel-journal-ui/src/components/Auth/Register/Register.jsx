@@ -65,7 +65,7 @@ const Register = () => {
             (REGEX[fieldName] && !REGEX[fieldName].test(fieldValue) && fieldValue))
         { errorMessage = invalidFieldError; }
 
-        return errorMessage ? <p className="badge error-message">{errorMessage}</p> : null;
+        return errorMessage ? <p className="badge error-message" id={fieldName + "Error"}>{errorMessage}</p> : null;
     }
 
     const isFormValid = () => {
@@ -137,12 +137,17 @@ const Register = () => {
                                 <label htmlFor="first-name">First Name</label>
                                 <input
                                     ref={firstNameRef}
+                                    id="first-name"
                                     className="border border-dark rounded-3"
                                     type="text"
                                     onChange={(e) => setFirstName(e.target.value)}
                                     placeholder="John"
+                                    autoComplete="given-name"
                                     value={firstName}
-                                    id="first-name"
+                                    required
+                                    aria-required="true"
+                                    aria-invalid={getErrorMessage("firstName") ? "true" : "false"}
+                                    aria-describedby="firstNameError"
                                 />
                                 {getErrorMessage("firstName")}
                             </div>
@@ -150,12 +155,17 @@ const Register = () => {
                             <div className="input-field">
                                 <label htmlFor="last-name">Last Name</label>
                                 <input
+                                    id="last-name"
                                     className="border border-dark rounded-3"
                                     type="text"
                                     onChange={(e) => setLastName(e.target.value)}
                                     placeholder="Doe"
+                                    autoComplete="family-name"
                                     value={lastName}
-                                    id="last-name"
+                                    required
+                                    aria-required="true"
+                                    aria-invalid={getErrorMessage("lastName") ? "true" : "false"}
+                                    aria-describedby="lastNameError"
                                 />
                                 {getErrorMessage("lastName")}
                             </div>
@@ -163,12 +173,17 @@ const Register = () => {
                             <div className="input-field">
                                 <label htmlFor="email">Email</label>
                                 <input
+                                    id="email"
                                     className="border border-dark rounded-3"
                                     type="email"
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="john.doe@domain.com"
+                                    autoComplete="email"
                                     value={email}
-                                    id="email"
+                                    required
+                                    aria-required="true"
+                                    aria-invalid={getErrorMessage("email") ? "true" : "false"}
+                                    aria-describedby="emailError"
                                 />
                                 {getErrorMessage("email")}
                             </div>
@@ -176,12 +191,17 @@ const Register = () => {
                             <div className="input-field">
                                 <label htmlFor="password">Password</label>
                                 <input
+                                    id="password"
                                     className="border border-dark rounded-3"
                                     type="password"
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Type in your password"
+                                    autoComplete="new-password"
                                     value={password}
-                                    id="password"
+                                    required
+                                    aria-required="true"
+                                    aria-invalid={getErrorMessage("password") ? "true" : "false"}
+                                    aria-describedby="passwordError"
                                 />
                                 {getErrorMessage("password")}
                             </div>
@@ -189,12 +209,17 @@ const Register = () => {
                             <div className="input-field">
                                 <label htmlFor="confirm-password">Confirm Password</label>
                                 <input
+                                    id="confirm-password"
                                     className="border border-dark rounded-3"
                                     type="password"
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     placeholder="Retype in your password"
+                                    autoComplete="new-password"
                                     value={confirmPassword}
-                                    id="confirm-password"
+                                    required
+                                    aria-required="true"
+                                    aria-invalid={getErrorMessage("confirmPassword") ? "true" : "false"}
+                                    aria-describedby="confirmPasswordError"
                                 />
                                 {getErrorMessage("confirmPassword")}
                             </div>
