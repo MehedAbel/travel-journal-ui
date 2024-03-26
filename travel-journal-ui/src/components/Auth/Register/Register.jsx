@@ -38,6 +38,8 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const [formError, setFormError] = useState("");
+
     // when the page loads focus on the first name input
     useEffect(() => {
         firstNameRef.current.focus();
@@ -102,7 +104,7 @@ const Register = () => {
                     }
                 })
                 .catch((error) => {
-                    console.error("Error:", error);
+                    setFormError(error.message);
                 });
         }
     };
@@ -126,13 +128,17 @@ const Register = () => {
                             <span className="card-title fs-3 font-weight-bold">Register Your Account</span>
                         </div>
                         <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center" noValidate>
+                            <div className="w-100"><p className="badge text-wrap error-message">{formError}</p></div>
                             <div className="input-field">
                                 <label htmlFor="first-name">First Name</label>
                                 <input
                                     ref={firstNameRef}
                                     className="border border-dark rounded-3"
                                     type="text"
-                                    onChange={(e) => setFirstName(e.target.value)}
+                                    onChange={(e) => {
+                                        setFormError("");
+                                        setFirstName(e.target.value)
+                                    }}
                                     placeholder="John"
                                     value={firstName}
                                     id="first-name"
@@ -145,7 +151,10 @@ const Register = () => {
                                 <input
                                     className="border border-dark rounded-3"
                                     type="text"
-                                    onChange={(e) => setLastName(e.target.value)}
+                                    onChange={(e) => {
+                                        setFormError("");
+                                        setLastName(e.target.value)
+                                    }}
                                     placeholder="Doe"
                                     value={lastName}
                                     id="last-name"
@@ -158,7 +167,10 @@ const Register = () => {
                                 <input
                                     className="border border-dark rounded-3"
                                     type="email"
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => {
+                                        setFormError("");
+                                        setEmail(e.target.value)
+                                    }}
                                     placeholder="john.doe@domain.com"
                                     value={email}
                                     id="email"
@@ -171,7 +183,10 @@ const Register = () => {
                                 <input
                                     className="border border-dark rounded-3"
                                     type="password"
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        setFormError("");
+                                        setPassword(e.target.value)
+                                    }}
                                     placeholder="Type in your password"
                                     value={password}
                                     id="password"
@@ -184,7 +199,10 @@ const Register = () => {
                                 <input
                                     className="border border-dark rounded-3"
                                     type="password"
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        setFormError("");
+                                        setConfirmPassword(e.target.value)
+                                    }}
                                     placeholder="Retype in your password"
                                     value={confirmPassword}
                                     id="confirm-password"

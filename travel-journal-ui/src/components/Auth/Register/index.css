@@ -20,7 +20,7 @@
     border: 1px solid #ddd;
   }
 
-  .input-field .error-message{
+  .error-message{
     font-weight: 500;
     text-align: start;
     color: #9B170D;
