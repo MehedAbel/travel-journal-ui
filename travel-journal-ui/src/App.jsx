@@ -1,8 +1,8 @@
-import {useContext} from "react";
+import { useContext } from "react";
 
-import {Routes, Route, Navigate} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import {AuthContext} from "./context/AuthContext";
+import { AuthContext } from "./context/AuthContext";
 
 import Home from "./components/Home/Home";
 import Login from "./components/Auth/Login/Login";
@@ -16,12 +16,12 @@ import login_bg from "./assets/login-bg.jpg"
 function App() {
     const {isAuthenticated} = useContext(AuthContext);
     return (
-        <div style={{
-            backgroundImage: `url(${!isAuthenticated ? login_bg: ""})`,
+        <div style={!isAuthenticated ? {
+            backgroundImage: `url(${login_bg})`,
             backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            height:"100%"
-        }}>
+            backgroundPosition: "center",
+            height: "100%"
+        } : {}}>
             <div className="container">
                 {isAuthenticated && <Navbar/>}
 

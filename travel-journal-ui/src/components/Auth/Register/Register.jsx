@@ -1,9 +1,9 @@
-import {useState, useEffect, useRef} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import sha256 from "js-sha256";
 
-import {API_URL} from "../../../config";
+import { API_URL } from "../../../config";
 import "./index.css";
 import logo from "../../../assets/Logo-White.svg";
 
@@ -40,10 +40,9 @@ const Register = () => {
 
     const [formError, setFormError] = useState("");
 
-    // when the page loads focus on the first name input
     useEffect(() => {
-        firstNameRef.current.focus();
-    }, []);
+        setFormError("");
+    }, [firstName, lastName, email, password, confirmPassword, wasFormSubmitted]);
 
     const getErrorMessage = (fieldName) => {
         const fieldValues = {
@@ -88,7 +87,6 @@ const Register = () => {
 
         if (isFormValid()) {
             const hashedPassword = sha256(password);
-
             fetch(`${API_URL}/user/register`, {
                 method: "POST",
                 headers: {
@@ -96,11 +94,12 @@ const Register = () => {
                 },
                 body: JSON.stringify({firstname: firstName, lastname: lastName, email, password: hashedPassword}),
             })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    if (data) {
+                .then((user) => user.json())
+                .then((user) => {
+                    if (user) {
                         navigate("/login");
+                    } else {
+                        throw Error("Something went wrong!");
                     }
                 })
                 .catch((error) => {
@@ -135,10 +134,7 @@ const Register = () => {
                                     ref={firstNameRef}
                                     className="border border-dark rounded-3"
                                     type="text"
-                                    onChange={(e) => {
-                                        setFormError("");
-                                        setFirstName(e.target.value)
-                                    }}
+                                    onChange={(e) => setFirstName(e.target.value)}
                                     placeholder="John"
                                     value={firstName}
                                     id="first-name"
@@ -151,10 +147,7 @@ const Register = () => {
                                 <input
                                     className="border border-dark rounded-3"
                                     type="text"
-                                    onChange={(e) => {
-                                        setFormError("");
-                                        setLastName(e.target.value)
-                                    }}
+                                    onChange={(e) => setLastName(e.target.value)}
                                     placeholder="Doe"
                                     value={lastName}
                                     id="last-name"
@@ -167,10 +160,7 @@ const Register = () => {
                                 <input
                                     className="border border-dark rounded-3"
                                     type="email"
-                                    onChange={(e) => {
-                                        setFormError("");
-                                        setEmail(e.target.value)
-                                    }}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="john.doe@domain.com"
                                     value={email}
                                     id="email"
@@ -183,10 +173,7 @@ const Register = () => {
                                 <input
                                     className="border border-dark rounded-3"
                                     type="password"
-                                    onChange={(e) => {
-                                        setFormError("");
-                                        setPassword(e.target.value)
-                                    }}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Type in your password"
                                     value={password}
                                     id="password"
@@ -199,10 +186,7 @@ const Register = () => {
                                 <input
                                     className="border border-dark rounded-3"
                                     type="password"
-                                    onChange={(e) => {
-                                        setFormError("");
-                                        setConfirmPassword(e.target.value)
-                                    }}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     placeholder="Retype in your password"
                                     value={confirmPassword}
                                     id="confirm-password"
