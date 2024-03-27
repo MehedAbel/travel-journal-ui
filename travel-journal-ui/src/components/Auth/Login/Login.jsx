@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { API_URL } from "../../../config";
 
-import "./index.css";
+import "./Login.css";
+import logoIcon from "../../../assets/TravelJournal.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -47,7 +48,8 @@ const Login = () => {
           <h3 className="login-description__subtitle">Welcome to</h3>
           <img
             className="login-description__logo"
-            src="src/assets/TravelJournal.svg"
+            src={logoIcon}
+            alt="logo"
           />
           <ul className="login-description__list">
             <li>Plan your trips easily.</li>
@@ -77,20 +79,13 @@ const Login = () => {
             </div>
           </form>
 
-          <button type="submit" form="login-form" className="login-form__submit-btn">
+          <button
+            type="submit"
+            form="login-form"
+            className="login-form__submit-btn"
+          >
             <h3>Log In</h3>
           </button>
-
-          {
-            /*
-            <span
-              onClick={() => navigate("/register")}
-              className="login-form__register-link"
-            >
-              <button>You can create an account here{" "}</button>
-            </span>
-            */
-          }
         </div>
       </div>
     </div>
