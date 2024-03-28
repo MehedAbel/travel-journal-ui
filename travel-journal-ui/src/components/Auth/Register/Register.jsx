@@ -94,7 +94,17 @@ const Register = () => {
                 },
                 body: JSON.stringify({firstname: firstName, lastname: lastName, email, password: hashedPassword}),
             })
-                .then((user) => user.json())
+                .then(response => {
+                    if (!response.ok) {
+                        {
+                            if (response.status === 400)
+                                throw Error("Email already exits");
+                            else
+                                throw Error("Something went wrong!");
+                        }
+                    }
+                    return response.json();
+                })
                 .then((user) => {
                     if (user) {
                         navigate("/login");
