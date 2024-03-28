@@ -38,7 +38,12 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    // when the page loads focus on the first name input
+    const [formError, setFormError] = useState("");
+
+    useEffect(() => {
+        setFormError("");
+    }, [firstName, lastName, email, password, confirmPassword, wasFormSubmitted]);
+
     useEffect(() => {
         firstNameRef.current.focus();
     }, []);
@@ -62,10 +67,12 @@ const Register = () => {
             errorMessage = emptyFieldError;
         } else if (
             (fieldValue && fieldName === "confirmPassword" && password !== confirmPassword) ||
-            (REGEX[fieldName] && !REGEX[fieldName].test(fieldValue) && fieldValue))
-        { errorMessage = invalidFieldError; }
+            (REGEX[fieldName] && !REGEX[fieldName].test(fieldValue) && fieldValue)) {
+            errorMessage = invalidFieldError;
+        }
 
-        return errorMessage ? <p className="badge error-message" id={fieldName + "Error"}>{errorMessage}</p> : null;
+        return errorMessage ?
+            <div className="w-100"><p className="badge text-wrap error-message" id={fieldName + "Error"}>{errorMessage}</p></div> : null;
     }
 
     const isFormValid = () => {
@@ -83,35 +90,26 @@ const Register = () => {
         setWasFormSubmitted(true);
 
         if (isFormValid()) {
-            // const hashedPassword = sha256(password);
-
-            // fetch(`${API_URL}/user`, {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({ firstName, lastName, email, password: hashedPassword }),
-            // })
-            //     .then((res) => res.json())
-            //     .then((data) => {
-            //         console.log(data);
-            //         if (data) {
-            //             navigate("/login");
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         console.error("Error:", error);
-            //     });
-
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setPassword("");
-            setConfirmPassword("");
-
-            navigate('/login');
+            const hashedPassword = sha256(password);
+            fetch(`${API_URL}/user/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({firstname: firstName, lastname: lastName, email, password: hashedPassword}),
+            })
+                .then((user) => user.json())
+                .then((user) => {
+                    if (user) {
+                        navigate("/login");
+                    } else {
+                        throw Error("Something went wrong!");
+                    }
+                })
+                .catch((error) => {
+                    setFormError(error.message);
+                });
         }
-
     };
 
 
@@ -133,6 +131,7 @@ const Register = () => {
                             <span className="card-title fs-3 font-weight-bold">Register Your Account</span>
                         </div>
                         <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center" noValidate>
+                            <div className="w-100"><p className="badge text-wrap error-message">{formError}</p></div>
                             <div className="input-field">
                                 <label htmlFor="first-name">First Name</label>
                                 <input
