@@ -16,8 +16,8 @@ const REGEX = {
 }
 
 const errorMessages = {
-    firstName: "First Name must contain only letters",
-    lastName: "Last Name must contain only letters",
+    firstName: "First Name must contain only letters and no spaces",
+    lastName: "Last Name must contain only letters and no spaces",
     email: "Invalid email format",
     password: "Password must contain at least 8 characters including at least one upper and lowercase letter and a number.",
     confirmPassword: "Passwords do not match",
@@ -27,8 +27,6 @@ const errorMessages = {
 
 const Register = () => {
     const navigate = useNavigate();
-
-    const firstNameRef = useRef();
 
     const [wasFormSubmitted, setWasFormSubmitted] = useState(false);
 
@@ -40,12 +38,22 @@ const Register = () => {
 
     const [formError, setFormError] = useState("");
 
+    const inputRefs = useRef({
+        firstName: null,
+        lastName: null,
+        email: null,
+        password: null,
+        confirmPassword: null,
+    });
+
+    const formErrorRef = useRef();
+
     useEffect(() => {
         setFormError("");
     }, [firstName, lastName, email, password, confirmPassword, wasFormSubmitted]);
 
     useEffect(() => {
-        firstNameRef.current.focus();
+        inputRefs.current.firstName.focus();
     }, []);
 
     const getErrorMessage = (fieldName) => {
@@ -71,8 +79,19 @@ const Register = () => {
             errorMessage = invalidFieldError;
         }
 
-        return errorMessage ?
-            <div className="w-100"><p className="badge text-wrap error-message" id={fieldName + "Error"}>{errorMessage}</p></div> : null;
+        if (errorMessage) {
+            return (
+                <div className="w-100" aria-live="polite">
+                    <p className="badge text-wrap error-message" id={fieldName + "Error"}>{errorMessage}</p>
+                </div>
+            );
+        } else {
+            return ( // position the error offscreen to be available for screen readers
+                <div className="w-100" aria-live="polite" style={{position: 'absolute', left: '-99999px'}}>
+                    <p className="badge text-wrap error-message" id={fieldName + "Error"}>{invalidFieldError}</p>
+                </div>
+            );
+        }
     }
 
     const isFormValid = () => {
@@ -108,7 +127,17 @@ const Register = () => {
                 })
                 .catch((error) => {
                     setFormError(error.message);
+                    formErrorRef.current.focus();
                 });
+        } else {
+            for (let input in inputRefs.current) {
+                if (!REGEX[input].test(inputRefs.current[input].value)) {
+                    const event = new Event('click'); // it doesn't read the error without this
+                    inputRefs.current[input].focus();
+                    inputRefs.current[input].dispatchEvent(event);
+                    break;
+                }
+            }
         }
     };
 
@@ -131,11 +160,11 @@ const Register = () => {
                             <span className="card-title fs-3 font-weight-bold">Register Your Account</span>
                         </div>
                         <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center" noValidate>
-                            <div className="w-100"><p className="badge text-wrap error-message">{formError}</p></div>
+                            <div className="w-100"><p className="badge text-wrap error-message" ref={formErrorRef} aria-live="assertive">{formError}</p></div>
                             <div className="input-field">
                                 <label htmlFor="first-name">First Name</label>
                                 <input
-                                    ref={firstNameRef}
+                                    ref={(ref) => inputRefs.current.firstName = ref}
                                     id="first-name"
                                     className="border border-dark rounded-3"
                                     type="text"
@@ -145,7 +174,7 @@ const Register = () => {
                                     value={firstName}
                                     required
                                     aria-required="true"
-                                    aria-invalid={getErrorMessage("firstName") ? "true" : "false"}
+                                    aria-invalid={!REGEX.firstName.test(firstName) ? "true" : "false"}
                                     aria-describedby="firstNameError"
                                 />
                                 {getErrorMessage("firstName")}
@@ -154,6 +183,7 @@ const Register = () => {
                             <div className="input-field">
                                 <label htmlFor="last-name">Last Name</label>
                                 <input
+                                    ref={(ref) => inputRefs.current.lastName = ref}
                                     id="last-name"
                                     className="border border-dark rounded-3"
                                     type="text"
@@ -163,7 +193,7 @@ const Register = () => {
                                     value={lastName}
                                     required
                                     aria-required="true"
-                                    aria-invalid={getErrorMessage("lastName") ? "true" : "false"}
+                                    aria-invalid={!REGEX.lastName.test(lastName) ? "true" : "false"}
                                     aria-describedby="lastNameError"
                                 />
                                 {getErrorMessage("lastName")}
@@ -172,6 +202,7 @@ const Register = () => {
                             <div className="input-field">
                                 <label htmlFor="email">Email</label>
                                 <input
+                                    ref={(ref) => inputRefs.current.email = ref}
                                     id="email"
                                     className="border border-dark rounded-3"
                                     type="email"
@@ -181,7 +212,7 @@ const Register = () => {
                                     value={email}
                                     required
                                     aria-required="true"
-                                    aria-invalid={getErrorMessage("email") ? "true" : "false"}
+                                    aria-invalid={!REGEX.email.test(email) ? "true" : "false"}
                                     aria-describedby="emailError"
                                 />
                                 {getErrorMessage("email")}
@@ -190,6 +221,7 @@ const Register = () => {
                             <div className="input-field">
                                 <label htmlFor="password">Password</label>
                                 <input
+                                    ref={(ref) => inputRefs.current.password = ref}
                                     id="password"
                                     className="border border-dark rounded-3"
                                     type="password"
@@ -199,7 +231,7 @@ const Register = () => {
                                     value={password}
                                     required
                                     aria-required="true"
-                                    aria-invalid={getErrorMessage("password") ? "true" : "false"}
+                                    aria-invalid={!REGEX.password.test(password) ? "true" : "false"}
                                     aria-describedby="passwordError"
                                 />
                                 {getErrorMessage("password")}
@@ -208,6 +240,7 @@ const Register = () => {
                             <div className="input-field">
                                 <label htmlFor="confirm-password">Confirm Password</label>
                                 <input
+                                    ref={(ref) => inputRefs.current.confirmPassword = ref}
                                     id="confirm-password"
                                     className="border border-dark rounded-3"
                                     type="password"
@@ -217,7 +250,7 @@ const Register = () => {
                                     value={confirmPassword}
                                     required
                                     aria-required="true"
-                                    aria-invalid={getErrorMessage("confirmPassword") ? "true" : "false"}
+                                    aria-invalid={password !== confirmPassword ? "true" : "false"}
                                     aria-describedby="confirmPasswordError"
                                 />
                                 {getErrorMessage("confirmPassword")}
