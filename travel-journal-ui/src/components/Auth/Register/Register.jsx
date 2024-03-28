@@ -110,7 +110,7 @@ const Register = () => {
 
         if (isFormValid()) {
             const hashedPassword = sha256(password);
-            fetch(`${API_URL}/api/user/register`, {
+            fetch(`${API_URL}/user/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const Register = () => {
         } else {
             for (let input in inputRefs.current) {
                 if (REGEX[input] && !REGEX[input].test(inputRefs.current[input].value) || (input === "confirmPassword" && password !== confirmPassword)) {
-                    const event = new Event('click'); // it doesn't read the error without this when using a screen reader
+                    const event = new Event('click'); // it doesn't read the error without this when using the screen reader
                     inputRefs.current[input].focus();
                     inputRefs.current[input].dispatchEvent(event);
                     break;
