@@ -164,7 +164,7 @@ const Register = () => {
                 alignItems: "center"
             }}>
                 <div className="container">
-                    <div className="d-flex flex-row justify-content-between align-items-center text-white pt-5">
+                    <div className="d-flex flex-row justify-content-between align-items-center text-white pt-0">
                         <div className="d-flex flex-column fs-3 w-50 text-shadow">
                             <p className="opacity-75">Welcome to</p>
                             <img src={logo} alt="logo" className="logo"/>
