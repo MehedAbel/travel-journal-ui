@@ -24,45 +24,44 @@ const Login = () => {
 
     const hashedPassword = sha256(password);
 
-    if (!email && !password) {
-      setEmailError("Email address cannot be empty.");
-      setPasswordError("Password cannot be empty.");
-    } else if (!email) {
-      setEmailError("Email address cannot be empty.");
+    if (!email) {
+      setEmailError("Email address cannot be empty");
       setPasswordError("");
-    } else if (!password) {
-      setEmailError("");
-      setPasswordError("Password cannot be empty.");
+      return;
     }
 
-    if (password && email) {
-      fetch(`${API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password: hashedPassword }),
-      })
-        .then((res) => {
-          if (!res.ok) {
-            if (res.status === 401) {
-              setEmailError("");
-              setPasswordError("The login credentials are incorrect");
-            }
+    if (!password) {
+      setEmailError("");
+      setPasswordError("Password cannot be empty");
+      return;
+    }
 
-            throw new Error("Response not ok");
+    fetch(`${API_URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password: hashedPassword }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          if (res.status === 401) {
+            setEmailError("");
+            setPasswordError("The login credentials are incorrect");
           }
 
-          return res.json();
-        })
-        .then((data) => {
-          setIsAuthenticated(true);
-          navigate("/");
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
+          throw new Error("Response not ok");
+        }
+
+        return res.json();
+      })
+      .then((data) => {
+        setIsAuthenticated(true);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
