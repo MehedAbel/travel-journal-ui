@@ -6,6 +6,7 @@ import sha256 from "js-sha256";
 import { API_URL } from "../../../config";
 import "./index.css";
 import logo from "../../../assets/Logo-White.svg";
+import login_bg from "../../../assets/login-bg.jpg";
 
 // the keys have the same name as the input states
 const REGEX = {
@@ -121,94 +122,108 @@ const Register = () => {
 
     return (
         <>
-            <div className="d-flex flex-row justify-content-between align-items-center text-white pt-5">
-                <div className="d-flex flex-column fs-3 w-50 text-shadow">
-                    <p className="opacity-75">Welcome to</p>
-                    <img src={logo} alt="logo" className="logo"/>
-                    <ul className="pt-5">
-                        <li> Plan your trips easily.</li>
-                        <li> Have your notes in one place.</li>
-                        <li> Log your trip expenses.</li>
-                    </ul>
-                </div>
-                <div className="card rounded-4 border-1 border-black shadow" style={{width: "40%"}}>
-                    <div className="card-body">
-                        <div className="d-flex justify-content-center m-3">
-                            <span className="card-title fs-3 font-weight-bold">Register Your Account</span>
+            <div style={{
+                backgroundImage: `url(${login_bg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "100%",
+                display: "flex",
+                alignItems: "center"
+            }}>
+                <div className="container">
+                    <div className="d-flex flex-row justify-content-between align-items-center text-white pt-5">
+                        <div className="d-flex flex-column fs-3 w-50 text-shadow">
+                            <p className="opacity-75">Welcome to</p>
+                            <img src={logo} alt="logo" className="logo"/>
+                            <ul className="pt-5">
+                                <li> Plan your trips easily.</li>
+                                <li> Have your notes in one place.</li>
+                                <li> Log your trip expenses.</li>
+                            </ul>
                         </div>
-                        <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center" noValidate>
-                            <div className="w-100"><p className="badge text-wrap error-message">{formError}</p></div>
-                            <div className="input-field">
-                                <label htmlFor="first-name">First Name</label>
-                                <input
-                                    ref={firstNameRef}
-                                    className="border border-dark rounded-3"
-                                    type="text"
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                    placeholder="John"
-                                    value={firstName}
-                                    id="first-name"
-                                />
-                                {getErrorMessage("firstName")}
-                            </div>
+                        <div className="card rounded-4 border-1 border-black shadow" style={{width: "40%"}}>
+                            <div className="card-body">
+                                <div className="d-flex justify-content-center m-3">
+                                    <span className="card-title fs-3 font-weight-bold">Register Your Account</span>
+                                </div>
+                                <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center"
+                                      noValidate>
+                                    <div className="w-100"><p className="badge text-wrap error-message">{formError}</p>
+                                    </div>
+                                    <div className="input-field">
+                                        <label htmlFor="first-name">First Name</label>
+                                        <input
+                                            ref={firstNameRef}
+                                            className="border border-dark rounded-3"
+                                            type="text"
+                                            onChange={(e) => setFirstName(e.target.value)}
+                                            placeholder="John"
+                                            value={firstName}
+                                            id="first-name"
+                                        />
+                                        {getErrorMessage("firstName")}
+                                    </div>
 
-                            <div className="input-field">
-                                <label htmlFor="last-name">Last Name</label>
-                                <input
-                                    className="border border-dark rounded-3"
-                                    type="text"
-                                    onChange={(e) => setLastName(e.target.value)}
-                                    placeholder="Doe"
-                                    value={lastName}
-                                    id="last-name"
-                                />
-                                {getErrorMessage("lastName")}
-                            </div>
+                                    <div className="input-field">
+                                        <label htmlFor="last-name">Last Name</label>
+                                        <input
+                                            className="border border-dark rounded-3"
+                                            type="text"
+                                            onChange={(e) => setLastName(e.target.value)}
+                                            placeholder="Doe"
+                                            value={lastName}
+                                            id="last-name"
+                                        />
+                                        {getErrorMessage("lastName")}
+                                    </div>
 
-                            <div className="input-field">
-                                <label htmlFor="email">Email</label>
-                                <input
-                                    className="border border-dark rounded-3"
-                                    type="email"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="john.doe@domain.com"
-                                    value={email}
-                                    id="email"
-                                />
-                                {getErrorMessage("email")}
-                            </div>
+                                    <div className="input-field">
+                                        <label htmlFor="email">Email</label>
+                                        <input
+                                            className="border border-dark rounded-3"
+                                            type="email"
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="john.doe@domain.com"
+                                            value={email}
+                                            id="email"
+                                        />
+                                        {getErrorMessage("email")}
+                                    </div>
 
-                            <div className="input-field">
-                                <label htmlFor="password">Password</label>
-                                <input
-                                    className="border border-dark rounded-3"
-                                    type="password"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Type in your password"
-                                    value={password}
-                                    id="password"
-                                />
-                                {getErrorMessage("password")}
-                            </div>
+                                    <div className="input-field">
+                                        <label htmlFor="password">Password</label>
+                                        <input
+                                            className="border border-dark rounded-3"
+                                            type="password"
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            placeholder="Type in your password"
+                                            value={password}
+                                            id="password"
+                                        />
+                                        {getErrorMessage("password")}
+                                    </div>
 
-                            <div className="input-field">
-                                <label htmlFor="confirm-password">Confirm Password</label>
-                                <input
-                                    className="border border-dark rounded-3"
-                                    type="password"
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    placeholder="Retype in your password"
-                                    value={confirmPassword}
-                                    id="confirm-password"
-                                />
-                                {getErrorMessage("confirmPassword")}
-                            </div>
+                                    <div className="input-field">
+                                        <label htmlFor="confirm-password">Confirm Password</label>
+                                        <input
+                                            className="border border-dark rounded-3"
+                                            type="password"
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                            placeholder="Retype in your password"
+                                            value={confirmPassword}
+                                            id="confirm-password"
+                                        />
+                                        {getErrorMessage("confirmPassword")}
+                                    </div>
 
-                            <button type="submit" className="btn btn-dark rounded-3 w-100">
-                                Register
-                            </button>
-                            <span>Do you have an account? <a href="/login" className="login-link">Log In</a></span>
-                        </form>
+                                    <button type="submit" className="btn btn-dark rounded-3 w-100">
+                                        Register
+                                    </button>
+                                    <span>Do you have an account? <a href="/login"
+                                                                     className="login-link">Log In</a></span>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
