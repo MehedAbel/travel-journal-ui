@@ -13,6 +13,8 @@ import logoIcon from "../../../assets/TravelJournal.svg";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const { setIsAuthenticated } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -22,23 +24,45 @@ const Login = () => {
 
     const hashedPassword = sha256(password);
 
-    fetch(`${API_URL}/api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password: hashedPassword }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
+    if (!email && !password) {
+      setEmailError("Email address cannot be empty.");
+      setPasswordError("Password cannot be empty.");
+    } else if (!email) {
+      setEmailError("Email address cannot be empty.");
+      setPasswordError("");
+    } else if (!password) {
+      setEmailError("");
+      setPasswordError("Password cannot be empty.");
+    }
+
+    if (password && email) {
+      fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password: hashedPassword }),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            if (res.status === 401) {
+              setEmailError("");
+              setPasswordError("The login credentials are incorrect");
+            }
+
+            throw new Error("Response not ok");
+          }
+
+          return res.json();
+        })
+        .then((data) => {
           setIsAuthenticated(true);
           navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   return (
@@ -67,6 +91,11 @@ const Login = () => {
                 placeholder="john.doe@domain.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {emailError && (
+                  <div className="error-background">
+                    <div className="error-message">{emailError}</div>
+                  </div>
+              )}
             </div>
 
             <div className="login-form__input-field">
@@ -76,6 +105,11 @@ const Login = () => {
                 placeholder="Type in your password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {passwordError && (
+                  <div className="error-background">
+                    <div className="error-message">{passwordError}</div>
+                  </div>
+              )}
             </div>
           </form>
 

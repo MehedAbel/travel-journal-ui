@@ -173,3 +173,19 @@
 .login-form__submit-btn:hover {
   background-color: #2a2929;
 }
+
+.error-message {
+  font-size: 0.9em;
+  color: #ff6666;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: inline;
+  background-color:  #ffe6e6;
+}
+
+.error-background {
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+}
