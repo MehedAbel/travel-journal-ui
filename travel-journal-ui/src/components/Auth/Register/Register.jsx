@@ -154,7 +154,7 @@ const Register = () => {
 
 
     return (
-        <>
+
             <div style={{
                 backgroundImage: `url(${login_bg})`,
                 backgroundSize: "cover",
@@ -290,7 +290,7 @@ const Register = () => {
                     </div>
                 </div>
             </div>
-        </>);
+        );
 };
 
 export default Register;
