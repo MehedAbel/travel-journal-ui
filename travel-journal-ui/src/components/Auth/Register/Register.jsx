@@ -31,13 +31,24 @@ const Register = () => {
 
     const [wasFormSubmitted, setWasFormSubmitted] = useState(false);
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-
     const [formError, setFormError] = useState("");
+
+    const [formValues, setFormValues] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
+
+    const updateFormValue = (fieldName, value) => {
+        setFormValues(prevState => (
+            {
+                ...prevState,
+                [fieldName]: value,
+            }
+        ));
+    }
 
     const inputRefs = useRef({
         firstName: null,
@@ -51,28 +62,20 @@ const Register = () => {
 
     useEffect(() => {
         setFormError("");
-    }, [firstName, lastName, email, password, confirmPassword, wasFormSubmitted]);
+    }, [formValues, wasFormSubmitted]);
 
     useEffect(() => {
         inputRefs.current.firstName.focus();
     }, []);
 
     const getErrorMessage = (fieldName) => {
-        const fieldValues = {
-            firstName,
-            lastName,
-            email,
-            password,
-            confirmPassword,
-        }
-
-        const fieldValue = fieldValues[fieldName];
+        const fieldValue = formValues[fieldName];
 
         let errorMessage = null;
         const emptyFieldError = errorMessages["emptyField"];
         const invalidFieldError = errorMessages[fieldName];
 
-        const isPasswordMismatch = fieldValue && fieldName === "confirmPassword" && password !== confirmPassword;
+        const isPasswordMismatch = fieldValue && fieldName === "confirmPassword" && formValues.password !== formValues.confirmPassword;
         const isInvalidField = fieldValue && REGEX[fieldName] && !REGEX[fieldName].test(fieldValue);
 
         if (!fieldValue && wasFormSubmitted) {
@@ -98,11 +101,11 @@ const Register = () => {
 
     const isFormValid = () => {
         return (
-            REGEX.firstName.test(firstName) &&
-            REGEX.lastName.test(lastName) &&
-            REGEX.email.test(email) &&
-            REGEX.password.test(password) &&
-            password === confirmPassword
+            REGEX.firstName.test(formValues.firstName) &&
+            REGEX.lastName.test(formValues.lastName) &&
+            REGEX.email.test(formValues.email) &&
+            REGEX.password.test(formValues.password) &&
+            formValues.password === formValues.confirmPassword
         );
     }
 
@@ -111,13 +114,13 @@ const Register = () => {
         setWasFormSubmitted(true);
 
         if (isFormValid()) {
-            const hashedPassword = sha256(password);
+            const hashedPassword = sha256(formValues.password);
             fetch(`${API_URL}/user/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({firstname: firstName, lastname: lastName, email, password: hashedPassword}),
+                body: JSON.stringify({firstname: formValues.firstName, lastname: formValues.lastName, email: formValues.email, password: hashedPassword}),
             })
                 .then(response => {
                     if (!response.ok) {
@@ -143,7 +146,7 @@ const Register = () => {
                 });
         } else {
             for (let input in inputRefs.current) {
-                if (REGEX[input] && !REGEX[input].test(inputRefs.current[input].value) || (input === "confirmPassword" && password !== confirmPassword)) {
+                if (REGEX[input] && !REGEX[input].test(inputRefs.current[input].value) || (input === "confirmPassword" && formValues.password !== formValues.confirmPassword)) {
                     const event = new Event('click'); // it doesn't read the error without this when using the screen reader
                     inputRefs.current[input].focus();
                     inputRefs.current[input].dispatchEvent(event);
@@ -191,13 +194,13 @@ const Register = () => {
                                         id="first-name"
                                         className="border border-dark rounded-3"
                                         type="text"
-                                        onChange={(e) => setFirstName(e.target.value)}
+                                        onChange={(e) => updateFormValue('firstName', e.target.value)}
                                         placeholder="John"
                                         autoComplete="given-name"
-                                        value={firstName}
+                                        value={formValues.firstName}
                                         required
                                         aria-required="true"
-                                        aria-invalid={!REGEX.firstName.test(firstName) ? "true" : "false"}
+                                        aria-invalid={!REGEX.firstName.test(formValues.firstName) ? "true" : "false"}
                                         aria-describedby="firstNameError"
                                     />
                                     {getErrorMessage("firstName")}
@@ -210,13 +213,13 @@ const Register = () => {
                                         id="last-name"
                                         className="border border-dark rounded-3"
                                         type="text"
-                                        onChange={(e) => setLastName(e.target.value)}
+                                        onChange={(e) => updateFormValue('lastName', e.target.value)}
                                         placeholder="Doe"
                                         autoComplete="family-name"
-                                        value={lastName}
+                                        value={formValues.lastName}
                                         required
                                         aria-required="true"
-                                        aria-invalid={!REGEX.lastName.test(lastName) ? "true" : "false"}
+                                        aria-invalid={!REGEX.lastName.test(formValues.lastName) ? "true" : "false"}
                                         aria-describedby="lastNameError"
                                     />
                                     {getErrorMessage("lastName")}
@@ -229,13 +232,13 @@ const Register = () => {
                                         id="email"
                                         className="border border-dark rounded-3"
                                         type="email"
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        onChange={(e) => updateFormValue('email', e.target.value)}
                                         placeholder="john.doe@domain.com"
                                         autoComplete="email"
-                                        value={email}
+                                        value={formValues.email}
                                         required
                                         aria-required="true"
-                                        aria-invalid={!REGEX.email.test(email) ? "true" : "false"}
+                                        aria-invalid={!REGEX.email.test(formValues.email) ? "true" : "false"}
                                         aria-describedby="emailError"
                                     />
                                     {getErrorMessage("email")}
@@ -248,13 +251,13 @@ const Register = () => {
                                         id="password"
                                         className="border border-dark rounded-3"
                                         type="password"
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={(e) => updateFormValue('password', e.target.value)}
                                         placeholder="Type in your password"
                                         autoComplete="new-password"
-                                        value={password}
+                                        value={formValues.password}
                                         required
                                         aria-required="true"
-                                        aria-invalid={!REGEX.password.test(password) ? "true" : "false"}
+                                        aria-invalid={!REGEX.password.test(formValues.password) ? "true" : "false"}
                                         aria-describedby="passwordError"
                                     />
                                     {getErrorMessage("password")}
@@ -267,13 +270,13 @@ const Register = () => {
                                         id="confirm-password"
                                         className="border border-dark rounded-3"
                                         type="password"
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        onChange={(e) => updateFormValue('confirmPassword', e.target.value)}
                                         placeholder="Retype in your password"
                                         autoComplete="new-password"
-                                        value={confirmPassword}
+                                        value={formValues.confirmPassword}
                                         required
                                         aria-required="true"
-                                        aria-invalid={password !== confirmPassword ? "true" : "false"}
+                                        aria-invalid={formValues.password !== formValues.confirmPassword ? "true" : "false"}
                                         aria-describedby="confirmPasswordError"
                                     />
                                     {getErrorMessage("confirmPassword")}
