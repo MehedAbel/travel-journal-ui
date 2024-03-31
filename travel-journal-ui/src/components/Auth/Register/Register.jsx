@@ -41,15 +41,6 @@ const Register = () => {
         confirmPassword: "",
     });
 
-    const updateFormValue = (fieldName, value) => {
-        setFormValues(prevState => (
-            {
-                ...prevState,
-                [fieldName]: value,
-            }
-        ));
-    }
-
     const inputRefs = useRef({
         firstName: null,
         lastName: null,
@@ -67,6 +58,15 @@ const Register = () => {
     useEffect(() => {
         inputRefs.current.firstName.focus();
     }, []);
+
+    const updateFormValue = (fieldName, value) => {
+        setFormValues(prevState => (
+            {
+                ...prevState,
+                [fieldName]: value,
+            }
+        ));
+    }
 
     const getErrorMessage = (fieldName) => {
         const fieldValue = formValues[fieldName];
