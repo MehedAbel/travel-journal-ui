@@ -72,11 +72,12 @@ const Register = () => {
         const emptyFieldError = errorMessages["emptyField"];
         const invalidFieldError = errorMessages[fieldName];
 
+        const isPasswordMismatch = fieldValue && fieldName === "confirmPassword" && password !== confirmPassword;
+        const isInvalidField = fieldValue && REGEX[fieldName] && !REGEX[fieldName].test(fieldValue);
+
         if (!fieldValue && wasFormSubmitted) {
             errorMessage = emptyFieldError;
-        } else if (
-            (fieldValue && fieldName === "confirmPassword" && password !== confirmPassword) ||
-            (REGEX[fieldName] && !REGEX[fieldName].test(fieldValue) && fieldValue)) {
+        } else if (isPasswordMismatch || isInvalidField) {
             errorMessage = invalidFieldError;
         }
 
@@ -154,143 +155,142 @@ const Register = () => {
 
 
     return (
-
-            <div style={{
-                backgroundImage: `url(${login_bg})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                height: "100%",
-                display: "flex",
-                alignItems: "center"
-            }}>
-                <div className="container">
-                    <div className="d-flex flex-row justify-content-between align-items-center text-white pt-0">
-                        <div className="d-flex flex-column fs-3 w-50 text-shadow">
-                            <p className="opacity-75">Welcome to</p>
-                            <img src={logo} alt="logo" className="logo"/>
-                            <ul className="pt-5">
-                                <li> Plan your trips easily.</li>
-                                <li> Have your notes in one place.</li>
-                                <li> Log your trip expenses.</li>
-                            </ul>
-                        </div>
-                        <div className="card rounded-4 border-1 border-black shadow" style={{width: "40%"}}>
-                            <div className="card-body">
-                                <div className="d-flex justify-content-center m-3">
-                                    <span className="card-title fs-3 font-weight-bold">Register Your Account</span>
-                                </div>
-                                <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center"
-                                      noValidate>
-                                    <div className="w-100"><p className="badge text-wrap error-message"
-                                                              ref={formErrorRef} aria-live="assertive">{formError}</p>
-                                    </div>
-                                    <div className="input-field">
-                                        <label htmlFor="first-name">First Name</label>
-                                        <input
-                                            ref={(ref) => inputRefs.current.firstName = ref}
-                                            id="first-name"
-                                            className="border border-dark rounded-3"
-                                            type="text"
-                                            onChange={(e) => setFirstName(e.target.value)}
-                                            placeholder="John"
-                                            autoComplete="given-name"
-                                            value={firstName}
-                                            required
-                                            aria-required="true"
-                                            aria-invalid={!REGEX.firstName.test(firstName) ? "true" : "false"}
-                                            aria-describedby="firstNameError"
-                                        />
-                                        {getErrorMessage("firstName")}
-                                    </div>
-
-                                    <div className="input-field">
-                                        <label htmlFor="last-name">Last Name</label>
-                                        <input
-                                            ref={(ref) => inputRefs.current.lastName = ref}
-                                            id="last-name"
-                                            className="border border-dark rounded-3"
-                                            type="text"
-                                            onChange={(e) => setLastName(e.target.value)}
-                                            placeholder="Doe"
-                                            autoComplete="family-name"
-                                            value={lastName}
-                                            required
-                                            aria-required="true"
-                                            aria-invalid={!REGEX.lastName.test(lastName) ? "true" : "false"}
-                                            aria-describedby="lastNameError"
-                                        />
-                                        {getErrorMessage("lastName")}
-                                    </div>
-
-                                    <div className="input-field">
-                                        <label htmlFor="email">Email</label>
-                                        <input
-                                            ref={(ref) => inputRefs.current.email = ref}
-                                            id="email"
-                                            className="border border-dark rounded-3"
-                                            type="email"
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="john.doe@domain.com"
-                                            autoComplete="email"
-                                            value={email}
-                                            required
-                                            aria-required="true"
-                                            aria-invalid={!REGEX.email.test(email) ? "true" : "false"}
-                                            aria-describedby="emailError"
-                                        />
-                                        {getErrorMessage("email")}
-                                    </div>
-
-                                    <div className="input-field">
-                                        <label htmlFor="password">Password</label>
-                                        <input
-                                            ref={(ref) => inputRefs.current.password = ref}
-                                            id="password"
-                                            className="border border-dark rounded-3"
-                                            type="password"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            placeholder="Type in your password"
-                                            autoComplete="new-password"
-                                            value={password}
-                                            required
-                                            aria-required="true"
-                                            aria-invalid={!REGEX.password.test(password) ? "true" : "false"}
-                                            aria-describedby="passwordError"
-                                        />
-                                        {getErrorMessage("password")}
-                                    </div>
-
-                                    <div className="input-field">
-                                        <label htmlFor="confirm-password">Confirm Password</label>
-                                        <input
-                                            ref={(ref) => inputRefs.current.confirmPassword = ref}
-                                            id="confirm-password"
-                                            className="border border-dark rounded-3"
-                                            type="password"
-                                            onChange={(e) => setConfirmPassword(e.target.value)}
-                                            placeholder="Retype in your password"
-                                            autoComplete="new-password"
-                                            value={confirmPassword}
-                                            required
-                                            aria-required="true"
-                                            aria-invalid={password !== confirmPassword ? "true" : "false"}
-                                            aria-describedby="confirmPasswordError"
-                                        />
-                                        {getErrorMessage("confirmPassword")}
-                                    </div>
-
-                                    <button type="submit" className="btn btn-dark rounded-3 w-100">
-                                        Register
-                                    </button>
-                                    <span>Do you have an account? <a href="/login"
-                                                                     className="login-link">Log In</a></span>
-                                </form>
+        <div style={{
+            backgroundImage: `url(${login_bg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            height: "100%",
+            display: "flex",
+            alignItems: "center"
+        }}>
+            <div className="container">
+                <div className="d-flex flex-row justify-content-between align-items-center text-white pt-0">
+                    <div className="d-flex flex-column fs-3 w-50 text-shadow">
+                        <p className="opacity-75">Welcome to</p>
+                        <img src={logo} alt="logo" className="logo"/>
+                        <ul className="pt-5">
+                            <li> Plan your trips easily.</li>
+                            <li> Have your notes in one place.</li>
+                            <li> Log your trip expenses.</li>
+                        </ul>
+                    </div>
+                    <div className="card rounded-4 border-1 border-black shadow" style={{width: "40%"}}>
+                        <div className="card-body">
+                            <div className="d-flex justify-content-center m-3">
+                                <span className="card-title fs-3 font-weight-bold">Register Your Account</span>
                             </div>
+                            <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center"
+                                  noValidate>
+                                <div className="w-100"><p className="badge text-wrap error-message"
+                                                          ref={formErrorRef} aria-live="assertive">{formError}</p>
+                                </div>
+                                <div className="input-field">
+                                    <label htmlFor="first-name">First Name</label>
+                                    <input
+                                        ref={(ref) => inputRefs.current.firstName = ref}
+                                        id="first-name"
+                                        className="border border-dark rounded-3"
+                                        type="text"
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                        placeholder="John"
+                                        autoComplete="given-name"
+                                        value={firstName}
+                                        required
+                                        aria-required="true"
+                                        aria-invalid={!REGEX.firstName.test(firstName) ? "true" : "false"}
+                                        aria-describedby="firstNameError"
+                                    />
+                                    {getErrorMessage("firstName")}
+                                </div>
+
+                                <div className="input-field">
+                                    <label htmlFor="last-name">Last Name</label>
+                                    <input
+                                        ref={(ref) => inputRefs.current.lastName = ref}
+                                        id="last-name"
+                                        className="border border-dark rounded-3"
+                                        type="text"
+                                        onChange={(e) => setLastName(e.target.value)}
+                                        placeholder="Doe"
+                                        autoComplete="family-name"
+                                        value={lastName}
+                                        required
+                                        aria-required="true"
+                                        aria-invalid={!REGEX.lastName.test(lastName) ? "true" : "false"}
+                                        aria-describedby="lastNameError"
+                                    />
+                                    {getErrorMessage("lastName")}
+                                </div>
+
+                                <div className="input-field">
+                                    <label htmlFor="email">Email</label>
+                                    <input
+                                        ref={(ref) => inputRefs.current.email = ref}
+                                        id="email"
+                                        className="border border-dark rounded-3"
+                                        type="email"
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="john.doe@domain.com"
+                                        autoComplete="email"
+                                        value={email}
+                                        required
+                                        aria-required="true"
+                                        aria-invalid={!REGEX.email.test(email) ? "true" : "false"}
+                                        aria-describedby="emailError"
+                                    />
+                                    {getErrorMessage("email")}
+                                </div>
+
+                                <div className="input-field">
+                                    <label htmlFor="password">Password</label>
+                                    <input
+                                        ref={(ref) => inputRefs.current.password = ref}
+                                        id="password"
+                                        className="border border-dark rounded-3"
+                                        type="password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder="Type in your password"
+                                        autoComplete="new-password"
+                                        value={password}
+                                        required
+                                        aria-required="true"
+                                        aria-invalid={!REGEX.password.test(password) ? "true" : "false"}
+                                        aria-describedby="passwordError"
+                                    />
+                                    {getErrorMessage("password")}
+                                </div>
+
+                                <div className="input-field">
+                                    <label htmlFor="confirm-password">Confirm Password</label>
+                                    <input
+                                        ref={(ref) => inputRefs.current.confirmPassword = ref}
+                                        id="confirm-password"
+                                        className="border border-dark rounded-3"
+                                        type="password"
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        placeholder="Retype in your password"
+                                        autoComplete="new-password"
+                                        value={confirmPassword}
+                                        required
+                                        aria-required="true"
+                                        aria-invalid={password !== confirmPassword ? "true" : "false"}
+                                        aria-describedby="confirmPasswordError"
+                                    />
+                                    {getErrorMessage("confirmPassword")}
+                                </div>
+
+                                <button type="submit" className="btn btn-dark rounded-3 w-100">
+                                    Register
+                                </button>
+                                <span>Do you have an account? <a href="/login"
+                                                                 className="login-link">Log In</a></span>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        );
+        </div>
+    );
 };
 
 export default Register;
