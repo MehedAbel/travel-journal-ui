@@ -113,47 +113,47 @@ const Register = () => {
         e.preventDefault();
         setWasFormSubmitted(true);
 
-        if (isFormValid()) {
-            const hashedPassword = sha256(formValues.password);
-            fetch(`${API_URL}/user/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({firstname: formValues.firstName, lastname: formValues.lastName, email: formValues.email, password: hashedPassword}),
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        {
-                            if (response.status === 400)
-                                throw Error("Email already exits");
-                            else
-                                throw Error("Something went wrong!");
-                        }
-                    }
-                    return response.json();
-                })
-                .then((user) => {
-                    if (user) {
-                        navigate("/login");
-                    } else {
-                        throw Error("Something went wrong!");
-                    }
-                })
-                .catch((error) => {
-                    setFormError(error.message);
-                    formErrorRef.current.focus();
-                });
-        } else {
+        if (!isFormValid()) {
             for (let input in inputRefs.current) {
                 if (REGEX[input] && !REGEX[input].test(inputRefs.current[input].value) || (input === "confirmPassword" && formValues.password !== formValues.confirmPassword)) {
                     const event = new Event('click'); // it doesn't read the error without this when using the screen reader
                     inputRefs.current[input].focus();
                     inputRefs.current[input].dispatchEvent(event);
-                    break;
+                    return;
                 }
             }
         }
+
+        const hashedPassword = sha256(formValues.password);
+        fetch(`${API_URL}/user/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({firstname: formValues.firstName, lastname: formValues.lastName, email: formValues.email, password: hashedPassword}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    {
+                        if (response.status === 400)
+                            throw Error("Email already exits");
+                        else
+                            throw Error("Something went wrong!");
+                    }
+                }
+                return response.json();
+            })
+            .then((user) => {
+                if (user) {
+                    navigate("/login");
+                } else {
+                    throw Error("Something went wrong!");
+                }
+            })
+            .catch((error) => {
+                setFormError(error.message);
+                formErrorRef.current.focus();
+            });
     };
 
 
