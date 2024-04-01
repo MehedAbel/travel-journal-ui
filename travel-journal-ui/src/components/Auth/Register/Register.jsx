@@ -68,6 +68,15 @@ const Register = () => {
         ));
     }
 
+    const isFieldInvalid = (fieldName) => {
+        const fieldValue = formValues[fieldName];
+
+        const isPasswordMismatch = fieldName === "confirmPassword" && formValues.password !== formValues.confirmPassword;
+        const isInvalidField = REGEX[fieldName] && !REGEX[fieldName].test(fieldValue);
+
+        return isPasswordMismatch || isInvalidField;
+    }
+
     const getErrorMessage = (fieldName) => {
         const fieldValue = formValues[fieldName];
 
@@ -75,12 +84,9 @@ const Register = () => {
         const emptyFieldError = errorMessages["emptyField"];
         const invalidFieldError = errorMessages[fieldName];
 
-        const isPasswordMismatch = fieldValue && fieldName === "confirmPassword" && formValues.password !== formValues.confirmPassword;
-        const isInvalidField = fieldValue && REGEX[fieldName] && !REGEX[fieldName].test(fieldValue);
-
         if (!fieldValue && wasFormSubmitted) {
             errorMessage = emptyFieldError;
-        } else if (isPasswordMismatch || isInvalidField) {
+        } else if (fieldValue && isFieldInvalid(fieldName)) {
             errorMessage = invalidFieldError;
         }
 
@@ -100,12 +106,12 @@ const Register = () => {
     }
 
     const isFormValid = () => {
-        return (
-            REGEX.firstName.test(formValues.firstName) &&
-            REGEX.lastName.test(formValues.lastName) &&
-            REGEX.email.test(formValues.email) &&
-            REGEX.password.test(formValues.password) &&
-            formValues.password === formValues.confirmPassword
+        return !(
+            isFieldInvalid('firstName') ||
+            isFieldInvalid('lastName') ||
+            isFieldInvalid('email') ||
+            isFieldInvalid('password') ||
+            isFieldInvalid('confirmPassword')
         );
     }
 
@@ -115,7 +121,7 @@ const Register = () => {
 
         if (!isFormValid()) {
             for (let input in inputRefs.current) {
-                if (REGEX[input] && !REGEX[input].test(inputRefs.current[input].value) || (input === "confirmPassword" && formValues.password !== formValues.confirmPassword)) {
+                if (isFieldInvalid(input)) {
                     const event = new Event('click'); // it doesn't read the error without this when using the screen reader
                     inputRefs.current[input].focus();
                     inputRefs.current[input].dispatchEvent(event);
@@ -200,7 +206,7 @@ const Register = () => {
                                         value={formValues.firstName}
                                         required
                                         aria-required="true"
-                                        aria-invalid={!REGEX.firstName.test(formValues.firstName) ? "true" : "false"}
+                                        aria-invalid={isFieldInvalid('firstName') ? "true" : "false"}
                                         aria-describedby="firstNameError"
                                     />
                                     {getErrorMessage("firstName")}
@@ -219,7 +225,7 @@ const Register = () => {
                                         value={formValues.lastName}
                                         required
                                         aria-required="true"
-                                        aria-invalid={!REGEX.lastName.test(formValues.lastName) ? "true" : "false"}
+                                        aria-invalid={isFieldInvalid('lastName') ? "true" : "false"}
                                         aria-describedby="lastNameError"
                                     />
                                     {getErrorMessage("lastName")}
@@ -238,7 +244,7 @@ const Register = () => {
                                         value={formValues.email}
                                         required
                                         aria-required="true"
-                                        aria-invalid={!REGEX.email.test(formValues.email) ? "true" : "false"}
+                                        aria-invalid={isFieldInvalid('email') ? "true" : "false"}
                                         aria-describedby="emailError"
                                     />
                                     {getErrorMessage("email")}
@@ -257,7 +263,7 @@ const Register = () => {
                                         value={formValues.password}
                                         required
                                         aria-required="true"
-                                        aria-invalid={!REGEX.password.test(formValues.password) ? "true" : "false"}
+                                        aria-invalid={isFieldInvalid('password')? "true" : "false"}
                                         aria-describedby="passwordError"
                                     />
                                     {getErrorMessage("password")}
@@ -276,7 +282,7 @@ const Register = () => {
                                         value={formValues.confirmPassword}
                                         required
                                         aria-required="true"
-                                        aria-invalid={formValues.password !== formValues.confirmPassword ? "true" : "false"}
+                                        aria-invalid={isFieldInvalid('confirmPassword') ? "true" : "false"}
                                         aria-describedby="confirmPasswordError"
                                     />
                                     {getErrorMessage("confirmPassword")}
