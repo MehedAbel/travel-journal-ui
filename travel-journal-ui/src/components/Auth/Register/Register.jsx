@@ -169,8 +169,8 @@ const Register = () => {
                             </div>
                             <form onSubmit={submit} className="d-flex flex-column gap-2 align-items-center"
                                   noValidate>
-                                <div className="w-100"><p className="badge text-wrap error-message"
-                                                          ref={formErrorRef} aria-live="assertive">{formError}</p>
+                                <div ref={formErrorRef}>
+                                    <Error errorMessage={formError} ariaLive="assertive" />
                                 </div>
                                 <div className="input-field">
                                     <label htmlFor="first-name">First Name</label>
