@@ -8,6 +8,8 @@ import "./index.css";
 import logo from "../../../assets/Logo-White.svg";
 import login_bg from "../../../assets/login-bg.jpg";
 
+import Error from "../../Error/Error.jsx";
+
 import {REGEX, errorMessages} from "../../../constants/Validations.js"
 
 const Register = () => {
@@ -75,18 +77,11 @@ const Register = () => {
         }
 
         if (errorMessage) {
-            return (
-                <div className="w-100" aria-live="polite">
-                    <p className="badge text-wrap error-message" id={fieldName + "Error"}>{errorMessage}</p>
-                </div>
-            );
-        } else {
-            return ( // position the error offscreen to be available for screen readers
-                <div className="w-100" aria-live="polite" style={{position: 'absolute', left: '-99999px'}}>
-                    <p className="badge text-wrap error-message" id={fieldName + "Error"}>{invalidFieldError}</p>
-                </div>
-            );
+            return <Error errorMessage={errorMessage} id={fieldName + "Error"} />;
         }
+
+        // keep the error message in the DOM for screen readers
+        return <Error errorMessage={invalidFieldError} id={fieldName + "Error"} style={{position: 'absolute', left: '-99999px'}}/>
     }
 
     const isFormValid = () => {
