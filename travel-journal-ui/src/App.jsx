@@ -20,7 +20,12 @@ function App() {
 
             <Routes>
                 <Route path="/login" element={<Login/>}></Route>
-                <Route path="/register" element={<Register/>}></Route>
+                <Route
+                    path="/register"
+                    element={
+                        isAuthenticated ? <Navigate to="/"/> : <Register/>
+                    }
+                />
                 <Route element={<Content/>}>
                     <Route
                         path="/"
@@ -30,7 +35,8 @@ function App() {
                     />
                 </Route>
             </Routes>
-        </>);
+        </>
+    );
 }
 
 export default App;
