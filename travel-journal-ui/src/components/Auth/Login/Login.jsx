@@ -44,14 +44,7 @@ const Login = () => {
       body: JSON.stringify({ email, password: hashedPassword }),
     })
       .then((res) => {
-        if (!res.ok) {
-          if (res.status === 401) {
-            setEmailError("");
-            setPasswordError("The login credentials are incorrect");
-          }
-
-          throw new Error("Response not ok");
-        }
+        if (!res.ok) throw res;
 
         return res.json();
       })
@@ -60,7 +53,19 @@ const Login = () => {
         navigate("/");
       })
       .catch((error) => {
-        console.error("Error:", error);
+        setEmailError("");
+
+        if (error.status === 401) {
+          setPasswordError("The login credentials are incorrect");
+        }
+
+        if (error.status >= 500) {
+          setPasswordError("");
+
+          alert("Bad server connection. Try again later.");
+        }
+
+        console.error("Error: ", error);
       });
   };
 
