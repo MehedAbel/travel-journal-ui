@@ -12,7 +12,7 @@ import "./index.css";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {setIsAuthenticated} = useContext(AuthContext);
+    const { setIsAuthenticated } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({email, password: hashedPassword}),
+            body: JSON.stringify({ email, password: hashedPassword }),
         })
             .then((res) => res.json())
             .then((data) => {
@@ -44,12 +44,12 @@ const Login = () => {
         <form onSubmit={submit} className="login-form">
             <div className="input-field">
                 <label>Email</label>
-                <input type="email" onChange={(e) => setEmail(e.target.value)}/>
+                <input type="email" onChange={(e) => setEmail(e.target.value)} />
             </div>
 
             <div className="input-field">
                 <label>Password</label>
-                <input type="password" onChange={(e) => setPassword(e.target.value)}/>
+                <input type="password" onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <button type="submit" className="submit-btn">
