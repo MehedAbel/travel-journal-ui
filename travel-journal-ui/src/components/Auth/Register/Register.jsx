@@ -121,7 +121,7 @@ const Register = () => {
                 if (!response.ok) {
                     {
                         if (response.status === 400)
-                            throw Error("Email already exits");
+                            throw Error("Email already exists");
                         else
                             throw Error("Something went wrong!");
                     }
