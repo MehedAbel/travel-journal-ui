@@ -110,7 +110,7 @@ const Register = () => {
         }
 
         const hashedPassword = sha256(formValues.password);
-        fetch(`${API_URL}/user/register`, {
+        fetch(`${API_URL}/api/user/saveuser`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

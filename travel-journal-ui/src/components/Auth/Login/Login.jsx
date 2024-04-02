@@ -21,7 +21,7 @@ const Login = () => {
 
     const hashedPassword = sha256(password);
 
-    fetch(`${API_URL}/login`, {
+    fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
