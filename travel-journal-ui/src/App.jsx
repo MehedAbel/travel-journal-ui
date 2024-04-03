@@ -22,15 +22,21 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/travel-details" element={<TravelDetails />}></Route>
-        <Route element={<Content />}>
-            <Route
-                path="/"
-                element={
-                    isAuthenticated ? <Home /> : <Navigate to="/login" />
-                }
-            />
-        </Route>
+          <Route element={<Content />}>
+              <Route
+                  path="/"
+                  element={
+                      isAuthenticated ? <Home /> : <Navigate to="/login" />
+                  }
+              />
+
+              <Route
+                  path="/travel-journal/:id"
+                  element={
+                      isAuthenticated ? <TravelDetails /> : <Navigate to="/login" />
+                  }
+              />
+          </Route>
       </Routes>
     </>
   );
