@@ -14,32 +14,37 @@ import Content from "./components/Content/Content";
 import TravelDetails from "./components/TravelDetails/TravelDetails.jsx";
 
 function App() {
-  const { isAuthenticated } = useContext(AuthContext);
+    const {isAuthenticated} = useContext(AuthContext);
+    return (
+        <>
+            {isAuthenticated && <Navbar/>}
 
-  return (
-    <>
-      {isAuthenticated && <Navbar />}
-      <Routes>
-        <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route element={<Content />}>
-              <Route
-                  path="/"
-                  element={
-                      isAuthenticated ? <Home /> : <Navigate to="/login" />
-                  }
-              />
+            <Routes>
+                <Route path="/login" element={<Login/>}></Route>
+                <Route
+                    path="/register"
+                    element={
+                        isAuthenticated ? <Navigate to="/"/> : <Register/>
+                    }
+                />
+                <Route element={<Content/>}>
+                    <Route
+                        path="/"
+                        element={
+                            isAuthenticated ? <Home/> : <Navigate to="/login"/>
+                        }
+                    />
 
-              <Route
-                  path="/travel-journal/:id"
-                  element={
-                      isAuthenticated ? <TravelDetails /> : <Navigate to="/login" />
-                  }
-              />
-          </Route>
-      </Routes>
-    </>
-  );
+                    <Route
+                        path="/travel-journal/:id"
+                        element={
+                            isAuthenticated ? <TravelDetails /> : <Navigate to="/login" />
+                        }
+                    />
+                </Route>
+            </Routes>
+        </>
+    );
 }
 
 export default App;
