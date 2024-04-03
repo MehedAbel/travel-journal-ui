@@ -1,10 +1,18 @@
 import './index.css'
 import deleteIcon from "../../assets/deleteIcon.svg"
 import editIcon from "../../assets/editIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({card}) => {
+
+    const navigate = useNavigate();
+
+    function handleGoToDetails() {
+        navigate("/travel-journal/"+card.id);
+    }
+
     return (
-        <div className="card shadow bg-white rounded-4 border-1 border-dark">
+        <div className="card shadow bg-white rounded-4 border-1 border-dark" onClick={handleGoToDetails}>
             <div className="card-body">
                 <div className="custom-container">
                     <img src={card.image} className="rounded-4 border-1 border-dark" alt="travel-image"></img>
