@@ -3,9 +3,12 @@ import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import CardList from "../CardList/CardList.jsx";
 import NewTravel from "../NewTravel/NewTravel.jsx";
 import {API_URL} from "../../config.js";
+import TravelCardModal from '../Modal/TravelCardModal/TravelCardModal.jsx'
 
 const Home = () => {
     const [entities, setEntities] = useState([]);
+    const [selectedCard, setSelectedCard] = useState(null);
+    const [addCard, setAddCard] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -51,20 +54,27 @@ const Home = () => {
     }
 
 
+
+
     return (
         <div>
             <h1>Home Page</h1>
-            <Breadcrumbs/>
+            <Breadcrumbs />
             {entities.length > 0 ? (
-                <CardList entities={entitiesStorage} />
+                <CardList entities={entitiesMock} onEdit={(card) => setSelectedCard(card)} />
             ) : (
                 <p>Nu aveți niciun travel</p>
             )}
+            <NewTravel onClick={() => setAddCard(true)} />
 
-            <NewTravel/>
+            {(selectedCard != null) && <TravelCardModal header={'Edit Travel'}
+                                                        subheader={'Edit your travel details below.'}
+                                                        card={selectedCard} onClose={() => setSelectedCard(null)}/>}
 
+            {addCard && <TravelCardModal header={'Add Travel'}
+                                         subheader={'Add your travel details below.'}
+                                         onClose={() => setAddCard(false)}/>}
         </div>
-
     );
 };
 

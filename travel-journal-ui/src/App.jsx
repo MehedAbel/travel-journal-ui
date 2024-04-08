@@ -15,7 +15,7 @@ import TravelDetails from "./components/TravelDetails/TravelDetails.jsx";
 
 function App() {
     const {isAuthenticated} = useContext(AuthContext);
-    return (
+ return (
         <>
             {isAuthenticated && <Navbar/>}
 
@@ -45,6 +45,7 @@ function App() {
             </Routes>
         </>
     );
+
 }
 
 export default App;
