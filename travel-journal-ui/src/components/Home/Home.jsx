@@ -61,7 +61,7 @@ const Home = () => {
             <h1>Home Page</h1>
             <Breadcrumbs />
             {entities.length > 0 ? (
-                <CardList entities={entitiesMock} onEdit={(card) => setSelectedCard(card)} />
+                <CardList entities={entitiesStorage} onEdit={(card) => setSelectedCard(card)} />
             ) : (
                 <p>Nu aveți niciun travel</p>
             )}
