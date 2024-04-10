@@ -23,8 +23,21 @@ const Home = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                if (data) {
-                    setEntities(data);
+                if(data && data.length > 0) {
+                    const tempData= [];
+                    data.forEach(item => {
+                        tempData.push({
+                            id: item.travelId,
+                            image: item.coverPhoto.fileContent,
+                            city: item.location,
+                            startDate: formatDate(item.startDate),
+                            endDate: formatDate(item.endDate),
+                            price: item.budget,
+                            noNotes: item.notesNumber ? item.notesNumber : 0,
+                            currency: "lei"
+                        });
+                    });
+                    setEntities(tempData);
                 }
             })
             .catch((error) => {
@@ -37,31 +50,12 @@ const Home = () => {
         return `${day}/${month}/${year}`;
     };
 
-    let entitiesStorage = [];
-    if (entities.length > 0) {
-        entities.forEach(item => {
-            entitiesStorage.push({
-                id: item.travelId,
-                image: item.coverPhoto.fileContent,
-                city: item.location,
-                startDate: formatDate(item.startDate),
-                endDate: formatDate(item.endDate),
-                price: item.budget,
-                noNotes: item.notesNumber ? item.notesNumber : 0,
-                currency: "lei"
-            });
-        });
-    }
-
-
-
-
     return (
         <div>
             <h1>Home Page</h1>
             <Breadcrumbs />
             {entities.length > 0 ? (
-                <CardList entities={entitiesStorage} onEdit={(card) => setSelectedCard(card)} />
+                <CardList entities={entities} onEdit={(card) => setSelectedCard(card)} />
             ) : (
                 <p>Nu aveți niciun travel</p>
             )}
