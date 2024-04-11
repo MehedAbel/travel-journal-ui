@@ -1,25 +1,26 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js';
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 
 export default [
-  {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        jest: true
-      }
+    {
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+                jest: true
+            }
+        },
+        rules: {
+            'react/react-in-jsx-scope': 'off'
+        },
+        settings: {
+            react: {
+                version: 'detect'
+            }
+        }
     },
-    rules: {
-      'react/react-in-jsx-scope': 'off'
-    },
-    settings: {
-      react: {
-        version: 'detect'
-      }
-    }
-  },
-  pluginJs.configs.recommended,
-  pluginReactConfig,
-  'plugin:prettier/recommended'
+    pluginJs.configs.recommended,
+    pluginReactConfig,
+    eslintPluginPrettier
 ];
