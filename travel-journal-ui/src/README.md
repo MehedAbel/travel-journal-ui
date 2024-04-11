@@ -245,3 +245,27 @@ const MyComponent = ({ name }) => {
     );
   };
 ```
+
+## ESLint and Prettier
+
+### What are they?
+
+- [ESLint](https://eslint.org/docs/latest/use/core-concepts) is a configurable JavaScript linter. It helps you find and fix problems in your JavaScript code. Problems can be anything from potential runtime bugs, to not following best practices, to styling issues.
+
+- [Prettier](https://prettier.io/) is a code formatter that automatically formats code according to predefined rules, ensuring a uniform style throughout our codebase.
+
+### How to use them 
+
+1. Install the necessary dependencies by running the following command (if not already done):
+   `npm install`
+
+2. Usage:
+  - `npm run lint`: Runs ESLint to analyze your code.
+  - `npm run lint:fix`: Runs ESLint and fiexes the errors automatically (if possible).
+  - `npm run format`: Formats your code using Prettier.
+
+### Other information
+  - There are 2 config files (.eslintrc.json, .prettierrc.json), one for ESLint and the other for Prettier plus one .eslintignore file to ignore certain folders when ESLint is run.
+  - [How to setup ESLint and Prettier in a React App](https://medium.com/@grantsky0503/setup-eslint-and-prettier-in-react-app-7c46b37697f6)
+  - [ESLint Docs](https://eslint.org/docs/v8.x/)
+  - [Prettier](https://prettier.io/)
