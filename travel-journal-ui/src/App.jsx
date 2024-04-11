@@ -7,6 +7,7 @@ import { AuthContext } from "./context/AuthContext";
 import Home from "./components/Home/Home";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
+import Forgot from "./components/Auth/Forgot/Forgot";
 
 import "./App.css";
 import Navbar from "./components/Nav/Navbar";
@@ -26,6 +27,7 @@ function App() {
                         isAuthenticated ? <Navigate to="/"/> : <Register/>
                     }
                 />
+                <Route path="/forgotPassword" element={<Forgot/>}></Route>
                 <Route element={<Content/>}>
                     <Route
                         path="/"

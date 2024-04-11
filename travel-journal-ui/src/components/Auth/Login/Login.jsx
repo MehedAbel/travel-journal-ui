@@ -2,7 +2,7 @@
 
 import sha256 from "js-sha256";
 
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import { AuthContext } from "../../../context/AuthContext";
 import { API_URL } from "../../../config";
@@ -61,7 +61,6 @@ const Login = () => {
 
         if (error.status >= 500) {
           setPasswordError("");
-
           alert("Bad server connection. Try again later.");
         }
 
@@ -117,6 +116,8 @@ const Login = () => {
             </div>
           </form>
 
+          <Link className="forgotPasswordLink" to="/forgotPassword">Forgot Password?</Link>
+
           <button
             type="submit"
             form="login-form"
@@ -124,6 +125,8 @@ const Login = () => {
           >
             <h3>Log In</h3>
           </button>
+
+          <p>Don't have an account? <Link className="registerLink" to="/register">Sign Up</Link> </p>
         </div>
       </div>
     </div>
