@@ -20,5 +20,6 @@ export default [
     }
   },
   pluginJs.configs.recommended,
-  pluginReactConfig
+  pluginReactConfig,
+  'plugin:prettier/recommended'
 ];

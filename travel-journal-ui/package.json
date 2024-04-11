@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ignore-pattern \"node_modules/\" --ignore-pattern \"dist/\" --ignore-pattern \".idea/\"",
+    "lint:fix": "eslint . --fix --ignore-pattern \"node_modules/\" --ignore-pattern \"dist/\" --ignore-pattern \".idea/\"",
+    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc.json",
     "preview": "vite preview"
   },
   "dependencies": {
