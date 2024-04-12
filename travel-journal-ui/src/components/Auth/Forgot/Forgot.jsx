@@ -43,6 +43,11 @@ const Forgot = () => {
                     alert("Ai un ticket neutilizat.");
                 }
 
+                if (error.status === 404) {
+                    setEmailError("");
+                    alert("Emailul nu exista.");
+                }
+
                 if (error.status >= 500) {
                     setEmailError("");
                     alert("Bad server connection. Try again later.");
@@ -102,7 +107,7 @@ const Forgot = () => {
                     (
                     <Fragment>
                         <h3 className="login-card__title">
-                            You will receive an email with the instructions for resetting your password
+                            You will receive an email with the instructions for resetting your password. Check your Spam folder.
                         </h3>
                         <button className="login-form__submit-btn" onClick={() => {setEmail(""); setEmailError(""); setIsSubmitted(false)}}>
                             <h3>Retry</h3>
