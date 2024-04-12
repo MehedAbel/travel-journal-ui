@@ -2,7 +2,7 @@ import {Fragment, useContext, useEffect, useState} from "react";
 
 import sha256 from "js-sha256";
 
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 import { API_URL } from "../../../config";
 
@@ -19,7 +19,7 @@ const Reset = () => {
 
     const navigate = useNavigate();
 
-    const resetToken = window.location.pathname.split("/").slice(-1)[0];
+    const resetToken = new URLSearchParams(useLocation().search).get('token');
 
     useEffect(() => {
         fetch(`${API_URL}/api/user/resetPassword/${resetToken}`, {
