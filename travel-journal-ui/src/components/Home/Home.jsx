@@ -30,8 +30,8 @@ const Home = () => {
                             id: item.travelId,
                             image: item.coverPhoto.fileContent,
                             city: item.location,
-                            startDate: formatDate(item.startDate),
-                            endDate: formatDate(item.endDate),
+                            startDate: item.startDate,
+                            endDate: item.endDate,
                             price: item.budget,
                             noNotes: item.notesNumber ? item.notesNumber : 0,
                             currency: "lei"
@@ -44,11 +44,6 @@ const Home = () => {
                 console.error("Error:", error);
             });
     }, []);
-
-    const formatDate = (dateArray) => {
-        const [year, month, day] = dateArray;
-        return `${day}/${month}/${year}`;
-    };
 
     return (
         <div>
