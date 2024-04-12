@@ -149,7 +149,7 @@ const Reset = () => {
                                 form="login-form"
                                 className="login-form__submit-btn"
                             >
-                                <h3>Log In</h3>
+                                <h3>Save New Password</h3>
                             </button>
                         </Fragment>
                     ) :
@@ -164,7 +164,7 @@ const Reset = () => {
                                 setPasswordError("");
                                 setIsSubmitted(false);
                             }}>
-                                <Link to="/login"><h3>Back to Log In</h3></Link>
+                                <Link to="/login"><h3>Back to Login</h3></Link>
                             </button>
                         </Fragment>
                     )
