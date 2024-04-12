@@ -49,6 +49,8 @@ const Login = () => {
         return res.json();
       })
       .then((data) => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('tokenType', data.type);
         setIsAuthenticated(true);
         navigate("/");
       })
