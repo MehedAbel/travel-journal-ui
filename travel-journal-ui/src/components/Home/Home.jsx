@@ -47,7 +47,6 @@ const Home = () => {
 
     return (
         <div>
-            <h1>Home Page</h1>
             <Breadcrumbs />
             {entities.length > 0 ? (
                 <CardList entities={entities} onEdit={(card) => setSelectedCard(card)} />
