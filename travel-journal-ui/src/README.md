@@ -256,13 +256,35 @@ const MyComponent = ({ name }) => {
 
 ### How to use them 
 
-1. Install the necessary dependencies by running the following command (if not already done):
+1. #### Install the necessary dependencies by running the following command (if not already done):
    `npm install`
 
-2. Usage:
+2. #### Usage:
   - `npm run lint`: Runs ESLint to analyze your code.
   - `npm run lint:fix`: Runs ESLint and fiexes the errors automatically (if possible).
   - `npm run format`: Formats your code using Prettier.
+  -   #### Run ESLint & Prettier on save
+      Typing the commands everytime you need to is tiring and inefficient, luckily you can set them up to run everytime you save a file.
+      #### IntelliJ / WebStorm:
+      -   ESLint:
+          -   Open the settings dialog `Ctrl + Alt + S`, go to Languages & Frameworks > JavaScript > Code Quality Tools > ESLint.
+          -   Select Automatic ESLint configuration, add this to Run for files: `**/*.{js,ts,jsx,tsx,html,vue,css,scss,sass}` and check the Run                    eslint --fix on save checkbox. <br />
+      -   Prettier:
+          -   Open the settings dialog `Ctrl + Alt + S`, go to Languages & Frameworks > JavaScript > Prettier.
+          -   Select Automatic Prettier configuration, add this to Run for files: `**/*.{js,ts,jsx,tsx,vue,astro,css,scss,sass}`, check the Run on                 save checkbox.
+      #### VS Code:
+      -   ESLint & Prettier:
+          -   Install ESLint & Prettier extensions.
+          -   Go to workspace settings if you want to change only the current project settings or user settings if you want the changes to be                      applied to all VS Code projects.
+              (`Ctrl + Shift + P` > Search for settings > choose workspace or user settings accordingly (JSON))
+          -   Add these lines inside the brackets: 
+          ```json
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true,
+            "editor.codeActionsOnSave": {
+              "source.fixAll.eslint": "explicit"
+            }
+          ```
 
 ### Other information
   - There are 2 config files (.eslintrc.json, .prettierrc.json), one for ESLint and the other for Prettier plus one .eslintignore file to ignore certain folders when ESLint is run.
