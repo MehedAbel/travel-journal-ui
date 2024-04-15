@@ -1,51 +1,72 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './index.css';
-import placeholder from "../../assets/placeholderImage.svg";
+import {decodeImage} from "../Card/Card.jsx";
+import {useLocation} from "react-router-dom";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs.jsx";
+import {API_URL} from "../../config.js";
 
 const TravelDetails = () => {
+    const [travelDetails, setTravelDetails] = useState([]);
+    const location = useLocation();
+    const travelId = location.state.travelId;
 
-    //TO DO - to be changed when we will grab the data from BE
-    //mock data for demonstration purposes
-    const mockTravelDetails = {
-        id: "1",
-        image: placeholder,
-        city: 'Athens',
-        startTravelDate: '18 Aug 2023',
-        endTravelDate: '20 Aug 2023',
-        notes: '3 notes',
-        description: 'Stepping into Athens felt like stepping into history itself. The Acropolis, with its Parthenon standing tall, whispered tales of ancient glory. Plaka\'s alleys, adorned with bougainvillaeas, led me to delectable spanakopita. The National Archaeological Museum brought gods and heroes to life through sculptures and relics. Monastiraki Square buzzed with art and energy, a vibrant heart. Dinner at a taverna filled me with moussaka and music. Now, gazing at the illuminated Acropolis from my Airbnb, I\'m grateful for this plunge into Athens\' captivating blend of old and new.'
-    };
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const tokenType = localStorage.getItem("tokenType");
 
-    mockTravelDetails.travelDate = `${mockTravelDetails.startTravelDate} to ${mockTravelDetails.endTravelDate}`;
+        fetch(`${API_URL}/travel-journal/travel/${travelId}`, {
+            method: "GET",
+            headers: {
+                Authorization: `${tokenType} ${token}`,
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data) {
+                    setTravelDetails({
+                        id: data.travelId,
+                        image: decodeImage(data.coverPhoto.fileContent),
+                        city: data.location,
+                        startDate: data.startDate,
+                        endDate: data.endDate,
+                        description: data.description,
+                        noNotes: data.notesList ? data.notesList.length : 0,
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }, [travelId]);
 
     return (
-        <div className="travel-details">
-            <div className="header">
-                <div className="city">{mockTravelDetails.city}</div>
-                <div className="details">
-                    <div className="dates">{mockTravelDetails.travelDate}</div>
-                    <div className="date-separator">•</div>
-                    <div className="notes">{mockTravelDetails.notes}</div>
+        <div className="travel-container">
+            <Breadcrumbs/>
+            <div className="travel-details">
+                <div className="header">
+                    <div className="city">{travelDetails.city}</div>
+                    <div className="details">
+                        <div className="dates">{travelDetails.startDate} to {travelDetails.endDate}</div>
+                        <div className="date-separator">•</div>
+                        <div className="notes">{travelDetails.noNotes} Notes</div>
+                    </div>
+                </div>
+                <div>
+                    <img src={travelDetails.image} alt="placeholder"/>
+                </div>
+                <div className="description">
+                    <p>{travelDetails.description}</p>
+                </div>
+                <div className="notes-container">
+                    <div className="button-wrapper">
+                        <button className="new-note-button"> + New Note</button>
+                    </div>
+                    <div className="notes-table">
+                        <div>No notes available yet.</div>
+                    </div>
                 </div>
             </div>
-
-            <div>
-                <img src={mockTravelDetails.image} alt="placeholder" />
-            </div>
-
-            <div className="description">
-                <p>{mockTravelDetails.description}</p>
-            </div>
-
-            <div className="notes-container">
-                <div className="button-wrapper">
-                    <button className="new-note-button"> + New Note</button>
-                </div>
-                <div className="notes-table">
-                    <div>No notes available yet.</div>
-                </div>
-            </div>
-
         </div>
     );
 }
