@@ -5,11 +5,20 @@ import { useNavigate } from "react-router-dom";
 import DeleteModal from "../Modal/DeleteModal/DeleteModal.jsx";
 import React, {useEffect, useState} from "react";
 
+export const decodeImage = (imageData) => {
+    try {
+        const byteData = new Uint8Array(atob(imageData).split('').map(char => char.charCodeAt(0)));
+        return `data:image/jpg;base64,${btoa(String.fromCharCode.apply(null, byteData))}`;
+    } catch (error) {
+        console.error('Error decoding image:', error);
+        return null;
+    }
+};
+
 const Card = ({card, onEdit}) => {
     const navigate = useNavigate();
     const [showDelete, setShowDelete] = useState(false);
     const [imageSrc, setImageSrc] = useState(null);
-
 
     const handleDeleteCard = () => {
         console.log("delete card to implement");
@@ -18,25 +27,15 @@ const Card = ({card, onEdit}) => {
 
     useEffect(() => {
         if (card.image) {
-            decodeImage(card.image);
+            setImageSrc(decodeImage(card.image));
         } else {
             console.log('Card image is empty or undefined.');
         }
     }, [card.image]);
 
-    const decodeImage = (imageData) => {
-        try {
-            const byteData = new Uint8Array(atob(imageData).split('').map(char => char.charCodeAt(0)));
-            const decodedImage = `data:image/jpg;base64,${btoa(String.fromCharCode.apply(null, byteData))}`;
-            setImageSrc(decodedImage);
-        } catch (error) {
-            console.error('Error decoding image:', error);
-        }
-    };
-
         function handleGoToDetails() {
-            //todo implement using useNavigate travel-journal/travel/{travelJournalId}
-            console.log(`to implement go to travel card details`);
+            const cityName = card.city.split(',')[0];
+            navigate(`/${cityName}`, { state: { travelId: card.id } });
         }
 
     return (
