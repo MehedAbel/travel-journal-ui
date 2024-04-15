@@ -16,7 +16,7 @@ import TravelDetails from "./components/TravelDetails/TravelDetails.jsx";
 function App() {
     const {isAuthenticated} = useContext(AuthContext);
  return (
-        <>
+        <div className="app-container">
             {isAuthenticated && <Navbar/>}
 
             <Routes>
@@ -36,14 +36,14 @@ function App() {
                     />
 
                     <Route
-                        path="/travel-journal/:id"
+                        path="/:city"
                         element={
                             isAuthenticated ? <TravelDetails /> : <Navigate to="/login" />
                         }
                     />
                 </Route>
             </Routes>
-        </>
+        </div>
     );
 
 }
