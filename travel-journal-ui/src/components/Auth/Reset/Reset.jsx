@@ -45,18 +45,20 @@ const Reset = () => {
     const validatePassword = () => {
         if (!password) {
             setPasswordError("Password cannot be empty");
-            return;
+            return false;
         }
 
         if (password !== confirmPassword) {
             setPasswordError(errorMessages.confirmPassword);
-            return;
+            return false;
         }
 
         if (!REGEX.password.test(password)) {
             setPasswordError(errorMessages.password);
-            return;
+            return false;
         }
+
+        return true;
     }
 
     const submit = (e) => {
@@ -64,7 +66,7 @@ const Reset = () => {
 
         const hashedPassword = sha256(password);
 
-        validatePassword();
+        if (!validatePassword()) return;
 
         fetch(`${API_URL}/api/user/resetPassword`, {
             method: "POST",
