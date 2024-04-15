@@ -264,8 +264,9 @@ const MyComponent = ({ name }) => {
   - `npm run lint:fix`: Runs ESLint and fiexes the errors automatically (if possible).
   - `npm run format`: Formats your code using Prettier.
   -   #### Run ESLint & Prettier on save
-      Typing the commands everytime you need to is tiring and inefficient, luckily you can set them up to run everytime you save a file.
-      #### IntelliJ / WebStorm:
+      Typing the commands everytime you need to is tiring and inefficient, luckily you can set them up to run everytime you save a file. <br/>
+      #### !!!Doesn't work in IntelliJ Community, use the commands above instead.
+      #### IntelliJ Ultimate / WebStorm:
       -   ESLint:
           -   Open the settings dialog `Ctrl + Alt + S`, go to Languages & Frameworks > JavaScript > Code Quality Tools > ESLint.
           -   Select Automatic ESLint configuration, add this to Run for files: `**/*.{js,ts,jsx,tsx,html,vue,css,scss,sass}` and check the Run                    eslint --fix on save checkbox. <br />
