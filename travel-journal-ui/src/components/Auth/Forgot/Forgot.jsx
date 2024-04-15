@@ -1,6 +1,4 @@
-import {Fragment, useContext, useState} from "react";
-
-import { useNavigate } from "react-router-dom";
+import {Fragment, useState} from "react";
 
 import { API_URL } from "../../../config";
 
@@ -12,7 +10,11 @@ const Forgot = () => {
     const [emailError, setEmailError] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const navigate = useNavigate();
+    const handleRetryButton = () => {
+        setEmail("");
+        setEmailError("");
+        setIsSubmitted(false);
+    }
 
     const submit = (e) => {
         e.preventDefault();
@@ -107,9 +109,9 @@ const Forgot = () => {
                     (
                     <Fragment>
                         <h3 className="login-card__title">
-                            You will receive an email with the instructions for resetting your password. Check your Spam folder.
+                            You will receive an email with the instructions for resetting your password.
                         </h3>
-                        <button className="login-form__submit-btn" onClick={() => {setEmail(""); setEmailError(""); setIsSubmitted(false)}}>
+                        <button className="login-form__submit-btn" onClick={handleRetryButton}>
                             <h3>Retry</h3>
                         </button>
                     </Fragment>

@@ -42,11 +42,7 @@ const Reset = () => {
             })
     }, [])
 
-    const submit = (e) => {
-        e.preventDefault();
-
-        const hashedPassword = sha256(password);
-
+    const validatePassword = () => {
         if (!password) {
             setPasswordError("Password cannot be empty");
             return;
@@ -54,13 +50,21 @@ const Reset = () => {
 
         if (password !== confirmPassword) {
             setPasswordError(errorMessages.confirmPassword);
-            return
+            return;
         }
 
         if (!REGEX.password.test(password)) {
             setPasswordError(errorMessages.password);
-            return
+            return;
         }
+    }
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        const hashedPassword = sha256(password);
+
+        validatePassword();
 
         fetch(`${API_URL}/api/user/resetPassword`, {
             method: "POST",
@@ -158,13 +162,8 @@ const Reset = () => {
                             <h3 className="login-card__title">
                                 Your password has been changed successfully.
                             </h3>
-                            <button className="login-form__submit-btn" onClick={() => {
-                                setPassword("");
-                                setConfirmPassword("");
-                                setPasswordError("");
-                                setIsSubmitted(false);
-                            }}>
-                                <Link to="/login"><h3>Back to Login</h3></Link>
+                            <button className="login-form__submit-btn" onClick={() => navigate("/login")}>
+                                <h3>Back to Login</h3>
                             </button>
                         </Fragment>
                     )
