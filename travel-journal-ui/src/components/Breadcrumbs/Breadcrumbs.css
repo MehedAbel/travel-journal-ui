@@ -2,8 +2,8 @@
     list-style: none;
     padding: 10px;
     margin: 10px;
+    font-size: 28px;
 }
-
 
 .breadcrumb-item-first {
     display: inline;
@@ -28,6 +28,8 @@
     color: #333;
 }
 
-
+.breadcrumb-text {
+    pointer-events: none;
+}
 
 
