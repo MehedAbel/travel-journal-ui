@@ -34,8 +34,8 @@ const Card = ({card, onEdit}) => {
     }, [card.image]);
 
         function handleGoToDetails() {
-            const cityName = card.city.split(',')[0];
-            navigate(`/${cityName}`, { state: { travelId: card.id } });
+            const location = card.location.split(',')[0];
+            navigate(`/${location}`, { state: { travelId: card.id } });
         }
 
     return (
@@ -46,7 +46,7 @@ const Card = ({card, onEdit}) => {
                         {imageSrc && <img src={imageSrc} className="rounded-4 border-1 border-dark" alt="travel-image" />}
                     </div>
                     <div className="d-flex flex-column mt-4 mb-2">
-                        <p className="fs-3">{card.city}</p>
+                        <p className="fs-3">{card.location}</p>
                         <div className="color-gray">
                             <p>{card.startDate} to {card.endDate}</p>
                             <div className="d-flex flex-row">

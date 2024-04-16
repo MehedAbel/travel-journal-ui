@@ -36,7 +36,7 @@ function App() {
                     />
 
                     <Route
-                        path="/:city"
+                        path="/:location"
                         element={
                             isAuthenticated ? <TravelDetails /> : <Navigate to="/login" />
                         }
