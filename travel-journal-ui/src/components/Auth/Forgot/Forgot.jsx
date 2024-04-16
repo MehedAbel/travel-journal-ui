@@ -3,7 +3,7 @@ import {Fragment, useState} from "react";
 import { API_URL } from "../../../config";
 
 import "./../Login/Login.css";
-import logoIcon from "../../../assets/TravelJournal.svg";
+import Description from "../Description/Description.jsx";
 
 const Forgot = () => {
     const [email, setEmail] = useState("");
@@ -62,19 +62,7 @@ const Forgot = () => {
     return (
         <div id="login">
             <div className="login-row">
-                <div className="login-description">
-                    <h3 className="login-description__subtitle">Welcome to</h3>
-                    <img
-                        className="login-description__logo"
-                        src={logoIcon}
-                        alt="logo"
-                    />
-                    <ul className="login-description__list">
-                        <li>Plan your trips easily.</li>
-                        <li>Have your notes in one place.</li>
-                        <li>Log your trip expenses.</li>
-                    </ul>
-                </div>
+                <Description/>
 
                 <div className="login-card">
                     {!isSubmitted ?

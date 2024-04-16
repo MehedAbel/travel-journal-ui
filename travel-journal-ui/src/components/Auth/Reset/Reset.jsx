@@ -1,15 +1,15 @@
-import {Fragment, useContext, useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 
 import sha256 from "js-sha256";
 
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import { API_URL } from "../../../config";
 
 import {REGEX, errorMessages} from "../../../constants/Validations.js"
 
 import "./../Login/Login.css";
-import logoIcon from "../../../assets/TravelJournal.svg";
+import Description from "../Description/Description.jsx";
 
 const Reset = () => {
     const [password, setPassword] = useState("");
@@ -106,19 +106,8 @@ const Reset = () => {
     return (
         <div id="login">
             <div className="login-row">
-                <div className="login-description">
-                    <h3 className="login-description__subtitle">Welcome to</h3>
-                    <img
-                        className="login-description__logo"
-                        src={logoIcon}
-                        alt="logo"
-                    />
-                    <ul className="login-description__list">
-                        <li>Plan your trips easily.</li>
-                        <li>Have your notes in one place.</li>
-                        <li>Log your trip expenses.</li>
-                    </ul>
-                </div>
+                <Description/>
+
                 <div className="login-card">
                     {!isSubmitted ?
                     (
