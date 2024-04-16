@@ -11,10 +11,11 @@ import Register from "./components/Auth/Register/Register";
 import "./App.css";
 import Navbar from "./components/Nav/Navbar";
 import Content from "./components/Content/Content";
+import TravelDetails from "./components/TravelDetails/TravelDetails.jsx";
 
 function App() {
     const {isAuthenticated} = useContext(AuthContext);
-    return (
+ return (
         <>
             {isAuthenticated && <Navbar/>}
 
@@ -33,10 +34,18 @@ function App() {
                             isAuthenticated ? <Home/> : <Navigate to="/login"/>
                         }
                     />
+
+                    <Route
+                        path="/travel-journal/:id"
+                        element={
+                            isAuthenticated ? <TravelDetails /> : <Navigate to="/login" />
+                        }
+                    />
                 </Route>
             </Routes>
         </>
     );
+
 }
 
 export default App;
