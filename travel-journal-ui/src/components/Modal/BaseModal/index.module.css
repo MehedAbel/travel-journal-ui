@@ -57,7 +57,7 @@ label {
     gap: 8px;
     width: 107px;
     height: 48px;
-    background: #E9ECDF;
+    background: #e9ecdf;
     border-radius: 12px;
     flex: none;
     order: 1;
@@ -69,7 +69,9 @@ label {
     font-weight: bold;
 }
 
-.destination, .budget, .description {
+.destination,
+.budget,
+.description {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -78,7 +80,7 @@ label {
     gap: 8px;
     width: 894px;
     height: 48px;
-    background: #FFFFFF;
+    background: #ffffff;
     border: 1px solid #000000;
     border-radius: 12px;
     flex: none;
@@ -130,7 +132,7 @@ label {
     gap: 8px;
     width: 438.5px;
     height: 48px;
-    background: #FFFFFF;
+    background: #ffffff;
     border: 1px solid #000000;
     border-radius: 12px;
     flex: none;
@@ -148,7 +150,7 @@ label {
     gap: 8px;
     width: 438.5px;
     height: 48px;
-    background: #FFFFFF;
+    background: #ffffff;
     border: 1px solid #000000;
     border-radius: 12px;
     flex: none;
@@ -165,8 +167,8 @@ label {
     gap: 12px;
     width: 78px;
     height: 51.11px;
-    left: calc(50% - 78px/2 - 429px);
-    top: calc(50% - 51.11px/2 + 292.24px);
+    left: calc(50% - 78px / 2 - 429px);
+    top: calc(50% - 51.11px / 2 + 292.24px);
     color: black;
     background: white;
     border: none;
@@ -181,8 +183,8 @@ label {
     gap: 8px;
     width: 68px;
     height: 51.11px;
-    left: calc(50% - 68px/2 - 343px);
-    top: calc(50% - 51.11px/2 + 292.24px);
+    left: calc(50% - 68px / 2 - 343px);
+    top: calc(50% - 51.11px / 2 + 292.24px);
     background: #000000;
     border: 1px solid #000000;
     border-radius: 12px;
