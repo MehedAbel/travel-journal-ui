@@ -53,7 +53,7 @@ const Card = ({card, onEdit, onDelete}) => {
                         {imageSrc && <img src={imageSrc} className="rounded-4 border-1 border-dark" alt="travel-image" />}
                     </div>
                     <div className="d-flex flex-column mt-4 mb-2">
-                        <p className="fs-3">{card.city}</p>
+                        <p className="fs-3">{card.location}</p>
                         <div className="color-gray">
                             <p>{card.startDate} to {card.endDate}</p>
                             <div className="d-flex flex-row">

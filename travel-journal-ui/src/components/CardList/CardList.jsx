@@ -29,7 +29,7 @@ const CardList = () => {
                     tempData.push({
                         id: item.travelId,
                         image: item.coverPhoto.fileContent,
-                        city: item.location,
+                        location: item.location,
                         startDate: item.startDate,
                         endDate: item.endDate,
                         price: item.budget,
