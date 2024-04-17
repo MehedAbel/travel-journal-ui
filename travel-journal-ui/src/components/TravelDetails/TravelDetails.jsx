@@ -27,7 +27,7 @@ const TravelDetails = () => {
                     setTravelDetails({
                         id: data.travelId,
                         image: decodeImage(data.coverPhoto.fileContent),
-                        city: data.location,
+                        location: data.location,
                         startDate: data.startDate,
                         endDate: data.endDate,
                         description: data.description,
@@ -45,7 +45,7 @@ const TravelDetails = () => {
             <Breadcrumbs />
             <div className="travel-details">
                 <div className="header">
-                    <div className="city">{travelDetails.city}</div>
+                    <div className="city">{travelDetails.location}</div>
                     <div className="details">
                         <div className="dates">
                             {travelDetails.startDate} to {travelDetails.endDate}
