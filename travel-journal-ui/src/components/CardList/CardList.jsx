@@ -1,14 +1,11 @@
 import React, {useState, useEffect} from "react";
 import Card from "../Card/Card.jsx";
-import NewTravel from "../NewTravel/NewTravel.jsx";
 import {API_URL} from "../../config.js";
-import TravelCardModal from '../Modal/TravelCardModal/TravelCardModal.jsx'
+
 import '../CardList/index.css'
 
-const CardList = () => {
+const CardList = ({onEdit}) => {
     const [entities, setEntities] = useState([]);
-    const [selectedCard, setSelectedCard] = useState(null);
-    const [addCard, setAddCard] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -76,7 +73,7 @@ const CardList = () => {
 
     const renderCards = entities.map((item) => {
         return <div key={item.id} className="col custom-col">
-            <Card card={item} onEdit={() => setSelectedCard(item)} onDelete={() => deleteCard(item.id)} />
+            <Card card={item} onEdit={() => onEdit(item)} onDelete={() => deleteCard(item.id)} />
         </div>;
     });
 
@@ -89,15 +86,6 @@ const CardList = () => {
             ) : (
                 <p>Nu aveți niciun travel</p>
             )}
-            <NewTravel onClick={() => setAddCard(true)} />
-
-            {(selectedCard != null) && <TravelCardModal header={'Edit Travel'}
-                                                        subheader={'Edit your travel details below.'}
-                                                        card={selectedCard} onClose={() => setSelectedCard(null)}/>}
-
-            {addCard && <TravelCardModal header={'Add Travel'}
-                                         subheader={'Add your travel details below.'}
-                                         onClose={() => setAddCard(false)}/>}
         </div>
     );
 };
