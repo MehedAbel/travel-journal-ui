@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
-import "./index.css";
+import './index.css';
 
 const Content = () => {
     return (
@@ -8,6 +8,6 @@ const Content = () => {
             <Outlet />
         </div>
     );
-}
+};
 
 export default Content;

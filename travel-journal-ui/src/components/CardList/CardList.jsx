@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
-import Card from "../Card/Card.jsx";
-import {API_URL} from "../../config.js";
+import React, {useState, useEffect} from 'react';
+import Card from '../Card/Card.jsx';
+import {API_URL} from '../../config.js';
 
 import '../CardList/index.css'
 
-const CardList = ({onEdit}) => {
+const CardList = ({ onEdit }) => {
     const [entities, setEntities] = useState([]);
 
     useEffect(() => {
@@ -72,9 +72,11 @@ const CardList = ({onEdit}) => {
     }
 
     const renderCards = entities.map((item) => {
-        return <div key={item.id} className="col custom-col">
-            <Card card={item} onEdit={() => onEdit(item)} onDelete={() => deleteCard(item.id)} />
-        </div>;
+        return (
+            <div key={item.id} className="col custom-col">
+                <Card card={item} onEdit={() => onEdit(item)} onDelete={() => deleteCard(item.id)} />
+            </div>
+        );
     });
 
     return (
