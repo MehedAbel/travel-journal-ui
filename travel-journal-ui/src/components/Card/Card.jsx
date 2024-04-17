@@ -12,13 +12,14 @@ const Card = ({card, onEdit, onDelete}) => {
 
 
     const handleDeleteCard = () => {
-        const error = onDelete();
-        if (error) {
-            // TODO: Implement error into base modal in sprint 4!
-            alert(error);
-        } else {
-            setShowDelete(false);
-        }
+        onDelete().then((error) => {
+            if (error) {
+                // TODO: Implement error into base modal in sprint 4!
+                alert(error);
+            } else {
+                setShowDelete(false);
+            }
+        })
     }
 
     useEffect(() => {

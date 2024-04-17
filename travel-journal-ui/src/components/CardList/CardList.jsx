@@ -45,10 +45,33 @@ const CardList = () => {
         });
     }, []);
 
-    // Returns an error string do display, or an empty string if the card was deleted successfully.
-    const deleteCard = (itemId) => {
-        console.log("delete card to implement");
-        return "";
+    // Returns a Promise which, if unsuccessful, provides an error string do display,
+    // or if successful, an empty string.
+    const deleteCard = (cardId) => {
+        const token = localStorage.getItem("token");
+        const tokenType = localStorage.getItem("tokenType");
+
+        var error = "";
+
+        return fetch(`${API_URL}/travel-journal/travel/${cardId}`, {
+              method: "DELETE",
+              headers: {
+                Authorization: `${tokenType} ${token}`,
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+        })
+        .then((res) => {
+            if (!res.ok) throw res;
+
+            // Refresh the displayed cards by removing it locally from entities.
+            setEntities((prev) => prev.filter(item => item.id !== cardId))
+
+            return "";
+        })
+        .catch((error) => {
+            //console.error("Error: ", error);
+            return "Could not delete card!";
+        });
     }
 
     const renderCards = entities.map((item) => {
