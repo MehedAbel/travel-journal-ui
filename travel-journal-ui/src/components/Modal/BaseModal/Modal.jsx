@@ -9,12 +9,16 @@ const Modal = ({ onClose, header, subheader, onAction, actionButtonText, disable
                 <h2>{header}</h2>
                 <p>{subheader}</p>
             </BootstrapModal.Header>
-            <BootstrapModal.Body className={styles['modal-body']}>
-                {children}
-            </BootstrapModal.Body>
+            <BootstrapModal.Body className={styles['modal-body']}>{children}</BootstrapModal.Body>
             <BootstrapModal.Footer className={styles['modal-footer']}>
-                <Button className={styles['cancel-btn']} onClick={onClose}>Cancel</Button>
-                {actionButtonText && <Button className={styles['action-btn']} disabled={disabled} onClick={onAction}>{actionButtonText}</Button>}
+                <Button className={styles['cancel-btn']} onClick={onClose}>
+                    Cancel
+                </Button>
+                {actionButtonText && (
+                    <Button className={styles['action-btn']} disabled={disabled} onClick={onAction}>
+                        {actionButtonText}
+                    </Button>
+                )}
             </BootstrapModal.Footer>
         </BootstrapModal>
     );
