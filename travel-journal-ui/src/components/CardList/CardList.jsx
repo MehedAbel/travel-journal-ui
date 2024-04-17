@@ -86,7 +86,7 @@ const CardList = ({ onEdit }) => {
                     {renderCards}
                 </div>
             ) : (
-                <p>Nu aveți niciun travel</p>
+                <p>You don't have any travels yet</p>
             )}
         </div>
     );
