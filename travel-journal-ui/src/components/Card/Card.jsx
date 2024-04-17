@@ -5,15 +5,20 @@ import { useNavigate } from "react-router-dom";
 import DeleteModal from "../Modal/DeleteModal/DeleteModal.jsx";
 import React, {useEffect, useState} from "react";
 
-const Card = ({card, onEdit}) => {
+const Card = ({card, onEdit, onDelete}) => {
     const navigate = useNavigate();
     const [showDelete, setShowDelete] = useState(false);
     const [imageSrc, setImageSrc] = useState(null);
 
 
     const handleDeleteCard = () => {
-        console.log("delete card to implement");
-        setShowDelete(false);
+        const error = onDelete();
+        if (error) {
+            // TODO: Implement error into base modal in sprint 4!
+            alert(error);
+        } else {
+            setShowDelete(false);
+        }
     }
 
     useEffect(() => {

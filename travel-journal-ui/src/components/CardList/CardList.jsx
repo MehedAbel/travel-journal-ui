@@ -45,9 +45,15 @@ const CardList = () => {
         });
     }, []);
 
+    // Returns an error string do display, or an empty string if the card was deleted successfully.
+    const deleteCard = (itemId) => {
+        console.log("delete card to implement");
+        return "";
+    }
+
     const renderCards = entities.map((item) => {
         return <div key={item.id} className="col custom-col">
-            <Card card={item} onEdit={() => setSelectedCard(item)} />
+            <Card card={item} onEdit={() => setSelectedCard(item)} onDelete={() => deleteCard(item.id)} />
         </div>;
     });
 
