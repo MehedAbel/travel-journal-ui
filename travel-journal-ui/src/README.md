@@ -1,4 +1,4 @@
-# Travel Journal 
+# Travel Journal
 
 This is a React application, using the version 18.2.0. The other library used is react-router-dom, version 6.14.2.
 
@@ -6,15 +6,15 @@ This is a React application, using the version 18.2.0. The other library used is
 
 This is a walkthrough of the starting point of this project.
 
-
 ### App.jsx
 
 This is the main component that goes rendered.
 We're adding here all the routes.
 
 For safety we're checking if the user is authenticated:
+
 ```jsx
-  const { isAuthenticated } = useContext(AuthContext);
+const { isAuthenticated } = useContext(AuthContext);
 ```
 
 By using this value we add conditions in creating routes for the application:
@@ -31,9 +31,7 @@ function App() {
                 <Route path="/register" element={<Register />}></Route>
                 <Route
                     path="/"
-                    element={
-                        isAuthenticated ? <Home /> : <Navigate to="/login" replace />
-                    }
+                    element={isAuthenticated ? <Home /> : <Navigate to="/login" replace />}
                 />
             </Routes>
         </>
@@ -42,7 +40,6 @@ function App() {
 ```
 
 The `Navbar` will appear only when the user is authenticated, as for the other routes, when we're sending the element prop, we're adding the condition of sending the user to that specific route or redirect him to the `/login` page.
-
 
 ## Login.jsx
 
@@ -89,51 +86,55 @@ const MY_URL = import.meta.env.VITE_APP_NAMED_PICKED;
 
 ## Functional Components vs Class Components
 
-- **Functional Components**: Use functional components (also known as stateless components) whenever possible. They are simpler, easier to read, and perform better. Use hooks (e.g., `useState`, `useEffect`) to manage state and side effects.
+-   **Functional Components**: Use functional components (also known as stateless components) whenever possible. They are simpler, easier to read, and perform better. Use hooks (e.g., `useState`, `useEffect`) to manage state and side effects.
 
-- **Class Components**: Avoid using class components unless you have a specific reason (e.g., working with legacy code or using lifecycle methods). Class components are more verbose and harder to understand.
+-   **Class Components**: Avoid using class components unless you have a specific reason (e.g., working with legacy code or using lifecycle methods). Class components are more verbose and harder to understand.
 
 ## State Management
 
-- **Local State**: React components can manage their own state using the `useState` hook.
-
-  Example:
-  ```javascript
-  import React, { useState } from 'react';
-
-  const Counter = () => {
-    const [count, setCount] = useState(0);
-
-    const increaseCount = () => {
-      setCount((prevCount) => prevCount + 1);
-    };
-
-    const decreaseCount = () => {
-      if (count > 0) {
-        setCount((prevCount) => prevCount - 1);
-      }
-    };
-
-    return (
-      <div>
-        <h1>{count}</h1>
-        <button onClick={decreaseCount}>-</button>
-        <button onClick={increaseCount}>+</button>
-      </div>
-    );
-  };
-
-  export default Counter;
-
-  ## Keep State Close to Where It’s Used
-
-- **Component-Level State**: Avoid global state for every piece of data. Instead, keep state close to where it’s needed. If a component doesn’t use a particular piece of state, it shouldn’t manage it.
-
-- **Context API**: For sharing state across multiple components, consider using the React Context API. It allows you to create a global state accessible by any component within a specific context.
-
-- **Use Immutability for State Updates**: When updating state, create a new copy of the state object rather than modifying the existing one. This prevents unintended side effects and ensures predictable behavior.
+-   **Local State**: React components can manage their own state using the `useState` hook.
 
     Example:
+
+    ```javascript
+    import React, { useState } from 'react';
+
+    const Counter = () => {
+      const [count, setCount] = useState(0);
+
+      const increaseCount = () => {
+        setCount((prevCount) => prevCount + 1);
+      };
+
+      const decreaseCount = () => {
+        if (count > 0) {
+          setCount((prevCount) => prevCount - 1);
+        }
+      };
+
+      return (
+        <div>
+          <h1>{count}</h1>
+          <button onClick={decreaseCount}>-</button>
+          <button onClick={increaseCount}>+</button>
+        </div>
+      );
+    };
+
+    export default Counter;
+
+    ## Keep State Close to Where It’s Used
+
+    ```
+
+-   **Component-Level State**: Avoid global state for every piece of data. Instead, keep state close to where it’s needed. If a component doesn’t use a particular piece of state, it shouldn’t manage it.
+
+-   **Context API**: For sharing state across multiple components, consider using the React Context API. It allows you to create a global state accessible by any component within a specific context.
+
+-   **Use Immutability for State Updates**: When updating state, create a new copy of the state object rather than modifying the existing one. This prevents unintended side effects and ensures predictable behavior.
+
+    Example:
+
     ```javascript
     // Incorrect (mutating the original array):
     const addTodo = (newTodo) => {
@@ -145,73 +146,78 @@ const MY_URL = import.meta.env.VITE_APP_NAMED_PICKED;
     const addTodo = (newTodo) => {
         setTodos((prevTodos) => [...prevTodos, newTodo]);
     };
+    ```
 
 ## Styling
 
-- **External CSS Files**:
-  - **Separation of Concerns**: Keep your styles separate from your components. Create external CSS files (e.g., `styles.css`) and import them into your components.
-  - **Component-Specific Styles**: Each component should have its own CSS file. This ensures that styles are scoped to the relevant component.
-  - **Importing CSS**:
-    ```javascript
-    // MyComponent.js
-    import React from 'react';
-    import './MyComponent.css'; // Import your CSS file
+-   **External CSS Files**:
 
-    const MyComponent = () => {
-      // Component logic...
-      return <div className="my-component">Hello, World!</div>;
-    };
+    -   **Separation of Concerns**: Keep your styles separate from your components. Create external CSS files (e.g., `styles.css`) and import them into your components.
+    -   **Component-Specific Styles**: Each component should have its own CSS file. This ensures that styles are scoped to the relevant component.
+    -   **Importing CSS**:
 
-    export default MyComponent;
-    ```
+        ```javascript
+        // MyComponent.js
+        import React from 'react';
+        import './MyComponent.css'; // Import your CSS file
 
-- **Class Naming Conventions**:
-  - **BEM (Block Element Modifier)**: Consider using BEM for class naming. It helps maintain a consistent and predictable structure for your CSS classes.
-    ```css
-    /* styles.css */
-    .my-component {
-      /* Component styles... */
-    }
+        const MyComponent = () => {
+            // Component logic...
+            return <div className="my-component">Hello, World!</div>;
+        };
 
-    .my-component__title {
-      /* Styles for the title within MyComponent... */
-    }
-    ```
+        export default MyComponent;
+        ```
 
-- **Inline Styles**:
-  - **Avoid Inline Styles**: While React allows inline styles using the `style` prop, it's generally better to avoid them. Inline styles mix HTML and CSS, making your code less maintainable (see [article 1](https://medium.com/@daboigbae/bad-ways-youre-probably-using-react-part-12-overusing-inline-styles-%EF%B8%8F-2cadf1bd9936#:~:text=Overdoing%20inline%20styles%20means%20you,it%27s%20a%20straight-up%20nightmare!) and [article 2](https://www.linkedin.com/pulse/stop-using-inline-styles-react-js-azeem-aleem/)).
-  - **Exceptions**: Use inline styles for dynamic properties (e.g., setting colors based on state or props).
-    ```javascript
-    const MyComponent = ({ isActive }) => {
-      const buttonStyle = {
-        backgroundColor: isActive ? 'green' : 'gray',
-      };
+-   **Class Naming Conventions**:
 
-      return (
-        <button style={buttonStyle}>Click Me</button>
-      );
-    };
-    ```
+    -   **BEM (Block Element Modifier)**: Consider using BEM for class naming. It helps maintain a consistent and predictable structure for your CSS classes.
 
-- **Global vs. Local Styles**:
-  - **Global Styles**: Use global styles sparingly. If you need global styles (e.g., for layout or typography), create a separate global CSS file (e.g., `global.css`) and import it in your main `index.js` or `App.js`.
-  - **Local Styles**: Prefer local styles within components. This prevents unintended side effects and keeps styles isolated.
+        ```css
+        /* styles.css */
+        .my-component {
+            /* Component styles... */
+        }
+
+        .my-component__title {
+            /* Styles for the title within MyComponent... */
+        }
+        ```
+
+-   **Inline Styles**:
+
+    -   **Avoid Inline Styles**: While React allows inline styles using the `style` prop, it's generally better to avoid them. Inline styles mix HTML and CSS, making your code less maintainable (see [article 1](https://medium.com/@daboigbae/bad-ways-youre-probably-using-react-part-12-overusing-inline-styles-%EF%B8%8F-2cadf1bd9936#:~:text=Overdoing%20inline%20styles%20means%20you,it%27s%20a%20straight-up%20nightmare!) and [article 2](https://www.linkedin.com/pulse/stop-using-inline-styles-react-js-azeem-aleem/)).
+    -   **Exceptions**: Use inline styles for dynamic properties (e.g., setting colors based on state or props).
+
+        ```javascript
+        const MyComponent = ({ isActive }) => {
+            const buttonStyle = {
+                backgroundColor: isActive ? 'green' : 'gray'
+            };
+
+            return <button style={buttonStyle}>Click Me</button>;
+        };
+        ```
+
+-   **Global vs. Local Styles**:
+    -   **Global Styles**: Use global styles sparingly. If you need global styles (e.g., for layout or typography), create a separate global CSS file (e.g., `global.css`) and import it in your main `index.js` or `App.js`.
+    -   **Local Styles**: Prefer local styles within components. This prevents unintended side effects and keeps styles isolated.
 
 ## Component Structure
 
-- **Component Files**: Organize your components into separate files. Each component should have its own file.
+-   **Component Files**: Organize your components into separate files. Each component should have its own file.
 
-- **Folder Structure**: Consider grouping related components into folders (e.g., `components`, `containers`, `layouts`). Keep your project organized.
+-   **Folder Structure**: Consider grouping related components into folders (e.g., `components`, `containers`, `layouts`). Keep your project organized.
 
 ## Code Formatting
 
-- **Prettier**: A package like Prettier may be used to format your code consistently. [Set up](https://medium.com/@grantsky0503/setup-eslint-and-prettier-in-react-app-7c46b37697f6l) Prettier in your project and configure it to match your preferred style.
+-   **Prettier**: A package like Prettier may be used to format your code consistently. [Set up](https://medium.com/@grantsky0503/setup-eslint-and-prettier-in-react-app-7c46b37697f6l) Prettier in your project and configure it to match your preferred style.
 
 ## Best Practices
 
-- **Avoid Mutations**: Do not mutate state or props directly. Use functions like `setState` or `useState` to update state.
+-   **Avoid Mutations**: Do not mutate state or props directly. Use functions like `setState` or `useState` to update state.
 
-- **Destructuring**: Destructure props and state to improve readability. For example:
+-   **Destructuring**: Destructure props and state to improve readability. For example:
 
 ```javascript
 // Instead of this:
@@ -224,24 +230,74 @@ const MyComponent = ({ name }) => {
   // ...
 ```
 
-- **Conditional Rendering**: Use conditional rendering to dynamically display components based on certain conditions. This is useful for showing or hiding elements based on user input or application state.
+-   **Conditional Rendering**: Use conditional rendering to dynamically display components based on certain conditions. This is useful for showing or hiding elements based on user input or application state.
 
-```javascript 
-  const MyComponent = ({ isVisible }) => {
+```javascript
+const MyComponent = ({ isVisible }) => {
     return isVisible ? <div>Visible</div> : null;
-  };
+};
 ```
 
-- **List Rendering**: When rendering lists, use the `map` function to iterate over your data and return a component for each item. Remember to provide a unique `key` prop to each child in a list.
+-   **List Rendering**: When rendering lists, use the `map` function to iterate over your data and return a component for each item. Remember to provide a unique `key` prop to each child in a list.
 
-```javascript 
-  const MyListComponent = ({ items }) => {
+```javascript
+const MyListComponent = ({ items }) => {
     return (
-      <ul>
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+        <ul>
+            {items.map((item, index) => (
+                <li key={index}>{item}</li>
+            ))}
+        </ul>
     );
-  };
+};
 ```
+
+## ESLint and Prettier
+
+### What are they?
+
+-   [ESLint](https://eslint.org/docs/latest/use/core-concepts) is a configurable JavaScript linter. It helps you find and fix problems in your JavaScript code. Problems can be anything from potential runtime bugs, to not following best practices, to styling issues.
+
+-   [Prettier](https://prettier.io/) is a code formatter that automatically formats code according to predefined rules, ensuring a uniform style throughout our codebase.
+
+### How to use them
+
+1. #### Install the necessary dependencies by running the following command (if not already done):
+
+    `npm install`
+
+2. #### Usage:
+
+-   `npm run lint`: Runs ESLint to analyze your code.
+-   `npm run lint:fix`: Runs ESLint and fiexes the errors automatically (if possible).
+-   `npm run format`: Formats your code using Prettier.
+-   #### Run ESLint & Prettier on save
+    Typing the commands everytime you need to is tiring and inefficient, luckily you can set them up to run everytime you save a file. <br/>
+    #### !!!Doesn't work in IntelliJ Community, use the commands above instead.
+    #### IntelliJ Ultimate / WebStorm:
+    -   ESLint:
+        -   Open the settings dialog `Ctrl + Alt + S`, go to Languages & Frameworks > JavaScript > Code Quality Tools > ESLint.
+        -   Select Automatic ESLint configuration, add this to Run for files: `**/*.{js,ts,jsx,tsx,html,vue,css,scss,sass}` and check the Run eslint --fix on save checkbox. <br />
+    -   Prettier:
+        -   Open the settings dialog `Ctrl + Alt + S`, go to Languages & Frameworks > JavaScript > Prettier.
+        -   Select Automatic Prettier configuration, add this to Run for files: `**/*.{js,ts,jsx,tsx,vue,astro,css,scss,sass}`, check the Run on save checkbox.
+    #### VS Code:
+    -   ESLint & Prettier:
+        -   Install ESLint & Prettier extensions.
+        -   Go to workspace settings if you want to change only the current project settings or user settings if you want the changes to be applied to all VS Code projects.
+            (`Ctrl + Shift + P` > Search for settings > choose workspace or user settings accordingly (JSON))
+        -   Add these lines inside the brackets:
+        ```json
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+          }
+        ```
+
+### Other information
+
+-   There are 2 config files (.eslintrc.json, .prettierrc.json), one for ESLint and the other for Prettier plus one .eslintignore file to ignore certain folders when ESLint is run.
+-   [How to setup ESLint and Prettier in a React App](https://medium.com/@grantsky0503/setup-eslint-and-prettier-in-react-app-7c46b37697f6)
+-   [ESLint Docs](https://eslint.org/docs/v8.x/)
+-   [Prettier](https://prettier.io/)
