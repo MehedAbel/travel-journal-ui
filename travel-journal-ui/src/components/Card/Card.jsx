@@ -19,15 +19,21 @@ export const decodeImage = (imageData) => {
     }
 };
 
-const Card = ({ card, onEdit }) => {
+const Card = ({ card, onEdit, onDelete }) => {
     const navigate = useNavigate();
     const [showDelete, setShowDelete] = useState(false);
     const [imageSrc, setImageSrc] = useState(null);
 
     const handleDeleteCard = () => {
-        console.log('delete card to implement');
-        setShowDelete(false);
-    };
+        onDelete().then((error) => {
+            if (error) {
+                // TODO: Implement error into base modal in sprint 4!
+                alert(error);
+            } else {
+                setShowDelete(false);
+            }
+        })
+    }
 
     useEffect(() => {
         if (card.image) {

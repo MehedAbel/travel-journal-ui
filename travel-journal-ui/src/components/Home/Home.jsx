@@ -6,53 +6,13 @@ import { API_URL } from '../../config.js';
 import TravelCardModal from '../Modal/TravelCardModal/TravelCardModal.jsx';
 
 const Home = () => {
-    const [entities, setEntities] = useState([]);
     const [selectedCard, setSelectedCard] = useState(null);
     const [addCard, setAddCard] = useState(false);
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        const tokenType = localStorage.getItem('tokenType');
-
-        fetch(`${API_URL}/travel-journal/my-travels`, {
-            method: 'GET',
-            headers: {
-                Authorization: `${tokenType} ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data && data.length > 0) {
-                    const tempData = [];
-                    data.forEach((item) => {
-                        tempData.push({
-                            id: item.travelId,
-                            image: item.coverPhoto.fileContent,
-                            location: item.location,
-                            startDate: item.startDate,
-                            endDate: item.endDate,
-                            price: item.budget,
-                            noNotes: item.notesNumber ? item.notesNumber : 0,
-                            currency: 'lei'
-                        });
-                    });
-                    setEntities(tempData);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }, []);
 
     return (
         <div>
             <Breadcrumbs />
-            {entities.length > 0 ? (
-                <CardList entities={entities} onEdit={(card) => setSelectedCard(card)} />
-            ) : (
-                <p>Nu aveți niciun travel</p>
-            )}
+            <CardList onEdit={(card) => setSelectedCard(card)} />
             <NewTravel onClick={() => setAddCard(true)} />
 
             {selectedCard != null && (
