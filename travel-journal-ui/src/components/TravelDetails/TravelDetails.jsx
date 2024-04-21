@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
-import { decodeImage } from '../Card/Card.jsx';
 import { useLocation } from 'react-router-dom';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.jsx';
 import { API_URL } from '../../config.js';
+import ImageComponent from '../Image/ImageComponent.jsx';
 
 const TravelDetails = () => {
     const [travelDetails, setTravelDetails] = useState([]);
@@ -26,7 +26,7 @@ const TravelDetails = () => {
                 if (data) {
                     setTravelDetails({
                         id: data.travelId,
-                        image: decodeImage(data.coverPhoto.fileContent),
+                        imageId: data.coverPhotoId,
                         location: data.location,
                         startDate: data.startDate,
                         endDate: data.endDate,
@@ -55,7 +55,7 @@ const TravelDetails = () => {
                     </div>
                 </div>
                 <div>
-                    <img src={travelDetails.image} alt="placeholder" />
+                    {travelDetails.imageId && <ImageComponent imageId={travelDetails.imageId} />}
                 </div>
                 <div className="description">
                     <p>{travelDetails.description}</p>
