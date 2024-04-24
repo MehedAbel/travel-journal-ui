@@ -9,7 +9,7 @@ import ImageComponent from '../Image/ImageComponent.jsx';
 const TravelDetails = () => {
     const [travelDetails, setTravelDetails] = useState([]);
     const location = useLocation();
-    const travelId = location.state.travelId;
+    const travelId = location.state ? location.state.travelId : '';
 
     useEffect(() => {
         const token = localStorage.getItem('token');
