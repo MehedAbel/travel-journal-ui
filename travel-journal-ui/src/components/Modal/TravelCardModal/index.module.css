@@ -69,7 +69,7 @@ label {
     font-weight: bold;
 }
 
-.destination,
+.location,
 .budget,
 .description {
     box-sizing: border-box;
@@ -188,4 +188,52 @@ label {
     background: #000000;
     border: 1px solid #000000;
     border-radius: 12px;
+}
+
+.uploaded-image-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 0px;
+    gap: 16px;
+    /*width: 242px;
+    height: 80px;*/
+    flex: none;
+    flex-grow: 0;
+}
+
+.uploaded-image {
+    box-sizing: border-box;
+    width: 130px;
+    height: 130px;
+    border: 1px solid #000000;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.image-name {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 14px;
+    gap: 8px;
+    width: 146px;
+    height: 48px;
+    border: 1px solid #000000;
+    border-radius: 12px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.remove-button {
+    color: black;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 12px;
 }
