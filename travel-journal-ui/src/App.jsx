@@ -7,8 +7,8 @@ import { AuthContext } from './context/AuthContext';
 import Home from './components/Home/Home';
 import Login from './components/Auth/Login/Login';
 import Register from './components/Auth/Register/Register';
-import Forgot from "./components/Auth/Forgot/Forgot";
-import Reset from "./components/Auth/Reset/Reset";
+import Forgot from './components/Auth/Forgot/Forgot';
+import Reset from './components/Auth/Reset/Reset';
 
 import './App.css';
 import Navbar from './components/Nav/Navbar';
@@ -27,8 +27,8 @@ function App() {
                     path="/register"
                     element={isAuthenticated ? <Navigate to="/" /> : <Register />}
                 />
-                <Route path="/forgotPassword" element={<Forgot/>}></Route>
-                <Route path="/resetPassword" element={<Reset/>}></Route>
+                <Route path="/forgotPassword" element={<Forgot />}></Route>
+                <Route path="/resetPassword" element={<Reset />}></Route>
                 <Route element={<Content />}>
                     <Route
                         path="/"

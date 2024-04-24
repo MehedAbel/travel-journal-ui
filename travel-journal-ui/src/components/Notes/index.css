@@ -1,0 +1,38 @@
+.data-grid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+table {
+    border-collapse:separate;
+    border: solid black 1px;
+    border-radius: 10px;
+    background-color: #fcfcfc;
+    width: 100%;
+}
+
+td, th {
+    border-left: solid black 1px;
+    border-top: solid black 1px;
+    padding: 12px 14px;
+    text-align: start;
+}
+
+th {
+    border-top: none;
+}
+
+td:first-child, th:first-child {
+    border-left: none;
+}
+
+.align{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 14px;
+    gap: 14px;
+}

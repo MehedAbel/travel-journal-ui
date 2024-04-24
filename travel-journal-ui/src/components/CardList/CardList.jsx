@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card.jsx';
 import { API_URL } from '../../config.js';
-import '../CardList/index.css';
 
+import './CardList.css';
+
+// eslint-disable-next-line react/prop-types
 const CardList = ({ onEdit }) => {
     const [entities, setEntities] = useState([]);
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Modal as BootstrapModal } from 'react-bootstrap';
 import styles from './index.module.css';
 
+// eslint-disable-next-line react/prop-types
 const Modal = ({ onClose, header, subheader, onAction, actionButtonText, disabled, children }) => {
     return (
         <BootstrapModal show={true} onHide={onClose} dialogClassName={styles['custom-dialog']}>

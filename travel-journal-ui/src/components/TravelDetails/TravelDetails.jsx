@@ -3,6 +3,7 @@ import './index.css';
 import { useLocation } from 'react-router-dom';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.jsx';
 import { API_URL } from '../../config.js';
+import NoteDataGrid from '../Notes/NoteDataGrid.jsx';
 import ImageComponent from '../Image/ImageComponent.jsx';
 
 const TravelDetails = () => {
@@ -65,7 +66,7 @@ const TravelDetails = () => {
                         <button className="new-note-button"> + New Note</button>
                     </div>
                     <div className="notes-table">
-                        <div>No notes available yet.</div>
+                        <NoteDataGrid travelId={travelDetails.id}></NoteDataGrid>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,12 @@
-import './index.css';
+import './Card.css';
 import deleteIcon from '../../assets/deleteIcon.svg';
 import editIcon from '../../assets/editIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import DeleteModal from '../Modal/DeleteModal/DeleteModal.jsx';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ImageComponent from '../Image/ImageComponent';
 
+// eslint-disable-next-line react/prop-types
 const Card = ({ card, onEdit, onDelete }) => {
     const navigate = useNavigate();
     const [showDelete, setShowDelete] = useState(false);
