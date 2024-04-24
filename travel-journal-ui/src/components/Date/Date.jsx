@@ -10,8 +10,6 @@ const formatDate = (date) => {
     } else if (Array.isArray(date) && date.length === 3) {
         const [year, month, day] = date.map((item) => String(item).padStart(2, '0'));
         return `${year}-${month}-${day}`;
-    } else {
-        return '';
     }
 };
 
