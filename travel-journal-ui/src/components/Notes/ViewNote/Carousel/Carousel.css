@@ -1,0 +1,111 @@
+.image-gallery {
+    width: 100%;
+}
+
+.image-gallery-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.image-gallery-slide-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.image-gallery-swipe {
+    order: 2;
+}
+
+.image-gallery-slides {
+    overflow: hidden;
+    width: 250px;
+    height: 211px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-gallery-slide {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-gallery-slide .image-gallery-image {
+    border-radius: 15px;
+    border: 2px solid #000;
+    height: 206px;
+    width: 206px;
+    object-fit: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-gallery-custom-left-nav,
+.image-gallery-custom-right-nav {
+    background-color: rgba(0, 0, 0, 0);
+    padding: 10px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: scale 150ms ease-in-out;
+}
+
+.image-gallery-custom-left-nav:hover,
+.image-gallery-custom-right-nav:hover {
+    scale: 1.5;
+}
+
+.image-gallery-custom-left-nav {
+    order: 1;
+}
+
+.image-gallery-custom-right-nav {
+    order: 3;
+}
+
+.image-gallery-custom-left-nav:disabled,
+.image-gallery-custom-right-nav:disabled {
+    opacity: 0.5;
+}
+
+.image-gallery-thumbnails-wrapper {
+    margin-top: 50px;
+    box-sizing: border-box;
+}
+
+.image-gallery-thumbnails-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3.7rem;
+    padding: 5px;
+}
+
+.image-gallery-thumbnail {
+    height: 80px;
+    width: 80px;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 0 0 0 1px #000;
+}
+
+.image-gallery-thumbnail-inner .image-gallery-thumbnail-image {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+}
+
+.image-gallery-thumbnail.active,
+.image-gallery-thumbnail:hover {
+    border: none;
+    box-shadow: 0 0 0 6px #4b4c49;
+}
