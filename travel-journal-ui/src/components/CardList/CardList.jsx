@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Card from '../Card/Card.jsx';
 import {API_URL} from '../../config.js';
 
-import '../CardList/index.css'
+import styles from './CardList.module.css'
 
 const CardList = ({ onEdit }) => {
     const [entities, setEntities] = useState([]);
@@ -73,7 +73,7 @@ const CardList = ({ onEdit }) => {
 
     const renderCards = entities.map((item) => {
         return (
-            <div key={item.id} className="col custom-col">
+            <div key={item.id} className={`col ${styles['custom-col']}`}>
                 <Card card={item} onEdit={() => onEdit(item)} onDelete={() => deleteCard(item.id)} />
             </div>
         );
