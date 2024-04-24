@@ -3,6 +3,7 @@ import styles from './index.module.css';
 import uploadIcon from '../../../assets/uploadIcon.svg';
 import Modal from '../BaseModal/Modal.jsx';
 
+// eslint-disable-next-line react/prop-types
 const TravelCardModal = ({ onClose, card, header, subheader }) => {
     const [isValid, setIsValid] = useState(card !== undefined);
 
@@ -12,8 +13,7 @@ const TravelCardModal = ({ onClose, card, header, subheader }) => {
             header={header}
             subheader={subheader}
             actionButtonText={'Save'}
-            disabled={!isValid}
-        >
+            disabled={!isValid}>
             <div className={styles['upload-photo-group']}>
                 <label>Cover Photo</label>
                 <div className={styles['upload-group']}>

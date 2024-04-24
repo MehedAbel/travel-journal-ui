@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from './TravelDetails.module.css';
-import { decodeImage } from '../Card/Card.jsx';
 import { useLocation } from 'react-router-dom';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.jsx';
 import { API_URL } from '../../config.js';
+import NoteDataGrid from '../Notes/NoteDataGrid.jsx';
+import ImageComponent from '../Image/ImageComponent.jsx';
 
 const TravelDetails = () => {
     const [travelDetails, setTravelDetails] = useState([]);
@@ -26,7 +27,7 @@ const TravelDetails = () => {
                 if (data) {
                     setTravelDetails({
                         id: data.travelId,
-                        image: decodeImage(data.coverPhoto.fileContent),
+                        imageId: data.coverPhotoId,
                         location: data.location,
                         startDate: data.startDate,
                         endDate: data.endDate,
@@ -55,7 +56,7 @@ const TravelDetails = () => {
                     </div>
                 </div>
                 <div>
-                    <img src={travelDetails.image} alt="placeholder" />
+                    {travelDetails.imageId && <ImageComponent imageId={travelDetails.imageId} />}
                 </div>
                 <div className={styles['description']}>
                     <p>{travelDetails.description}</p>
@@ -65,7 +66,7 @@ const TravelDetails = () => {
                         <button className={styles['new-note-button']}> + New Note</button>
                     </div>
                     <div className={styles['notes-table']}>
-                        <div>No notes available yet.</div>
+                        <NoteDataGrid travelId={travelDetails.id}></NoteDataGrid>
                     </div>
                 </div>
             </div>

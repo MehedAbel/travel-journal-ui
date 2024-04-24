@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import sha256 from 'js-sha256';
 
 import { API_URL } from '../../../config';
-import './index.css';
+import './Register.css';
 import logo from '../../../assets/Logo-White.svg';
 import login_bg from '../../../assets/login-bg.jpg';
 
@@ -115,7 +115,7 @@ const Register = () => {
         }
 
         const hashedPassword = sha256(formValues.password);
-        fetch(`${API_URL}/api/user/saveuser`, {
+        fetch(`${API_URL}/api/user/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -150,16 +150,7 @@ const Register = () => {
     };
 
     return (
-        <div
-            style={{
-                backgroundImage: `url(${login_bg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center'
-            }}
-        >
+        <div id="register">
             <div className="container">
                 <div className="d-flex flex-row justify-content-between align-items-center text-white pt-0">
                     <div className="d-flex flex-column fs-3 w-50 text-shadow">
