@@ -3,11 +3,30 @@ import delete_button from '../../assets/delete_button.svg';
 import edit from '../../assets/edit.svg';
 import React, { useState, useEffect } from 'react';
 import DeleteNote from './DeleteNote.jsx';
+import ViewNote from './ViewNote/ViewNote.jsx';
 import { API_URL } from '../../config.js';
 
 const NoteDataGrid = (travelId) => {
-    const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState([
+        // for testing purposes
+        {
+            id: 1,
+            name: 'Test Note',
+            date: '01 / 02 / 2021',
+            description: 'Test Description',
+            images: [
+                'https://source.unsplash.com/random/1000x1000?sig=1',
+                'https://source.unsplash.com/random/1000x1000?sig=2',
+                'https://source.unsplash.com/random/1000x1000?sig=3',
+                'https://source.unsplash.com/random/1000x1000?sig=4',
+                'https://source.unsplash.com/random/1000x1000?sig=5',
+                'https://source.unsplash.com/random/1000x1000?sig=6',
+                'https://source.unsplash.com/random/1000x1000?sig=7'
+            ]
+        }
+    ]);
     const [note, setNote] = useState(null);
+    const [whichOpenModal, setWhichOpenModal] = useState(null);
 
     const token = localStorage.getItem('token');
     const tokenType = localStorage.getItem('tokenType');
@@ -36,6 +55,19 @@ const NoteDataGrid = (travelId) => {
 
     const showModal = (event, note) => {
         setNote(note);
+    };
+
+    const modalCondition = () => {
+        if (whichOpenModal === 'viewNote') {
+            return <ViewNote note={note} onClose={cancel} />;
+        } else if (whichOpenModal === 'deleteNote') {
+            return (
+                <DeleteNote
+                    noteName={note.name}
+                    onDelete={deleteNote}
+                    onCancel={cancel}></DeleteNote>
+            );
+        }
     };
 
     const fetchNotes = async () => {
@@ -67,7 +99,7 @@ const NoteDataGrid = (travelId) => {
 
     return (
         <div className="data-grid">
-            {notes.length > 0 ? (
+            {notes.length > 0 ? ( // new
                 <table>
                     <thead>
                         <tr>
@@ -81,7 +113,14 @@ const NoteDataGrid = (travelId) => {
                         {notes.map((note) => (
                             <tr key={note.id}>
                                 <td>
-                                    <a href="#">{note.name}</a>
+                                    <a
+                                        href="#"
+                                        onClick={(event) => {
+                                            setWhichOpenModal('viewNote');
+                                            showModal(event, note);
+                                        }}>
+                                        {note.name}
+                                    </a>
                                 </td>
                                 <td>{note.date}</td>
                                 <td>{note.description}</td>
@@ -92,7 +131,10 @@ const NoteDataGrid = (travelId) => {
                                         </button>
                                         <button
                                             className="btn button-container"
-                                            onClick={(event) => showModal(event, note)}>
+                                            onClick={(event) => {
+                                                setWhichOpenModal('deleteNote');
+                                                showModal(event, note);
+                                            }}>
                                             <img src={delete_button} alt="delete" />
                                         </button>
                                     </div>
@@ -104,12 +146,7 @@ const NoteDataGrid = (travelId) => {
             ) : (
                 <p>No notes available yet</p>
             )}
-            {note != null && (
-                <DeleteNote
-                    noteName={note.name}
-                    onDelete={deleteNote}
-                    onCancel={cancel}></DeleteNote>
-            )}
+            {note != null && modalCondition()}
         </div>
     );
 };
