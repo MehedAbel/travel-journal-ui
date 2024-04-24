@@ -11,6 +11,8 @@ const formatDate = (date) => {
         const [year, month, day] = date.map((item) => String(item).padStart(2, '0'));
         return `${year}-${month}-${day}`;
     }
+
+    return '';
 };
 
 export { formatDate };
