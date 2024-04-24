@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.jsx';
 import { API_URL } from '../../config.js';
 import ImageComponent from '../Image/ImageComponent.jsx';
+import { formatDate } from '../Date/Date.jsx';
 
 const TravelDetails = () => {
     const [travelDetails, setTravelDetails] = useState([]);
@@ -48,7 +49,8 @@ const TravelDetails = () => {
                     <div className="city">{travelDetails.location}</div>
                     <div className="details">
                         <div className="dates">
-                            {travelDetails.startDate} to {travelDetails.endDate}
+                            {formatDate(travelDetails.startDate)} to{' '}
+                            {formatDate(travelDetails.endDate)}
                         </div>
                         <div className="date-separator">•</div>
                         <div className="notes">{travelDetails.noNotes} Notes</div>
