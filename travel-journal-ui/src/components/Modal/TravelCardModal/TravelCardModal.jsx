@@ -3,6 +3,7 @@ import styles from './index.module.css';
 import uploadIcon from '../../../assets/uploadIcon.svg';
 import Modal from '../BaseModal/Modal.jsx';
 import ImageComponent from '../../Image/ImageComponent.jsx';
+import { formatDate } from '../../Date/Date.jsx';
 
 const TravelCardModal = ({ onClose, card, header, subheader, image }) => {
     const [isValid, setIsValid] = useState(card !== undefined);
@@ -71,9 +72,19 @@ const TravelCardModal = ({ onClose, card, header, subheader, image }) => {
         formData.startDate[0] + '-' + formData.startDate[1] + '-' + formData.startDate[2]
     );
 
+    console.log(
+        'enddate: ',
+        formData.endDate[0] + '-' + formData.endDate[1] + '-' + formData.endDate[2]
+    );
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        if (name === 'startDate' || name === 'endDate') {
+            const dateArray = value.split('-').map(Number);
+            setFormData({ ...formData, [name]: dateArray });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleUploadImage = (e) => {
@@ -81,8 +92,9 @@ const TravelCardModal = ({ onClose, card, header, subheader, image }) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            setFormData({ ...formData, image: reader.result });
-            setNewImage(URL.createObjectURL(reader.result));
+            /*console.log('file ----> ', reader.result.split('base64,')[1]);*/ //de sters dupa
+            setFormData({ ...formData, image: reader.result.split('base64,')[1] });
+            setNewImage(reader.result);
             setImageName(file.name);
         };
     };
@@ -147,14 +159,7 @@ const TravelCardModal = ({ onClose, card, header, subheader, image }) => {
                         className={styles['sd-input']}
                         type="date"
                         name="startDate"
-                        value={
-                            formData.startDate[0] +
-                            '-0' +
-                            formData.startDate[1] +
-                            '-' +
-                            formData.startDate[2]
-                            /*formData.startDate*/
-                        }
+                        value={formatDate(formData.startDate)}
                         onChange={handleChange}
                     />
                 </div>
@@ -164,14 +169,7 @@ const TravelCardModal = ({ onClose, card, header, subheader, image }) => {
                         className={styles['ed-input']}
                         type="date"
                         name="endDate"
-                        value={
-                            formData.endDate[0] +
-                            '-0' +
-                            formData.endDate[1] +
-                            '-' +
-                            formData.endDate[2]
-                            /*formData.endDate*/
-                        }
+                        value={formatDate(formData.endDate)}
                         onChange={handleChange}
                     />
                 </div>
@@ -180,7 +178,7 @@ const TravelCardModal = ({ onClose, card, header, subheader, image }) => {
                 <label>Budget</label>
                 <input
                     className={styles['budget']}
-                    type="text"
+                    type="number"
                     placeholder="New Budget"
                     name="budget"
                     value={formData.budget}

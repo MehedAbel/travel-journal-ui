@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import DeleteModal from '../Modal/DeleteModal/DeleteModal.jsx';
 import React, { useEffect, useState } from 'react';
 import ImageComponent from '../Image/ImageComponent';
+import { formatDate } from '../Date/Date.jsx';
 
 const Card = ({ card, onEdit, onDelete }) => {
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Card = ({ card, onEdit, onDelete }) => {
                         <p className="fs-3">{card.location}</p>
                         <div className="color-gray">
                             <p>
-                                {card.startDate} to {card.endDate}
+                                {formatDate(card.startDate)} to {formatDate(card.endDate)}
                             </p>
                             <div className="d-flex flex-row">
                                 <p>
