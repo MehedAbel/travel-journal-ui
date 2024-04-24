@@ -8,7 +8,7 @@ import { API_URL } from "../../../config";
 
 import {REGEX, errorMessages} from "../../../constants/Validations.js"
 
-import "./../Login/Login.css";
+import styles from "../Login/Login.module.css";
 import Description from "../Description/Description.jsx";
 
 const Reset = () => {
@@ -104,18 +104,18 @@ const Reset = () => {
     };
 
     return (
-        <div id="login">
-            <div className="login-row">
+        <div id={styles['login']}>
+            <div className={styles['login-row']}>
                 <Description/>
 
-                <div className="login-card">
+                <div className={styles['login-card']}>
                     {!isSubmitted ?
                     (
 
                         <Fragment>
-                            <h3 className="login-card__title">Reset Password</h3>
-                            <form onSubmit={submit} id="login-form" className="login-form">
-                                <div className="login-form__input-field">
+                            <h3 className={styles['login-card__title']}>Reset Password</h3>
+                            <form onSubmit={submit} id="login-form" className={styles['login-form']}>
+                                <div className={styles['login-form__input-field']}>
                                     <label>New Password</label>
                                     <input
                                         type="password"
@@ -124,7 +124,7 @@ const Reset = () => {
                                     />
                                 </div>
 
-                                <div className="login-form__input-field">
+                                <div className={styles['login-form__input-field']}>
                                     <label>Confirm Password</label>
                                     <input
                                         type="password"
@@ -132,8 +132,8 @@ const Reset = () => {
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                     />
                                     {passwordError && (
-                                        <div className="error-background">
-                                            <div className="error-message">{passwordError}</div>
+                                        <div className={styles['error-background']}>
+                                            <div className={styles['error-message']}>{passwordError}</div>
                                         </div>
                                     )}
                                 </div>
@@ -142,7 +142,7 @@ const Reset = () => {
                             <button
                                 type="submit"
                                 form="login-form"
-                                className="login-form__submit-btn"
+                                className={styles['login-form__submit-btn']}
                             >
                                 <h3>Save New Password</h3>
                             </button>
@@ -150,10 +150,10 @@ const Reset = () => {
                     ) :
                     (
                         <Fragment>
-                            <h3 className="login-card__title">
+                            <h3 className={styles['login-card__title']}>
                                 Your password has been changed successfully.
                             </h3>
-                            <button className="login-form__submit-btn" onClick={() => navigate("/login")}>
+                            <button className={styles['login-form__submit-btn']} onClick={() => navigate("/login")}>
                                 <h3>Back to Login</h3>
                             </button>
                         </Fragment>

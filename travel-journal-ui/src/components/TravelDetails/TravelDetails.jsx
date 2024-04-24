@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './index.css';
+import styles from './TravelDetails.module.css';
 import { decodeImage } from '../Card/Card.jsx';
 import { useLocation } from 'react-router-dom';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.jsx';
@@ -43,28 +43,28 @@ const TravelDetails = () => {
     return (
         <div className="travel-container">
             <Breadcrumbs />
-            <div className="travel-details">
+            <div className={styles['travel-details']}>
                 <div className="header">
-                    <div className="city">{travelDetails.location}</div>
-                    <div className="details">
-                        <div className="dates">
+                    <div className={styles['city']}>{travelDetails.location}</div>
+                    <div className={styles['details']}>
+                        <div className={styles['dates']}>
                             {travelDetails.startDate} to {travelDetails.endDate}
                         </div>
-                        <div className="date-separator">•</div>
-                        <div className="notes">{travelDetails.noNotes} Notes</div>
+                        <div className={styles['date-separator']}>•</div>
+                        <div className={styles['notes']}>{travelDetails.noNotes} Notes</div>
                     </div>
                 </div>
                 <div>
                     <img src={travelDetails.image} alt="placeholder" />
                 </div>
-                <div className="description">
+                <div className={styles['description']}>
                     <p>{travelDetails.description}</p>
                 </div>
-                <div className="notes-container">
-                    <div className="button-wrapper">
-                        <button className="new-note-button"> + New Note</button>
+                <div className={styles['notes-container']}>
+                    <div className={styles['button-wrapper']}>
+                        <button className={styles['new-note-button']}> + New Note</button>
                     </div>
-                    <div className="notes-table">
+                    <div className={styles['notes-table']}>
                         <div>No notes available yet.</div>
                     </div>
                 </div>

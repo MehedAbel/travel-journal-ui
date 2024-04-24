@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Breadcrumbs.css';
+import styles from './Breadcrumbs.module.css';
 
 const Breadcrumbs = () => {
     // Get the current path of the page
@@ -18,18 +18,18 @@ const Breadcrumbs = () => {
     }
 
     return (
-        <div id="breadcrumbs">
+        <div id={styles['breadcrumbs']}>
             <ol>
                 {breadcrumbs.map((breadcrumb, index) => (
                     <li
                         key={index}
-                        className={index === 0 ? 'breadcrumb-item-first' : 'breadcrumb-item'}
+                        className={index === 0 ? styles['breadcrumb-item-first'] : styles['breadcrumb-item']}
                     >
                         {index !== 0 && ' / '}
                         {index === breadcrumbs.length - 1 ? (
-                            <span className="breadcrumb-text">{breadcrumb.name}</span>
+                            <span className={styles['breadcrumb-text']}>{breadcrumb.name}</span>
                         ) : (
-                            <Link to={breadcrumb.path} className="breadcrumb-link">
+                            <Link to={breadcrumb.path} className={styles['breadcrumb-link']}>
                                 {breadcrumb.name}
                             </Link>
                         )}
