@@ -116,6 +116,7 @@ const NoteDataGrid = (travelId) => {
                                     <a
                                         href="#"
                                         onClick={(event) => {
+                                            event.preventDefault();
                                             setWhichOpenModal('viewNote');
                                             showModal(event, note);
                                         }}>
