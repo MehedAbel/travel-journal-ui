@@ -3,45 +3,7 @@ import Card from '../Card/Card.jsx';
 import { API_URL } from '../../config.js';
 import '../CardList/index.css';
 
-const CardList = ({ onEdit }) => {
-    const [entities, setEntities] = useState([]);
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        const tokenType = localStorage.getItem('tokenType');
-
-        fetch(`${API_URL}/travel-journal/my-travels`, {
-            method: 'GET',
-            headers: {
-                Authorization: `${tokenType} ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data && data.length > 0) {
-                    const tempData = [];
-                    data.forEach((item) => {
-                        tempData.push({
-                            id: item.travelId,
-                            imageId: item.coverPhotoId,
-                            location: item.location,
-                            startDate: item.startDate,
-                            endDate: item.endDate,
-                            price: item.budget,
-                            noNotes: item.notesNumber ? item.notesNumber : 0,
-                            currency: 'lei',
-                            description: item.description
-                        });
-                    });
-                    setEntities(tempData);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }, []);
-
+const CardList = ({ entities, setEntities, onEdit }) => {
     // Returns a Promise which, if unsuccessful, provides an error string do display,
     // or if successful, an empty string.
     const deleteCard = (cardId) => {
