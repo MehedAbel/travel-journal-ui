@@ -7,9 +7,7 @@ import ArrowLeft from '../../../../assets/arrow-left.svg';
 import ArrowRight from '../../../../assets/arrow-right.svg';
 
 const Carousel = ({ images }) => {
-    const displayedImages = images.slice(0, 7);
-
-    const imageUrls = displayedImages.map((imageUrl, index) => ({
+    const imageUrls = images.map((imageUrl, index) => ({
         original: imageUrl,
         thumbnail: imageUrl,
         originalAlt: `Image ${index + 1}`,
