@@ -33,9 +33,12 @@ const ViewNote = ({ note = {}, onClose }) => {
                 console.error('Error loading image:', error);
             }
         };
-        note.imagesIds.forEach((imageId) => {
-            loadImage(imageId);
-        });
+
+        if (note.imagesIds) {
+            note.imagesIds.forEach((imageId) => {
+                loadImage(imageId);
+            });
+        }
     }, []);
 
     return (
