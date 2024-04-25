@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card.jsx';
 import { API_URL } from '../../config.js';
-import '../CardList/index.css';
-import styles from './CardList.module.css'
+import styles from './CardList.module.css';
 
 const CardList = ({ entities, setEntities, onEdit }) => {
     // Returns a Promise which, if unsuccessful, provides an error string do display,
