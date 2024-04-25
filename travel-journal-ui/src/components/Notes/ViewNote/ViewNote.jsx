@@ -68,7 +68,11 @@ const ViewNote = ({ note = {}, onClose }) => {
                         <input
                             type="text"
                             disabled={true}
-                            value={note.date ? note.date : 'No date'}
+                            value={
+                                note.date
+                                    ? `${note.date[2]} / ${note.date[1]} / ${note.date[0]}`
+                                    : 'No date'
+                            }
                         />
                     </div>
                     <div className={styles['description']}>

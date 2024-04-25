@@ -70,11 +70,17 @@ const NoteDataGrid = ({ notesList }) => {
                                             setIsViewNoteOpen(true);
                                             showModal(event, note);
                                         }}>
-                                        {note.destinationName}
+                                        {note.destinationName
+                                            ? note.destinationName
+                                            : 'No destination'}
                                     </a>
                                 </td>
-                                <td>{note.date}</td>
-                                <td>{note.description}</td>
+                                <td>
+                                    {note.date
+                                        ? `${note.date[2]} / ${note.date[1]} / ${note.date[0]}`
+                                        : 'No date'}
+                                </td>
+                                <td>{note.description ? note.description : 'No description'}</td>
                                 <td>
                                     <div className="align">
                                         <button className="btn button-container">
