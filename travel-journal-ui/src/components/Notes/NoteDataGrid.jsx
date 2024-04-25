@@ -1,13 +1,18 @@
 import './index.css';
 import delete_button from '../../assets/delete_button.svg';
 import edit from '../../assets/edit.svg';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DeleteNote from './DeleteNote.jsx';
 import ViewNote from './ViewNote/ViewNote.jsx';
 import { API_URL } from '../../config.js';
 
 const NoteDataGrid = ({ notesList }) => {
-    const [notes, setNotes] = useState(notesList ?? []);
+    const [notes, setNotes] = useState([]);
+
+    useEffect(() => {
+        setNotes(notesList ?? []);
+    }, [notesList]);
+
     const [note, setNote] = useState(null);
     const [isViewNoteOpen, setIsViewNoteOpen] = useState(false);
     const [isDeleteNoteOpen, setIsDeleteNoteOpen] = useState(false);
