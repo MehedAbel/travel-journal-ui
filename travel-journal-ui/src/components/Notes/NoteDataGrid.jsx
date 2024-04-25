@@ -26,7 +26,8 @@ const NoteDataGrid = (travelId) => {
         }
     ]);
     const [note, setNote] = useState(null);
-    const [whichOpenModal, setWhichOpenModal] = useState(null);
+    const [isViewNoteOpen, setIsViewNoteOpen] = useState(false);
+    const [isDeleteNoteOpen, setIsDeleteNoteOpen] = useState(false);
 
     const token = localStorage.getItem('token');
     const tokenType = localStorage.getItem('tokenType');
@@ -51,23 +52,11 @@ const NoteDataGrid = (travelId) => {
 
     const cancel = () => {
         setNote(null);
+        setIsDeleteNoteOpen(false);
     };
 
     const showModal = (event, note) => {
         setNote(note);
-    };
-
-    const modalCondition = () => {
-        if (whichOpenModal === 'viewNote') {
-            return <ViewNote note={note} onClose={cancel} />;
-        } else if (whichOpenModal === 'deleteNote') {
-            return (
-                <DeleteNote
-                    noteName={note.name}
-                    onDelete={deleteNote}
-                    onCancel={cancel}></DeleteNote>
-            );
-        }
     };
 
     const fetchNotes = async () => {
@@ -117,7 +106,7 @@ const NoteDataGrid = (travelId) => {
                                         href="#"
                                         onClick={(event) => {
                                             event.preventDefault();
-                                            setWhichOpenModal('viewNote');
+                                            setIsViewNoteOpen(true);
                                             showModal(event, note);
                                         }}>
                                         {note.name}
@@ -133,7 +122,7 @@ const NoteDataGrid = (travelId) => {
                                         <button
                                             className="btn button-container"
                                             onClick={(event) => {
-                                                setWhichOpenModal('deleteNote');
+                                                setIsDeleteNoteOpen(true);
                                                 showModal(event, note);
                                             }}>
                                             <img src={delete_button} alt="delete" />
@@ -147,7 +136,15 @@ const NoteDataGrid = (travelId) => {
             ) : (
                 <p>No notes available yet</p>
             )}
-            {note != null && modalCondition()}
+            {note != null && isDeleteNoteOpen && (
+                <DeleteNote
+                    noteName={note.name}
+                    onDelete={deleteNote}
+                    onCancel={cancel}></DeleteNote>
+            )}
+            {note != null && isViewNoteOpen && (
+                <ViewNote note={note} onClose={() => setIsViewNoteOpen(false)} />
+            )}
         </div>
     );
 };
