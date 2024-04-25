@@ -14,15 +14,7 @@ const NoteDataGrid = (travelId) => {
             name: 'Test Note',
             date: '01 / 02 / 2021',
             description: 'Test Description',
-            images: [
-                'https://source.unsplash.com/random/1000x1000?sig=1',
-                'https://source.unsplash.com/random/1000x1000?sig=2',
-                'https://source.unsplash.com/random/1000x1000?sig=3',
-                'https://source.unsplash.com/random/1000x1000?sig=4',
-                'https://source.unsplash.com/random/1000x1000?sig=5',
-                'https://source.unsplash.com/random/1000x1000?sig=6',
-                'https://source.unsplash.com/random/1000x1000?sig=7'
-            ]
+            imagesIds: [1, 2, 3, 4, 5, 6, 7]
         }
     ]);
     const [note, setNote] = useState(null);

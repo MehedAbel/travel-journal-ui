@@ -1,9 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '../../Modal/BaseModal/Modal.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 import styles from './ViewNote.module.css';
+import { API_URL } from '../../../config.js';
 
 const ViewNote = ({ note = {}, onClose }) => {
+    const [images, setImages] = useState([]);
+
+    useEffect(() => {
+        const loadImage = async (imageId) => {
+            const token = localStorage.getItem('token');
+            const tokenType = localStorage.getItem('tokenType');
+            try {
+                const response = await fetch(`${API_URL}/travel-journal/image/${imageId}`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `${tokenType} ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        setImages((prevImages) => [...prevImages, reader.result]);
+                    };
+                    reader.readAsDataURL(blob);
+                } else {
+                    console.error('Failed to load image:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error loading image:', error);
+            }
+        };
+        note.imagesIds.forEach((imageId) => {
+            loadImage(imageId);
+        });
+    }, []);
+
     return (
         <Modal
             header="View Note"
@@ -11,8 +45,8 @@ const ViewNote = ({ note = {}, onClose }) => {
             onClose={onClose}
             disabled={false}>
             <div className={styles['body']}>
-                {note.images && note.images.length >= 1 ? (
-                    <Carousel images={note.images} />
+                {images && images.length >= 1 ? (
+                    <Carousel images={images} />
                 ) : (
                     <div className={styles['no-images']}>No images to display</div>
                 )}
