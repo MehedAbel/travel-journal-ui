@@ -1,22 +1,13 @@
 import './index.css';
 import delete_button from '../../assets/delete_button.svg';
 import edit from '../../assets/edit.svg';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DeleteNote from './DeleteNote.jsx';
 import ViewNote from './ViewNote/ViewNote.jsx';
 import { API_URL } from '../../config.js';
 
-const NoteDataGrid = (travelId) => {
-    const [notes, setNotes] = useState([
-        // for testing purposes
-        {
-            id: 1,
-            name: 'Test Note',
-            date: '01 / 02 / 2021',
-            description: 'Test Description',
-            imagesIds: [1, 2, 3, 4, 5, 6, 7]
-        }
-    ]);
+const NoteDataGrid = ({ notesList }) => {
+    const [notes, setNotes] = useState(notesList ?? []);
     const [note, setNote] = useState(null);
     const [isViewNoteOpen, setIsViewNoteOpen] = useState(false);
     const [isDeleteNoteOpen, setIsDeleteNoteOpen] = useState(false);
@@ -26,7 +17,7 @@ const NoteDataGrid = (travelId) => {
 
     const deleteNote = async () => {
         try {
-            const response = await fetch(`${API_URL}/travel-journal/deleteNote/${note.id}`, {
+            const response = await fetch(`${API_URL}/travel-journal/deleteNote/${note.noteId}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `${tokenType} ${token}`
@@ -36,9 +27,9 @@ const NoteDataGrid = (travelId) => {
                 throw new Error('Network response was not ok');
             }
             setNote(null);
-            await fetchNotes();
+            setNotes(notes.filter((n) => n.noteId !== note.noteId));
         } catch (error) {
-            console.error('Error deleting the ' + note.name + ' note: ', error);
+            console.error('Error deleting the ' + note.destinationName + ' note: ', error);
         }
     };
 
@@ -51,36 +42,9 @@ const NoteDataGrid = (travelId) => {
         setNote(note);
     };
 
-    const fetchNotes = async () => {
-        try {
-            //todo: get notes list
-            const response = await fetch(
-                `${API_URL}/travel-journal/travel/${travelId}/view-notes`,
-                {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `${tokenType} ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setNotes(data);
-        } catch (error) {
-            console.error('Error fetching notes:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchNotes().then();
-    }, []);
-
     return (
         <div className="data-grid">
-            {notes.length > 0 ? ( // new
+            {notes.length > 0 ? (
                 <table>
                     <thead>
                         <tr>
@@ -92,7 +56,7 @@ const NoteDataGrid = (travelId) => {
                     </thead>
                     <tbody>
                         {notes.map((note) => (
-                            <tr key={note.id}>
+                            <tr key={note.noteId}>
                                 <td>
                                     <a
                                         href="#"
@@ -101,7 +65,7 @@ const NoteDataGrid = (travelId) => {
                                             setIsViewNoteOpen(true);
                                             showModal(event, note);
                                         }}>
-                                        {note.name}
+                                        {note.destinationName}
                                     </a>
                                 </td>
                                 <td>{note.date}</td>
@@ -130,7 +94,7 @@ const NoteDataGrid = (travelId) => {
             )}
             {note != null && isDeleteNoteOpen && (
                 <DeleteNote
-                    noteName={note.name}
+                    noteName={note.destinationName}
                     onDelete={deleteNote}
                     onCancel={cancel}></DeleteNote>
             )}

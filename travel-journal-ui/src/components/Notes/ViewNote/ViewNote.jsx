@@ -8,9 +8,10 @@ const ViewNote = ({ note = {}, onClose }) => {
     const [images, setImages] = useState([]);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const tokenType = localStorage.getItem('tokenType');
+
         const loadImage = async (imageId) => {
-            const token = localStorage.getItem('token');
-            const tokenType = localStorage.getItem('tokenType');
             try {
                 const response = await fetch(`${API_URL}/travel-journal/image/${imageId}`, {
                     method: 'GET',
@@ -34,8 +35,8 @@ const ViewNote = ({ note = {}, onClose }) => {
             }
         };
 
-        if (note.imagesIds) {
-            note.imagesIds.forEach((imageId) => {
+        if (note.fileIds) {
+            note.fileIds.forEach((imageId) => {
                 loadImage(imageId);
             });
         }
@@ -59,7 +60,7 @@ const ViewNote = ({ note = {}, onClose }) => {
                         <input
                             type="text"
                             disabled={true}
-                            value={note.name ? note.name : 'No name'}
+                            value={note.destinationName ? note.destinationName : 'No destination'}
                         />
                     </div>
                     <div className={styles['date']}>
