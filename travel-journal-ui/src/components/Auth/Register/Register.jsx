@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import sha256 from 'js-sha256';
 
 import { API_URL } from '../../../config';
-import './Register.css';
+import styles from './Register.module.css';
 import logo from '../../../assets/Logo-White.svg';
 import login_bg from '../../../assets/login-bg.jpg';
 
@@ -150,10 +150,10 @@ const Register = () => {
     };
 
     return (
-        <div id="register">
+        <div id={styles['register']}>
             <div className="container">
                 <div className="d-flex flex-row justify-content-between align-items-center text-white pt-0">
-                    <div className="d-flex flex-column fs-3 w-50 text-shadow">
+                    <div className={`d-flex flex-column fs-3 w-50 ${styles['text-shadow']}`}>
                         <p className="opacity-75">Welcome to</p>
                         <img src={logo} alt="logo" className="logo" />
                         <ul className="pt-5">
@@ -180,7 +180,7 @@ const Register = () => {
                                 <div ref={formErrorRef}>
                                     <Error errorMessage={formError} ariaLive="assertive" />
                                 </div>
-                                <div className="input-field">
+                                <div className={styles['input-field']}>
                                     <label htmlFor="first-name">First Name</label>
                                     <input
                                         ref={(ref) => (inputRefs.current.firstName = ref)}
@@ -203,7 +203,7 @@ const Register = () => {
                                     {getErrorMessage('firstName')}
                                 </div>
 
-                                <div className="input-field">
+                                <div className={styles['input-field']}>
                                     <label htmlFor="last-name">Last Name</label>
                                     <input
                                         ref={(ref) => (inputRefs.current.lastName = ref)}
@@ -224,7 +224,7 @@ const Register = () => {
                                     {getErrorMessage('lastName')}
                                 </div>
 
-                                <div className="input-field">
+                                <div className={styles['input-field']}>
                                     <label htmlFor="email">Email</label>
                                     <input
                                         ref={(ref) => (inputRefs.current.email = ref)}
@@ -243,7 +243,7 @@ const Register = () => {
                                     {getErrorMessage('email')}
                                 </div>
 
-                                <div className="input-field">
+                                <div className={styles['input-field']}>
                                     <label htmlFor="password">Password</label>
                                     <input
                                         ref={(ref) => (inputRefs.current.password = ref)}
@@ -264,7 +264,7 @@ const Register = () => {
                                     {getErrorMessage('password')}
                                 </div>
 
-                                <div className="input-field">
+                                <div className={styles['input-field']}>
                                     <label htmlFor="confirm-password">Confirm Password</label>
                                     <input
                                         ref={(ref) => (inputRefs.current.confirmPassword = ref)}
@@ -292,7 +292,7 @@ const Register = () => {
                                 </button>
                                 <span>
                                     Do you have an account?{' '}
-                                    <a href="/login" className="login-link">
+                                    <a href="/login" className={styles['login-link']}>
                                         Log In
                                     </a>
                                 </span>
