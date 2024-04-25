@@ -3,7 +3,7 @@ import Modal from '../../Modal/BaseModal/Modal.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 import styles from './ViewNote.module.css';
 
-const ViewNote = ({ note, onClose }) => {
+const ViewNote = ({ note = {}, onClose }) => {
     return (
         <Modal
             header="View Note"
@@ -11,7 +11,7 @@ const ViewNote = ({ note, onClose }) => {
             onClose={onClose}
             disabled={false}>
             <div className={styles['body']}>
-                {note.images.length >= 1 ? (
+                {note.images && note.images.length >= 1 ? (
                     <Carousel images={note.images} />
                 ) : (
                     <div className={styles['no-images']}>No images to display</div>
