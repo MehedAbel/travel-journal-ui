@@ -1,4 +1,5 @@
-import './index.css';
+import styles from './NoteDataGrid.module.css';
+import stylesCard from './../Card/Card.module.css';
 import delete_button from '../../assets/delete_button.svg';
 import edit from '../../assets/edit.svg';
 import React, { useState, useEffect } from 'react';
@@ -66,7 +67,7 @@ const NoteDataGrid = (travelId) => {
     }, []);
 
     return (
-        <div className="data-grid">
+        <div className={styles['data-grid']}>
             {notes.length > 0 ? (
                 <table>
                     <thead>
@@ -86,12 +87,12 @@ const NoteDataGrid = (travelId) => {
                                 <td>{note.date}</td>
                                 <td>{note.description}</td>
                                 <td>
-                                    <div className="align">
-                                        <button className="btn button-container">
+                                    <div className={styles['align']}>
+                                        <button className={`btn ${stylesCard['button-container']}`}>
                                             <img src={edit} alt="edit" />
                                         </button>
                                         <button
-                                            className="btn button-container"
+                                            className={`btn ${stylesCard['button-container']}`}
                                             onClick={(event) => showModal(event, note)}>
                                             <img src={delete_button} alt="delete" />
                                         </button>
