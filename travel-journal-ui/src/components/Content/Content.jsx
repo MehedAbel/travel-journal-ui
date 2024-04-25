@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
-import './index.css';
+import styles from './Content.module.css';
 
 const Content = () => {
     return (
-        <div className="content">
+        <div className={styles['content']}>
             <Outlet />
         </div>
     );

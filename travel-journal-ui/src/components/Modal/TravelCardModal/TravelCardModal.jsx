@@ -7,6 +7,7 @@ import { formatDate } from '../../Date/Date.jsx';
 import removeIcon from '../../../assets/x-icon.svg';
 import { API_URL } from '../../../config.js';
 
+// eslint-disable-next-line react/prop-types
 const TravelCardModal = ({ onClose, card, header, subheader, image, reloadCardList }) => {
     const [newImage, setNewImage] = useState(null);
     const [imageName, setImageName] = useState(null);

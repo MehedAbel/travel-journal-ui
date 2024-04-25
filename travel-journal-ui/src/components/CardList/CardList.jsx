@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card.jsx';
 import { API_URL } from '../../config.js';
 import '../CardList/index.css';
+import styles from './CardList.module.css'
 
 const CardList = ({ entities, setEntities, onEdit }) => {
     // Returns a Promise which, if unsuccessful, provides an error string do display,
@@ -35,7 +36,7 @@ const CardList = ({ entities, setEntities, onEdit }) => {
 
     const renderCards = entities.map((item) => {
         return (
-            <div key={item.id} className="col custom-col">
+            <div key={item.id} className={`col ${styles['custom-col']}`}>
                 <Card
                     card={item}
                     onEdit={() => onEdit(item)}

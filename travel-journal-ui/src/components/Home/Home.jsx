@@ -71,7 +71,7 @@ const Home = () => {
 
             {addCard && (
                 <TravelCardModal
-                    header={'Add Travel'}
+                    header={'New Travel'}
                     subheader={'Add your travel details below.'}
                     onClose={() => setAddCard(false)}
                     reloadCardList={loadCardList}
