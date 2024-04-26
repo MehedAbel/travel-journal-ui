@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../config.js';
 
-function ImageComponent({ imageId }) {
-    const [imageData, setImageData] = useState(null);
+function ImageComponent({ imageId, updateImageName, updateImageData }) {
     const [error, setError] = useState(null);
+    const [imageData, setImageData] = useState(null);
+    const [imageName, setImageName] = useState(null);
 
     useEffect(() => {
         const loadImage = async () => {
@@ -15,15 +16,28 @@ function ImageComponent({ imageId }) {
                     headers: {
                         Authorization: `${tokenType} ${token}`,
                         'Content-Type': 'application/json'
-                    }
+                    },
+                    mode: 'cors'
                 });
                 if (response.ok) {
+                    const contentDisposition = response.headers.get('content-disposition');
+                    if (contentDisposition !== null) {
+                        const filename = contentDisposition.split('filename=')[1];
+                        const cleanFilename = filename.replace(/"/g, '');
+                        setImageName(cleanFilename);
+                        if (updateImageName) {
+                            updateImageName(cleanFilename);
+                        }
+                    }
                     const blob = await response.blob();
                     const reader = new FileReader();
                     reader.onloadend = () => {
                         setImageData(reader.result);
                     };
                     reader.readAsDataURL(blob);
+                    if (updateImageData) {
+                        updateImageData(blob);
+                    }
                 } else {
                     console.error('Failed to load image:', response.statusText);
                 }
@@ -33,12 +47,12 @@ function ImageComponent({ imageId }) {
             }
         };
         loadImage();
-    }, [imageId]);
+    }, [imageId, updateImageName]);
 
     return (
         <>
             {error ? <div>Error: {error}</div> : null}
-            {imageData ? <img src={imageData} alt={`Image ${imageId}`} /> : <div>Loading...</div>}
+            {imageData ? <img src={imageData} alt={'imageName'} /> : <div>Loading...</div>}
         </>
     );
 }

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import DeleteModal from '../Modal/DeleteModal/DeleteModal.jsx';
 import React, { useState } from 'react';
 import ImageComponent from '../Image/ImageComponent';
+import { formatDate } from '../Date/Date.jsx';
 
 // eslint-disable-next-line react/prop-types
 const Card = ({ card, onEdit, onDelete }) => {
@@ -38,7 +39,7 @@ const Card = ({ card, onEdit, onDelete }) => {
                         <p className="fs-3">{card.location}</p>
                         <div className={styles['color-gray']}>
                             <p>
-                                {card.startDate} to {card.endDate}
+                                {formatDate(card.startDate)} to {formatDate(card.endDate)}
                             </p>
                             <div className="d-flex flex-row">
                                 <p>

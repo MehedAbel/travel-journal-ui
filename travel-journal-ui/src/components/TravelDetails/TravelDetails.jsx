@@ -5,6 +5,7 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.jsx';
 import { API_URL } from '../../config.js';
 import NoteDataGrid from '../Notes/NoteDataGrid.jsx';
 import ImageComponent from '../Image/ImageComponent.jsx';
+import { formatDate } from '../Date/Date.jsx';
 
 const TravelDetails = () => {
     const [travelDetails, setTravelDetails] = useState([]);
@@ -48,8 +49,9 @@ const TravelDetails = () => {
                 <div className="header">
                     <div className={styles['city']}>{travelDetails.location}</div>
                     <div className={styles['details']}>
-                        <div className={styles['dates']}>
-                            {travelDetails.startDate} to {travelDetails.endDate}
+                        <div className="dates">
+                            {formatDate(travelDetails.startDate)} to{' '}
+                            {formatDate(travelDetails.endDate)}
                         </div>
                         <div className={styles['date-separator']}>•</div>
                         <div className={styles['notes']}>{travelDetails.noNotes} Notes</div>

@@ -29,7 +29,7 @@ label {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 5px 0 0 14px;
+    padding: 5px 14px 0 14px;
     gap: 13px;
     width: 100%;
     max-width: 1200px;
@@ -69,7 +69,7 @@ label {
     font-weight: bold;
 }
 
-.destination,
+.location,
 .budget,
 .description {
     box-sizing: border-box;
@@ -188,4 +188,74 @@ label {
     background: #000000;
     border: 1px solid #000000;
     border-radius: 12px;
+}
+
+.uploaded-image-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 0;
+    gap: 16px;
+    flex: none;
+    flex-grow: 0;
+}
+
+.uploaded-image {
+    box-sizing: border-box;
+    width: 130px;
+    height: 130px;
+    border: 1px solid #000000;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.image-name {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 14px;
+    gap: 8px;
+    width: 146px;
+    height: 48px;
+    border: 1px solid #000000;
+    border-radius: 12px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.image-name p {
+    margin: auto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.remove-button {
+    background-color: white;
+    border: none;
+    width: 26px;
+    height: 26px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+.error {
+    color: red;
 }
