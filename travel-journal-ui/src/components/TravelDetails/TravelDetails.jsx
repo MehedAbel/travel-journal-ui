@@ -33,6 +33,7 @@ const TravelDetails = () => {
                         startDate: data.startDate,
                         endDate: data.endDate,
                         description: data.description,
+                        notesList: data.notesList,
                         noNotes: data.notesList ? data.notesList.length : 0
                     });
                 }
@@ -68,7 +69,7 @@ const TravelDetails = () => {
                         <button className={styles['new-note-button']}> + New Note</button>
                     </div>
                     <div className={styles['notes-table']}>
-                        <NoteDataGrid travelId={travelDetails.id}></NoteDataGrid>
+                        <NoteDataGrid notesList={travelDetails.notesList}></NoteDataGrid>
                     </div>
                 </div>
             </div>

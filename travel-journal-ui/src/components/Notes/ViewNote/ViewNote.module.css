@@ -1,0 +1,49 @@
+.body {
+    width: 980px;
+    /*width: 100%;*/
+    padding: 20px;
+    background-color: rgba(249, 251, 241, 1);
+    overflow-y: auto;
+}
+
+.no-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.note {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.name,
+.date,
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.name input,
+.date input {
+    height: 48px;
+    border: 1px solid #000;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #000;
+}
+
+.description textarea {
+    max-height: 200px;
+    border: 1px solid #000;
+    border-radius: 12px;
+    padding: 12px 14px;
+    resize: none;
+    color: #000;
+}

@@ -2,20 +2,28 @@ import styles from './NoteDataGrid.module.css';
 import stylesCard from './../Card/Card.module.css';
 import delete_button from '../../assets/delete_button.svg';
 import edit from '../../assets/edit.svg';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import DeleteNote from './DeleteNote.jsx';
+import ViewNote from './ViewNote/ViewNote.jsx';
 import { API_URL } from '../../config.js';
 
-const NoteDataGrid = (travelId) => {
+const NoteDataGrid = ({ notesList }) => {
     const [notes, setNotes] = useState([]);
+
+    useEffect(() => {
+        setNotes(notesList ?? []);
+    }, [notesList]);
+
     const [note, setNote] = useState(null);
+    const [isViewNoteOpen, setIsViewNoteOpen] = useState(false);
+    const [isDeleteNoteOpen, setIsDeleteNoteOpen] = useState(false);
 
     const token = localStorage.getItem('token');
     const tokenType = localStorage.getItem('tokenType');
 
     const deleteNote = async () => {
         try {
-            const response = await fetch(`${API_URL}/travel-journal/deleteNote/${note.id}`, {
+            const response = await fetch(`${API_URL}/travel-journal/deleteNote/${note.noteId}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `${tokenType} ${token}`
@@ -25,46 +33,20 @@ const NoteDataGrid = (travelId) => {
                 throw new Error('Network response was not ok');
             }
             setNote(null);
-            await fetchNotes();
+            setNotes(notes.filter((n) => n.noteId !== note.noteId));
         } catch (error) {
-            console.error('Error deleting the ' + note.name + ' note: ', error);
+            console.error('Error deleting the ' + note.destinationName + ' note: ', error);
         }
     };
 
     const cancel = () => {
         setNote(null);
+        setIsDeleteNoteOpen(false);
     };
 
     const showModal = (event, note) => {
         setNote(note);
     };
-
-    const fetchNotes = async () => {
-        try {
-            //todo: get notes list
-            const response = await fetch(
-                `${API_URL}/travel-journal/travel/${travelId}/view-notes`,
-                {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `${tokenType} ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setNotes(data);
-        } catch (error) {
-            console.error('Error fetching notes:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchNotes().then();
-    }, []);
 
     return (
         <div className={styles['data-grid']}>
@@ -80,12 +62,26 @@ const NoteDataGrid = (travelId) => {
                     </thead>
                     <tbody>
                         {notes.map((note) => (
-                            <tr key={note.id}>
+                            <tr key={note.noteId}>
                                 <td>
-                                    <a href="#">{note.name}</a>
+                                    <a
+                                        href="#"
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                            setIsViewNoteOpen(true);
+                                            showModal(event, note);
+                                        }}>
+                                        {note.destinationName
+                                            ? note.destinationName
+                                            : 'No destination'}
+                                    </a>
                                 </td>
-                                <td>{note.date}</td>
-                                <td>{note.description}</td>
+                                <td>
+                                    {note.date
+                                        ? `${note.date[2]} / ${note.date[1]} / ${note.date[0]}`
+                                        : 'No date'}
+                                </td>
+                                <td>{note.description ? note.description : 'No description'}</td>
                                 <td>
                                     <div className={styles['align']}>
                                         <button className={`btn ${stylesCard['button-container']}`}>
@@ -93,7 +89,10 @@ const NoteDataGrid = (travelId) => {
                                         </button>
                                         <button
                                             className={`btn ${stylesCard['button-container']}`}
-                                            onClick={(event) => showModal(event, note)}>
+                                            onClick={(event) => {
+                                                setIsDeleteNoteOpen(true);
+                                                showModal(event, note);
+                                            }}>
                                             <img src={delete_button} alt="delete" />
                                         </button>
                                     </div>
@@ -105,11 +104,14 @@ const NoteDataGrid = (travelId) => {
             ) : (
                 <p>No notes available yet</p>
             )}
-            {note != null && (
+            {note != null && isDeleteNoteOpen && (
                 <DeleteNote
-                    noteName={note.name}
+                    noteName={note.destinationName}
                     onDelete={deleteNote}
                     onCancel={cancel}></DeleteNote>
+            )}
+            {note != null && isViewNoteOpen && (
+                <ViewNote note={note} onClose={() => setIsViewNoteOpen(false)} />
             )}
         </div>
     );
