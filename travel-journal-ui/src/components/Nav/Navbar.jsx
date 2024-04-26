@@ -5,7 +5,6 @@ import logo from '../../assets/Logo.svg';
 import logoutIcon from '../../assets/Button_logout.svg';
 
 import styles from './Navbar.module.css';
-import Home from '../Home/Home.jsx';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -13,7 +12,7 @@ const Navbar = () => {
 
     return (
         <nav className={styles['navigation']}>
-            <Link to={Home}>
+            <Link to="/">
                 {' '}
                 <img src={logo} alt="logo" className="logo" />{' '}
             </Link>
@@ -23,8 +22,7 @@ const Navbar = () => {
                     setIsAuthenticated(false);
                     navigate('/login');
                 }}
-                className={styles['logout']}
-            >
+                className={styles['logout']}>
                 <img src={logoutIcon} alt="logout" />
             </button>
         </nav>
