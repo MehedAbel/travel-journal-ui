@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/Logo.svg';
 import logoutIcon from '../../assets/Button_logout.svg';
 
-import './index.css';
+import styles from './Navbar.module.css';
 import Home from '../Home/Home.jsx';
 
 const Navbar = () => {
@@ -12,7 +12,7 @@ const Navbar = () => {
     const { setIsAuthenticated } = useContext(AuthContext);
 
     return (
-        <nav className="navigation">
+        <nav className={styles['navigation']}>
             <Link to={Home}>
                 {' '}
                 <img src={logo} alt="logo" className="logo" />{' '}
@@ -23,7 +23,7 @@ const Navbar = () => {
                     setIsAuthenticated(false);
                     navigate('/login');
                 }}
-                className="logout"
+                className={styles['logout']}
             >
                 <img src={logoutIcon} alt="logout" />
             </button>

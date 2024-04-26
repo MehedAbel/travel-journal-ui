@@ -1,4 +1,5 @@
-import './index.css';
+import styles from './NoteDataGrid.module.css';
+import stylesCard from './../Card/Card.module.css';
 import delete_button from '../../assets/delete_button.svg';
 import edit from '../../assets/edit.svg';
 import React, { useEffect, useState } from 'react';
@@ -48,7 +49,7 @@ const NoteDataGrid = ({ notesList }) => {
     };
 
     return (
-        <div className="data-grid">
+        <div className={styles['data-grid']}>
             {notes.length > 0 ? (
                 <table>
                     <thead>
@@ -82,12 +83,12 @@ const NoteDataGrid = ({ notesList }) => {
                                 </td>
                                 <td>{note.description ? note.description : 'No description'}</td>
                                 <td>
-                                    <div className="align">
-                                        <button className="btn button-container">
+                                    <div className={styles['align']}>
+                                        <button className={`btn ${stylesCard['button-container']}`}>
                                             <img src={edit} alt="edit" />
                                         </button>
                                         <button
-                                            className="btn button-container"
+                                            className={`btn ${stylesCard['button-container']}`}
                                             onClick={(event) => {
                                                 setIsDeleteNoteOpen(true);
                                                 showModal(event, note);

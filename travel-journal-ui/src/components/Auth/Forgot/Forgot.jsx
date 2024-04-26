@@ -2,7 +2,7 @@ import {Fragment, useState} from "react";
 
 import { API_URL } from "../../../config";
 
-import "./../Login/Login.css";
+import styles from "../Login/Login.module.css";
 import Description from "../Description/Description.jsx";
 
 const Forgot = () => {
@@ -60,17 +60,17 @@ const Forgot = () => {
     };
 
     return (
-        <div id="login">
-            <div className="login-row">
+        <div id={styles['login']}>
+            <div className={styles['login-row']}>
                 <Description/>
 
-                <div className="login-card">
+                <div className={styles['login-card']}>
                     {!isSubmitted ?
                     (
                     <Fragment>
-                        <h3 className="login-card__title">Forgot Password</h3>
-                        <form onSubmit={submit} id="login-form" className="login-form">
-                            <div className="login-form__input-field">
+                        <h3 className={styles['login-card__title']}>Forgot Password</h3>
+                        <form onSubmit={submit} id="login-form" className={styles['login-form']}>
+                            <div className={styles['login-form__input-field']}>
                                 <label>Email</label>
                                 <input
                                     type="email"
@@ -78,8 +78,8 @@ const Forgot = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                                 {emailError && (
-                                    <div className="error-background">
-                                        <div className="error-message">{emailError}</div>
+                                    <div className={styles['error-background']}>
+                                        <div className={styles['error-message']}>{emailError}</div>
                                     </div>
                                 )}
                             </div>
@@ -88,7 +88,7 @@ const Forgot = () => {
                         <button
                             type="submit"
                             form="login-form"
-                            className="login-form__submit-btn"
+                            className={styles['login-form__submit-btn']}
                         >
                             <h3>Reset Password</h3>
                         </button>
@@ -96,10 +96,10 @@ const Forgot = () => {
                     ) :
                     (
                     <Fragment>
-                        <h3 className="login-card__title">
+                        <h3 className={styles['login-card__title']}>
                             You will receive an email with the instructions for resetting your password.
                         </h3>
-                        <button className="login-form__submit-btn" onClick={handleRetryButton}>
+                        <button className={styles['login-form__submit-btn']} onClick={handleRetryButton}>
                             <h3>Retry</h3>
                         </button>
                     </Fragment>
