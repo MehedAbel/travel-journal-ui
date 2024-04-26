@@ -22,7 +22,7 @@ function App() {
             {isAuthenticated && <Navbar />}
 
             <Routes>
-                <Route path="/login" element={<Login />}></Route>
+                <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
                 <Route
                     path="/register"
                     element={isAuthenticated ? <Navigate to="/" /> : <Register />}
