@@ -36,11 +36,12 @@ const ViewNote = ({ note = {}, onClose }) => {
         };
 
         if (note.fileIds) {
+            setImages([]);
             note.fileIds.forEach((imageId) => {
                 loadImage(imageId);
             });
         }
-    }, []);
+    }, [note]);
 
     return (
         <Modal

@@ -3,6 +3,7 @@
     width: 100%;
     padding: 20px;
     background-color: rgba(249, 251, 241, 1);
+    overflow-y: auto;
 }
 
 .no-images {
@@ -11,6 +12,7 @@
     align-items: center;
     font-size: 2rem;
     font-weight: bold;
+    text-align: center;
 }
 
 .note {
