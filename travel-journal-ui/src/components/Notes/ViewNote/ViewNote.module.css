@@ -1,6 +1,6 @@
 .body {
-    /*width: 1000px;*/
-    width: 100%;
+    width: 980px;
+    /*width: 100%;*/
     padding: 20px;
     background-color: rgba(249, 251, 241, 1);
     overflow-y: auto;
