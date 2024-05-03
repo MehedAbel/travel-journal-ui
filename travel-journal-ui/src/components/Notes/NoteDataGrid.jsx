@@ -70,7 +70,8 @@ const NoteDataGrid = ({ notesList }) => {
                                             event.preventDefault();
                                             setIsViewNoteOpen(true);
                                             showModal(event, note);
-                                        }}>
+                                        }}
+                                    >
                                         {note.destinationName
                                             ? note.destinationName
                                             : 'No destination'}
@@ -92,7 +93,8 @@ const NoteDataGrid = ({ notesList }) => {
                                             onClick={(event) => {
                                                 setIsDeleteNoteOpen(true);
                                                 showModal(event, note);
-                                            }}>
+                                            }}
+                                        >
                                             <img src={delete_button} alt="delete" />
                                         </button>
                                     </div>
@@ -108,7 +110,8 @@ const NoteDataGrid = ({ notesList }) => {
                 <DeleteNote
                     noteName={note.destinationName}
                     onDelete={deleteNote}
-                    onCancel={cancel}></DeleteNote>
+                    onCancel={cancel}
+                ></DeleteNote>
             )}
             {note != null && isViewNoteOpen && (
                 <ViewNote note={note} onClose={() => setIsViewNoteOpen(false)} />

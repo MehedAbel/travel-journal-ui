@@ -22,7 +22,8 @@ const Navbar = () => {
                     setIsAuthenticated(false);
                     navigate('/login');
                 }}
-                className={styles['logout']}>
+                className={styles['logout']}
+            >
                 <img src={logoutIcon} alt="logout" />
             </button>
         </nav>

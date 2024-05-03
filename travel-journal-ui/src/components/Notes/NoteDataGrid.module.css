@@ -3,18 +3,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 table {
-    border-collapse:separate;
+    border-collapse: separate;
     border: solid black 1px;
     border-radius: 10px;
     background-color: #fcfcfc;
     width: 100%;
 }
 
-td, th {
+td,
+th {
     border-left: solid black 1px;
     border-top: solid black 1px;
     padding: 12px 14px;
@@ -25,11 +25,12 @@ th {
     border-top: none;
 }
 
-td:first-child, th:first-child {
+td:first-child,
+th:first-child {
     border-left: none;
 }
 
-.align{
+.align {
     display: flex;
     flex-direction: row;
     align-items: center;

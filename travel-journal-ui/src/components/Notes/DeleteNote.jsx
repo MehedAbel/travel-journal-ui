@@ -1,10 +1,9 @@
 import React from 'react';
 import './deleteNote.css';
 import Modal from '../Modal/BaseModal/Modal';
-import styles from "../Modal/DeleteModal/index.module.css";
+import styles from '../Modal/DeleteModal/index.module.css';
 
 const DeleteNote = ({ noteName, onDelete, onCancel }) => {
-
     return (
         <Modal
             onClose={onCancel}

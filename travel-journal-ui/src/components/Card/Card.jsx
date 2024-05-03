@@ -55,7 +55,10 @@ const Card = ({ card, onEdit, onDelete }) => {
                     <button className={`btn ${styles['button-container']}`} onClick={onEdit}>
                         <img src={editIcon} alt="edit"></img>
                     </button>
-                    <button className={`btn ${styles['button-container']}`} onClick={() => setShowDelete(true)}>
+                    <button
+                        className={`btn ${styles['button-container']}`}
+                        onClick={() => setShowDelete(true)}
+                    >
                         <img src={deleteIcon} alt="delete"></img>
                     </button>
                 </div>

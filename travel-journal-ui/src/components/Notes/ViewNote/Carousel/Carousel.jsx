@@ -20,7 +20,8 @@ const Carousel = ({ images }) => {
                 type="button"
                 className="image-gallery-custom-left-nav"
                 disabled={disabled}
-                onClick={onClick}>
+                onClick={onClick}
+            >
                 <img src={ArrowLeft} alt="Left Arrow" />
             </button>
         );
@@ -32,7 +33,8 @@ const Carousel = ({ images }) => {
                 type="button"
                 className="image-gallery-custom-right-nav"
                 disabled={disabled}
-                onClick={onClick}>
+                onClick={onClick}
+            >
                 <img src={ArrowRight} alt="Right Arrow" />
             </button>
         );

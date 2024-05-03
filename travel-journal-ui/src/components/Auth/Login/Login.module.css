@@ -186,9 +186,10 @@
 }
 
 .forgotPasswordLink {
-  margin-right: auto;
+    margin-right: auto;
 }
-.forgotPasswordLink, .registerLink {
-  color: black;
-  font-weight: bold;
+.forgotPasswordLink,
+.registerLink {
+    color: black;
+    font-weight: bold;
 }

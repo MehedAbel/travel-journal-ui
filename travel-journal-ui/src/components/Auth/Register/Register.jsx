@@ -6,7 +6,6 @@ import sha256 from 'js-sha256';
 import { API_URL } from '../../../config';
 import styles from './Register.module.css';
 import logo from '../../../assets/Logo-White.svg';
-import login_bg from '../../../assets/login-bg.jpg';
 
 import Error from '../../Error/Error.jsx';
 
@@ -164,8 +163,7 @@ const Register = () => {
                     </div>
                     <div
                         className="card rounded-4 border-1 border-black shadow"
-                        style={{ width: '40%' }}
-                    >
+                        style={{ width: '40%' }}>
                         <div className="card-body">
                             <div className="d-flex justify-content-center m-3">
                                 <span className="card-title fs-3 font-weight-bold">
@@ -175,8 +173,7 @@ const Register = () => {
                             <form
                                 onSubmit={submit}
                                 className="d-flex flex-column gap-2 align-items-center"
-                                noValidate
-                            >
+                                noValidate>
                                 <div ref={formErrorRef}>
                                     <Error errorMessage={formError} ariaLive="assertive" />
                                 </div>

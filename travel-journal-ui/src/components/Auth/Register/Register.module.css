@@ -10,7 +10,7 @@
     /* So the background doesn't cut off on really small sizes */
     overflow: auto;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-    url('../../../assets/login-bg.jpg');
+        url('../../../assets/login-bg.jpg');
     background-size: cover;
     background-position: center;
 }

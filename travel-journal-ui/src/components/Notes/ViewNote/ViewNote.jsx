@@ -48,7 +48,8 @@ const ViewNote = ({ note = {}, onClose }) => {
             header="View Note"
             subheader="View your note details below."
             onClose={onClose}
-            disabled={false}>
+            disabled={false}
+        >
             <div className={styles['body']}>
                 {images && images.length >= 1 ? (
                     <Carousel images={images} />

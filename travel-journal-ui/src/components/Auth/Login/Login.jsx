@@ -115,17 +115,28 @@ const Login = () => {
                         </div>
                     </form>
 
-          <Link className={styles['forgotPasswordLink']} to="/forgotPassword">Forgot Password?</Link>
+                    <Link className={styles['forgotPasswordLink']} to="/forgotPassword">
+                        Forgot Password?
+                    </Link>
 
-          <button type="submit" form="login-form" className={styles['login-form__submit-btn']}>
-            <h3>Log In</h3>
-          </button>
+                    <button
+                        type="submit"
+                        form="login-form"
+                        className={styles['login-form__submit-btn']}
+                    >
+                        <h3>Log In</h3>
+                    </button>
 
-          <p>Don't have an account? <Link className={styles['registerLink']} to="/register">Sign Up</Link> </p>
+                    <p>
+                        Don't have an account?{' '}
+                        <Link className={styles['registerLink']} to="/register">
+                            Sign Up
+                        </Link>{' '}
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Login;

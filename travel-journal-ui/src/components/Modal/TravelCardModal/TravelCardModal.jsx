@@ -116,7 +116,8 @@ const TravelCardModal = ({ onClose, card, header, subheader, image, reloadCardLi
             header={header}
             subheader={subheader}
             actionButtonText={'Save'}
-            onAction={handleSave}>
+            onAction={handleSave}
+        >
             <label>Cover Photo</label>
             {formData.imageId || newImage ? (
                 <div className={styles['uploaded-image-container']}>

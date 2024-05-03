@@ -1,20 +1,20 @@
-import {Fragment, useEffect, useState} from "react";
+import { Fragment, useEffect, useState } from 'react';
 
-import sha256 from "js-sha256";
+import sha256 from 'js-sha256';
 
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { API_URL } from "../../../config";
+import { API_URL } from '../../../config';
 
-import {REGEX, errorMessages} from "../../../constants/Validations.js"
+import { REGEX, errorMessages } from '../../../constants/Validations.js';
 
-import styles from "../Login/Login.module.css";
-import Description from "../Description/Description.jsx";
+import styles from '../Login/Login.module.css';
+import Description from '../Description/Description.jsx';
 
 const Reset = () => {
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [passwordError, setPasswordError] = useState("");
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     const navigate = useNavigate();
@@ -23,9 +23,9 @@ const Reset = () => {
 
     useEffect(() => {
         fetch(`${API_URL}/api/user/resetPassword/${resetToken}`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json'
             }
         })
             .then((res) => {
@@ -36,15 +36,15 @@ const Reset = () => {
             .then((data) => {})
             .catch((error) => {
                 if (error.status === 401) {
-                    alert("Token-ul a fost deja utilizat");
-                    navigate("/forgotPassword");
+                    alert('Token-ul a fost deja utilizat');
+                    navigate('/forgotPassword');
                 }
-            })
-    }, [])
+            });
+    }, []);
 
     const validatePassword = () => {
         if (!password) {
-            setPasswordError("Password cannot be empty");
+            setPasswordError('Password cannot be empty');
             return false;
         }
 
@@ -59,7 +59,7 @@ const Reset = () => {
         }
 
         return true;
-    }
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -69,11 +69,11 @@ const Reset = () => {
         if (!validatePassword()) return;
 
         fetch(`${API_URL}/api/user/resetPassword`, {
-            method: "POST",
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ token: resetToken, password: hashedPassword }),
+            body: JSON.stringify({ token: resetToken, password: hashedPassword })
         })
             .then((res) => {
                 if (!res.ok) throw res;
@@ -85,36 +85,38 @@ const Reset = () => {
             })
             .catch((error) => {
                 if (error.status === 404) {
-                    setPasswordError("");
-                    alert("Token-ul nu exista.");
+                    setPasswordError('');
+                    alert('Token-ul nu exista.');
                 }
 
                 if (error.status === 401) {
-                    setPasswordError("");
-                    alert("Token-ul a fost deja utilizat");
+                    setPasswordError('');
+                    alert('Token-ul a fost deja utilizat');
                 }
 
                 if (error.status >= 500) {
-                    setPasswordError("");
-                    alert("Bad server connection. Try again later.");
+                    setPasswordError('');
+                    alert('Bad server connection. Try again later.');
                 }
 
-                console.error("Error: ", error);
+                console.error('Error: ', error);
             });
     };
 
     return (
         <div id={styles['login']}>
             <div className={styles['login-row']}>
-                <Description/>
+                <Description />
 
                 <div className={styles['login-card']}>
-                    {!isSubmitted ?
-                    (
-
+                    {!isSubmitted ? (
                         <Fragment>
                             <h3 className={styles['login-card__title']}>Reset Password</h3>
-                            <form onSubmit={submit} id="login-form" className={styles['login-form']}>
+                            <form
+                                onSubmit={submit}
+                                id="login-form"
+                                className={styles['login-form']}
+                            >
                                 <div className={styles['login-form__input-field']}>
                                     <label>New Password</label>
                                     <input
@@ -133,7 +135,9 @@ const Reset = () => {
                                     />
                                     {passwordError && (
                                         <div className={styles['error-background']}>
-                                            <div className={styles['error-message']}>{passwordError}</div>
+                                            <div className={styles['error-message']}>
+                                                {passwordError}
+                                            </div>
                                         </div>
                                     )}
                                 </div>
@@ -147,18 +151,19 @@ const Reset = () => {
                                 <h3>Save New Password</h3>
                             </button>
                         </Fragment>
-                    ) :
-                    (
+                    ) : (
                         <Fragment>
                             <h3 className={styles['login-card__title']}>
                                 Your password has been changed successfully.
                             </h3>
-                            <button className={styles['login-form__submit-btn']} onClick={() => navigate("/login")}>
+                            <button
+                                className={styles['login-form__submit-btn']}
+                                onClick={() => navigate('/login')}
+                            >
                                 <h3>Back to Login</h3>
                             </button>
                         </Fragment>
-                    )
-                    }
+                    )}
                 </div>
             </div>
         </div>

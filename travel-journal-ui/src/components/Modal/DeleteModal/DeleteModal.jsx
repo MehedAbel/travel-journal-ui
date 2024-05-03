@@ -11,7 +11,8 @@ const DeleteModal = ({ onClose, onDelete }) => {
             actionButtonText={'Delete'}
             disabled={false}
             onAction={onDelete}
-            dialogClassName="custom-delete-dialog">
+            dialogClassName="custom-delete-dialog"
+        >
             <p className={styles['delete-paragraph']}>
                 Are you sure you want to delete the travel?
             </p>

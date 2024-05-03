@@ -23,7 +23,11 @@ const Breadcrumbs = () => {
                 {breadcrumbs.map((breadcrumb, index) => (
                     <li
                         key={index}
-                        className={index === 0 ? styles['breadcrumb-item-first'] : styles['breadcrumb-item']}
+                        className={
+                            index === 0
+                                ? styles['breadcrumb-item-first']
+                                : styles['breadcrumb-item']
+                        }
                     >
                         {index !== 0 && ' / '}
                         {index === breadcrumbs.length - 1 ? (
